@@ -13,28 +13,28 @@
         android:theme="@style/Theme.Fares"
         tools:targetApi="31">
         <activity
-            android:name=".HomeActivity"
+            android:name=".ui.activities.HomeActivity"
             android:exported="false" />
         <activity
-            android:name=".Profile"
+            android:name=".ui.activities.Profile"
             android:exported="false" />
         <activity
-            android:name=".ChangePassword"
+            android:name=".ui.activities.ChangePassword"
             android:exported="false" />
         <activity
-            android:name=".forgetPasswordOtpActivity"
+            android:name=".ui.activities.ForgetPasswordOtpActivity"
             android:exported="false" />
         <activity
-            android:name=".ForgetPasswordFirstActivity"
+            android:name=".ui.activities.ForgetPasswordFirstActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".ui.activities.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".thirdRegistrationActivity"
+            android:name=".ui.activities.ThirdRegistrationActivity"
             android:exported="false" />
         <activity
-            android:name=".SecoundRegistrationActivity"
+            android:name=".ui.activities.SecondRegistrationActivity"
             android:exported="false" />
         <activity
             android:name=".ui.activities.RegistrationActivity"

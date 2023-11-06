@@ -32,7 +32,13 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    // enable view binding
+    buildFeatures {
+        viewBinding true
+    }
 }
+
+
 
 // Allow references to generated code
 kapt {
