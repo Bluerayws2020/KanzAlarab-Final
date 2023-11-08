@@ -6,7 +6,7 @@ import android.os.Bundle
 import com.blueray.fares.R
 import com.blueray.fares.databinding.ActivityRegisterationBinding
 
-class RegistrationActivity : AppCompatActivity() {
+class RegistrationActivity : BaseActivity() {
     
     private lateinit var binding : ActivityRegisterationBinding
     override fun onCreate(savedInstanceState: Bundle?) {

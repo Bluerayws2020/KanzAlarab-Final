@@ -6,7 +6,7 @@ import android.os.Bundle
 import com.blueray.fares.R
 import com.blueray.fares.databinding.ActivityLoginBinding
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : BaseActivity() {
 
     private lateinit var binding : ActivityLoginBinding
     override fun onCreate(savedInstanceState: Bundle?) {

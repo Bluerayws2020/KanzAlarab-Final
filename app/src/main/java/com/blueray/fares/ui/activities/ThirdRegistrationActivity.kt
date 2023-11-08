@@ -6,7 +6,7 @@ import android.os.Bundle
 import com.blueray.fares.R
 import com.blueray.fares.databinding.ActivityThirdRegistrationBinding
 
-class ThirdRegistrationActivity : AppCompatActivity() {
+class ThirdRegistrationActivity : BaseActivity() {
 
     private lateinit var binding : ActivityThirdRegistrationBinding
 

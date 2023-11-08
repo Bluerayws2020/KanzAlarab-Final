@@ -8,7 +8,7 @@ import com.blueray.fares.R
 import com.blueray.fares.adapters.ActivitiesTypesAdapter
 import com.blueray.fares.databinding.ActivitySecoundRegistrationBinding
 
-class SecondRegistrationActivity : AppCompatActivity() {
+class SecondRegistrationActivity : BaseActivity() {
 
     private lateinit var binding : ActivitySecoundRegistrationBinding
     private lateinit var adapter : ActivitiesTypesAdapter

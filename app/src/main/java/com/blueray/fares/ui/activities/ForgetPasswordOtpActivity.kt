@@ -6,7 +6,7 @@ import android.os.Bundle
 import com.blueray.fares.R
 import com.blueray.fares.databinding.ActivityForgetPasswordOtpBinding
 
-class ForgetPasswordOtpActivity : AppCompatActivity() {
+class ForgetPasswordOtpActivity : BaseActivity() {
 
     private lateinit var binding : ActivityForgetPasswordOtpBinding
 

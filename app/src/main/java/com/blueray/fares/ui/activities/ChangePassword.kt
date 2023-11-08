@@ -7,7 +7,7 @@ import com.blueray.fares.R
 import com.blueray.fares.databinding.ActivitiesCountItemsBinding
 import com.blueray.fares.databinding.ActivityChangePasswordBinding
 
-class ChangePassword : AppCompatActivity() {
+class ChangePassword : BaseActivity() {
     private lateinit var binding : ActivityChangePasswordBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -6,7 +6,7 @@ import android.os.Bundle
 import com.blueray.fares.R
 import com.blueray.fares.databinding.ActivityForgetPasswordFirstBinding
 
-class ForgetPasswordFirstActivity : AppCompatActivity() {
+class ForgetPasswordFirstActivity : BaseActivity() {
 
     private lateinit var binding : ActivityForgetPasswordFirstBinding
 
