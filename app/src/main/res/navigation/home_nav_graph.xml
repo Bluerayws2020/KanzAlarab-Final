@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/home_nav_graph">
-
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_nav_graph"
+    app:startDestination="@id/partitionChannelFragment">
+    <fragment
+        android:id="@+id/yourChannelFragment"
+        android:name="com.blueray.fares.ui.fragments.YourChannelFragment"
+        android:label="YourChannelFragment"
+        tools:layout="@layout/fragment_your_channel"
+        />
+    <fragment
+        android:id="@+id/partitionChannelFragment"
+        android:name="com.blueray.fares.ui.fragments.PartitionChannelFragment"
+        android:label="PartitionChannelFragment"
+        tools:layout="@layout/fragment_partition_channel"
+        />
 </navigation>
