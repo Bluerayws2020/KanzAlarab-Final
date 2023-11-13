@@ -120,4 +120,8 @@ dependencies {
     // shimmer effect dependencies
     implementation 'com.facebook.shimmer:shimmer:0.1.0@aar'
 
+    // chip layoutManager
+    implementation 'com.beloo.widget:ChipsLayoutManager:0.3.7@aar'
+    implementation 'com.android.support:recyclerview-v7:25.0.0'
+
 }

@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.GridLayoutManager
+import com.beloo.widget.chipslayoutmanager.ChipsLayoutManager
 import com.blueray.fares.R
 import com.blueray.fares.adapters.ActivitiesTypesAdapter
 import com.blueray.fares.databinding.ActivitySecoundRegistrationBinding
@@ -29,8 +30,10 @@ class SecondRegistrationActivity : BaseActivity() {
         adapter = ActivitiesTypesAdapter(listOf()){
             // handle click listener
         }
+
+        val chipsLayoutManager = ChipsLayoutManager.newBuilder(this).build()
         binding.activitiesRv.adapter = adapter
-        binding.activitiesRv.layoutManager = GridLayoutManager(this,3)
+        binding.activitiesRv.layoutManager =chipsLayoutManager
 
     }
 }

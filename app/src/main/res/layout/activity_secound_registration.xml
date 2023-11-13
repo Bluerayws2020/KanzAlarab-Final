@@ -89,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/custom_outlined_rectangel"
                 android:padding="10dp"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
                 app:spanCount="3"
                 tools:listitem="@layout/activities_count_items"
                 />

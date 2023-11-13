@@ -25,11 +25,28 @@ class ActivitiesTypesAdapter(
 //        val data = list[position]
         val context = holder.itemView.context
         holder.apply {
-            
+//            binding.choice.text = list[position]
+            binding.choice.setOnCheckedChangeListener { chip, isChecked ->
+                // Responds to chip checked/unchecked
+                // todo uncomment
+//                if(isChecked){
+//                    selected_items.add(list[position])
+//                }else{
+//                    for (i in selected_items.indices){
+//                        if(list[position] == selected_items[i]){
+//                            selected_items.removeAt(i)
+//                        }
+//                    }
+//                }
+            }
         }
         holder.itemView.setOnClickListener {
             listener
         }
+    }
+
+    companion object {
+        var selected_items = mutableListOf<String>()
     }
 
 }

@@ -27,5 +27,6 @@ class MainActivity : BaseActivity() {
             // go to home activity
         }
 
+
     }
 }
