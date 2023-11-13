@@ -9,7 +9,6 @@ import com.blueray.fares.R
 import com.blueray.fares.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class MainActivity : BaseActivity() {
 
     private val viewModel : AppViewModel by viewModels()

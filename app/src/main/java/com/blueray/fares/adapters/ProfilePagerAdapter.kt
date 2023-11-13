@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.blueray.fares.ui.fragments.AnalyticsFragment
+import com.blueray.fares.ui.fragments.DashboardFragment
 import com.blueray.fares.ui.fragments.VideoListFragment
 
 class ProfilePagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
@@ -23,14 +25,29 @@ class ProfilePagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle
     }
 
     override fun createFragment(position: Int): Fragment {
-        val productFragment = VideoListFragment()
-        val bundle = Bundle()
+        var fragment : Fragment? = null
+        when(position) {
+            0 -> {
+                fragment = AnalyticsFragment()
+                val bundle = Bundle()
 
-        //Must be Parcelable
-        // todo make the model parcelable
+                fragment.arguments = bundle
 
-        bundle.putStringArrayList("products", productsList[position])
-        productFragment.arguments = bundle
-        return productFragment
+            }
+            1 -> {
+                fragment = VideoListFragment()
+                val bundle = Bundle()
+
+                fragment.arguments = bundle
+
+            }
+            2 -> {
+                fragment = DashboardFragment()
+                val bundle = Bundle()
+                fragment.arguments = bundle
+
+            }
+        }
+        return fragment!!
     }
-}
+    }
