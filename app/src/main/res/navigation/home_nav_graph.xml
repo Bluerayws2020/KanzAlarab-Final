@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/home_nav_graph"
-    app:startDestination="@id/partitionChannelFragment">
+    app:startDestination="@id/homeVidFrag">
     <fragment
         android:id="@+id/yourChannelFragment"
         android:name="com.blueray.fares.ui.fragments.YourChannelFragment"
@@ -16,4 +16,8 @@
         android:label="PartitionChannelFragment"
         tools:layout="@layout/fragment_partition_channel"
         />
+    <fragment
+        android:id="@+id/homeVidFrag"
+        android:name="com.blueray.fares.ui.fragments.HomeVidFrag"
+        android:label="HomeVidFrag" />
 </navigation>

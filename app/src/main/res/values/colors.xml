@@ -13,4 +13,6 @@
     <color name="lightGreen">#80025930</color>
     <color name="grey">#757575</color>
     <color name="screen_green">#1AA053</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorWhite">#ffffff</color>
 </resources>
