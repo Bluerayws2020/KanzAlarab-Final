@@ -13,7 +13,7 @@ sealed class NetworkResults<out R> {
 
 data class UserLoginModel(
     @SerializedName("msg") val status: MessageModel,
-    @SerializedName("data") val data: LoginModel
+    @SerializedName("poet_data") val data: LoginModel
 )
 
 
@@ -37,6 +37,11 @@ data class Item(
     val token: String
 )
 
+
+data class DropDownModel(
+    val id: String,
+    val name: String,
+)
 data class VimeoVideoModelV2 (
 
     @SerializedName("uri") val uri : String,

@@ -54,12 +54,12 @@ holder.binding.profiel.setOnClickListener{
                 val screenRatio =
                     binding.videoView.width.toFloat() / binding.videoView.height.toFloat()
 
-                val scale = videoRatio / screenRatio
-                if (scale > 1f) {
-                    binding.videoView.scaleX = scale
-                } else {
-                    binding.videoView.scaleY = (1f / scale)
-                }
+//                val scale = videoRatio / screenRatio
+//                if (scale > 1f) {
+//                    binding.videoView.scaleX = scale
+//                } else {
+//                    binding.videoView.scaleY = (1f / scale)
+//                }
             }
 
             binding.videoView.setOnCompletionListener { MediaPlayer.OnCompletionListener { mp -> mp.start() } }

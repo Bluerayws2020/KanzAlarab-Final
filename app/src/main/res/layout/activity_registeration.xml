@@ -5,16 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.activities.RegistrationActivity">
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/main_back_water_mark"
-        android:scaleType="centerCrop"
-        />
+
     <include
         layout="@layout/registration_app_bar"
         android:id="@+id/include_tap"
         />
+
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="match_parent"
@@ -90,6 +86,8 @@
                         android:textColor="@color/brown"
                         android:textSize="14sp"/>
                 </RadioGroup>
+
+<!--            -->
             <LinearLayout
                 android:id="@+id/squadLayout"
                 android:orientation="vertical"
@@ -253,15 +251,10 @@
                             android:id="@+id/nationalitySpinner"
                             android:layout_width="match_parent"
                             android:layout_height="60dp"
+
                             android:background="@drawable/custom_empty_background"
                             />
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_gravity="end|center_vertical"
-                            android:layout_marginEnd="10dp"
-                            android:src="@drawable/dropdown_spinner_indecator"
-                            />
+
                     </androidx.cardview.widget.CardView>
                     <LinearLayout
                         android:layout_width="0dp"
@@ -309,16 +302,10 @@
                         android:layout_height="50dp"
                         android:background="@drawable/custom_empty_background"
                         />
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_gravity="end|center_vertical"
-                        android:layout_marginEnd="10dp"
-                        android:src="@drawable/dropdown_spinner_indecator"
-                        />
+
                 </androidx.cardview.widget.CardView>
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     >
@@ -331,25 +318,24 @@
                         android:textColor="@color/brown"
                         />
                     <androidx.cardview.widget.CardView
-                        android:layout_width="150dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:cardCornerRadius="5dp"
                         android:layout_marginTop="10dp"
-                        android:layout_marginStart="1dp"
+
                         app:cardElevation="3dp"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginEnd="1dp"
                         >
-                        <TextView
+
+                        <EditText
                             android:id="@+id/dateOfBirthDatePicker"
-                            android:layout_width="match_parent"
-                            android:layout_height="40dp"
-                            android:textColor="@color/lightGreen"
-                            android:text="00/00/000"
-                            android:gravity="center|start"
-                            android:paddingStart="20dp"
+                            style="@style/ThemeOverlay.Material3.MaterialTimePicker"
+                            android:layout_width="329dp"
+                            android:layout_height="60dp"
                             android:background="@drawable/custom_empty_background"
-                            />
+                            android:gravity="center|start"
+                            android:text="12/12/1970"
+                            android:textColor="@color/lightGreen"
+                            android:theme="@style/DialogTheme" />
                         <ImageView
                             android:layout_width="20dp"
                             android:layout_height="20dp"
@@ -396,5 +382,18 @@
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
-
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/progressBar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="150sp"
+        android:layout_marginLeft="15dp"
+        android:layout_height="150sp"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/loading"
+        android:visibility="gone"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

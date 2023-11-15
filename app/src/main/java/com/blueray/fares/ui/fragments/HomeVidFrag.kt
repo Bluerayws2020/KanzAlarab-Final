@@ -49,12 +49,19 @@ class HomeVidFrag : Fragment() {
 
         binding = OnevidfragBinding.inflate(layoutInflater)
 
-        arrVideoModel.add(NewAppendItItems("Tree with flowers","The branches of a tree wave in the breeze, with pointy leaves ","https://assets.mixkit.co/videos/preview/mixkit-tree-with-yellow-flowers-1173-large.mp4"))
-        arrVideoModel.add(NewAppendItItems("multicolored lights","A man with a small beard and mustache wearing a white sweater, sunglasses, and a backwards black baseball cap turns his head in different directions under changing colored lights.","https://assets.mixkit.co/videos/preview/mixkit-man-under-multicolored-lights-1237-large.mp4"))
-        arrVideoModel.add(NewAppendItItems("holding neon light","Bald man with a short beard wearing a large jean jacket holds a long tubular neon light thatch","https://assets.mixkit.co/videos/preview/mixkit-man-holding-neon-light-1238-large.mp4"))
-        arrVideoModel.add(NewAppendItItems("Sun over hills","The sun sets or rises over hills, a body of water beneath them.","https://assets.mixkit.co/videos/preview/mixkit-sun-over-hills-1183-large.mp4"))
+//        arrVideoModel.add(NewAppendItItems("Tree with flowers","The branches of a tree wave in the breeze, with pointy leaves ","https://assets.mixkit.co/videos/preview/mixkit-tree-with-yellow-flowers-1173-large.mp4"))
+//        arrVideoModel.add(NewAppendItItems("multicolored lights","A man with a small beard and mustache wearing a white sweater, sunglasses, and a backwards black baseball cap turns his head in different directions under changing colored lights.","https://assets.mixkit.co/videos/preview/mixkit-man-under-multicolored-lights-1237-large.mp4"))
+//        arrVideoModel.add(NewAppendItItems("holding neon light","Bald man with a short beard wearing a large jean jacket holds a long tubular neon light thatch","https://assets.mixkit.co/videos/preview/mixkit-man-holding-neon-light-1238-large.mp4"))
+//        arrVideoModel.add(NewAppendItItems("Sun over hills","The sun sets or rises over hills, a body of water beneath them.","https://assets.mixkit.co/videos/preview/mixkit-sun-over-hills-1183-large.mp4"))
+
+        val mSnapHelper: SnapHelper = PagerSnapHelper()
+        mSnapHelper.attachToRecyclerView(binding.vidRec)
+binding.includeTap.profile.setOnClickListener {
+    navController.navigate(R.id.yourChannelFragment)
 
 
+//
+}
 
 
         val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
@@ -65,7 +72,7 @@ class HomeVidFrag : Fragment() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 // Handle the swipe event, navigate to new fragment
                 val position = viewHolder.adapterPosition // Get swiped item position
-                navController.navigate(R.id.yourChannelFragment)
+                navController.navigate(R.id.partitionChannelFragment)
             }
         }
 
@@ -76,40 +83,33 @@ class HomeVidFrag : Fragment() {
 
 
 
-
-        videoAdapter = VideoAdapter(arrVideoModel,object :OnProfileClick{
-            override fun onProfileClikc(pos: Int) {
-             navController.navigate(R.id.yourChannelFragment)
-
-            }
-
-            override fun onProfileShare(pos: Int) {
-                val shareIntent = Intent(Intent.ACTION_SEND)
-                shareIntent.type = "text/plain"
-                shareIntent.putExtra(Intent.EXTRA_TEXT, arrVideoModel[pos].videoUrl)
-
-                startActivity(Intent.createChooser(shareIntent, "مبادرة شاعر الرؤيا"))
-
-
-
-            }
-        })
-
-        binding.vidRec.adapter = videoAdapter
+//
+//        videoAdapter = VideoAdapter(arrVideoModel,object :OnProfileClick{
+//            override fun onProfileClikc(pos: Int) {
+//             navController.navigate(R.id.yourChannelFragment)
+//
+//            }
+//
+//            override fun onProfileShare(pos: Int) {
+//                val shareIntent = Intent(Intent.ACTION_SEND)
+//                shareIntent.type = "text/plain"
+//                shareIntent.putExtra(Intent.EXTRA_TEXT, arrVideoModel[pos].videoUrl)
+//
+//                startActivity(Intent.createChooser(shareIntent, "مبادرة شاعر الرؤيا"))
+//
+//
+//
+//            }
+//        })
 
 
-        // pager snap helper is a class that helps to move the recycler one item at at a time
-                val mSnapHelper: SnapHelper = PagerSnapHelper()
-                mSnapHelper.attachToRecyclerView(binding.vidRec)
-        binding.vidRec.layoutManager = LinearLayoutManager(
-            context,
-            LinearLayoutManager.VERTICAL, true
-        )// trying reversed layout
+
+        getVideosView()
+        mainViewModel.retriveMainVideos()
+        getNewItems()
 
 
-//        getVideosView()
-//        mainViewModel.retriveMainVideos()
-//        getNewItems()
+
         return binding.root
 
 
@@ -124,7 +124,10 @@ class HomeVidFrag : Fragment() {
 
                                 val lastItemNumber = item.file.substringAfterLast("/")
 
+
+
                                 mainViewModel.retrieveVideoOption("https://api.vimeo.com/videos/$lastItemNumber",item.token) // Replace with your actual API call
+
 
                             }
                         }
@@ -156,16 +159,15 @@ fun getNewItems(){
                     val videoOptionList = result.data.files
                     newArrVideoModel.add(
                         NewAppendItItems(
-                            videoOptionList.last().link.toString(),
-                            "312",
-                            "312"
+                          "134",
+                            "312", videoOptionList.last().link.toString()
                         )
                     )
 //                    videoAdapter = VideoAdapter(newArrVideoModel)
-                    videoAdapter = VideoAdapter(arrVideoModel,object :OnProfileClick{
+                    videoAdapter = VideoAdapter(newArrVideoModel,object :OnProfileClick{
                         override fun onProfileClikc(pos: Int) {
 
-
+Log.d("TEEEESSSSTTT11",newArrVideoModel[pos].videoUrl.toString())
                         }
 
                         override fun onProfileShare(pos: Int) {
@@ -177,8 +179,8 @@ fun getNewItems(){
 
 
                     // pager snap helper is a class that helps to move the recycler one item at at a time
-//                val mSnapHelper: SnapHelper = PagerSnapHelper()
-//                mSnapHelper.attachToRecyclerView(binding.vidRec)
+//
+
                     binding.vidRec.layoutManager = LinearLayoutManager(
                         context,
                         LinearLayoutManager.VERTICAL, true

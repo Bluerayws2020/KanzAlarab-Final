@@ -21,8 +21,11 @@ object HelperUtils {
     const val NAME_KEY = "Name_key"
     const val MAIL_KEY: String = "Mail_key"
     const val BASE_URL = "https://siyam.br-ws.com/"
-    const val SHARED_PREF = "SIYAM_KEY"
-    private const val UID_KEY = "UID"
+    const val SHARED_PREF = "Fares"
+     const val UID_KEY = "UID"
+     const val USERNAME = "USERNAME"
+     const val PASSWORD = "PASSWORD"
+
     var LANG = "en"
 
     fun String.toStringRequestBody(): RequestBody {
@@ -78,6 +81,14 @@ object HelperUtils {
     }
 
 
+    fun getUserName(context: Context):String{
+        val sharedPreferences = context.getSharedPreferences(SHARED_PREF,Context.MODE_PRIVATE)
+        return sharedPreferences.getString(USERNAME,"1")!!
+    }
+    fun getPassword(context: Context):String{
+        val sharedPreferences = context.getSharedPreferences(SHARED_PREF,Context.MODE_PRIVATE)
+        return sharedPreferences.getString(PASSWORD,"1")!!
+    }
 
 
 

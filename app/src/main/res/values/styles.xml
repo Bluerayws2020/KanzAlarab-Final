@@ -14,4 +14,14 @@
         <item name="android:windowContentOverlay">@null</item>
     </style>
 
+    <style name="DialogTheme" parent="ThemeOverlay.AppCompat.Dialog">
+        <!--header background-->
+        <item name="colorAccent">@android:color/holo_green_dark</item>
+        <!--selected day-->
+        <item name="android:colorControlActivated">@android:color/holo_red_dark</item>
+        <!--days of the month-->
+        <item name="android:textColorPrimary">@android:color/holo_orange_dark</item>
+        <!--days of the week-->
+        <item name="android:textColorSecondary">@android:color/holo_blue_dark</item>
+    </style>
 </resources>
