@@ -191,7 +191,7 @@ binding.radioOption1.isChecked = true
 
                 is NetworkResults.Error -> {
                     result.exception.printStackTrace()
-hideProgress()
+                    hideProgress()
                 }
 
                 else -> hideProgress()

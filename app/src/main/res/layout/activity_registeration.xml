@@ -46,7 +46,7 @@
                 android:id="@+id/some_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Enter Information"
+                android:text="@string/enter_information"
                 android:textSize="18sp"
                 android:textColor="@color/brown"
                 android:textStyle="bold"
@@ -55,7 +55,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Enter your personal information below, then click “Next” to continue registration."
+                android:text="@string/enter_your_personal_information_below_then_click_next_to_continue_registration"
                 android:textSize="12sp"
                 android:textColor="@color/lightGreen"
                 android:textStyle="bold"
@@ -73,7 +73,7 @@
                         android:id="@+id/radioOption1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Individual Poet"
+                        android:text="@string/individual_poet"
                         android:textColor="@color/brown"
                         android:textSize="14sp"
                         />
@@ -82,7 +82,7 @@
                         android:id="@+id/radioOption2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Squad"
+                        android:text="@string/squad"
                         android:textColor="@color/brown"
                         android:textSize="14sp"/>
                 </RadioGroup>
@@ -99,7 +99,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Squad Name"
+                android:text="@string/squad_name"
                 android:textSize="14sp"
                 android:textColor="@color/brown"
                 />
@@ -119,7 +119,7 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Enter Country Of Living"
+                    android:hint="@string/enter_country_of_living"
                     android:layout_marginTop="10dp"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
@@ -134,7 +134,7 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Enter Type of Activity"
+                    android:hint="@string/enter_type_of_activity"
                     android:layout_marginTop="10dp"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
@@ -149,7 +149,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Squad Members Count"
+                    android:text="@string/squad_members_count"
                     android:textSize="14sp"
                     android:textColor="@color/brown"
                     />
@@ -165,6 +165,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
+                android:visibility="visible"
                 >
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -182,7 +183,7 @@
                             android:layout_marginTop="10dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="First Name"
+                            android:text="@string/first_name"
                             android:textSize="14sp"
                             android:textColor="@color/brown"
                             />
@@ -211,7 +212,7 @@
                             android:layout_marginTop="10dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Last Name"
+                            android:text="@string/last_name"
                             android:textSize="14sp"
                             android:textColor="@color/brown"
                             />
@@ -267,7 +268,7 @@
                             android:layout_marginTop="10dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Country"
+                            android:text="@string/country"
                             android:textSize="14sp"
                             android:textColor="@color/brown"
                             />
@@ -313,7 +314,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Date Of Birth"
+                        android:text="@string/date_of_birth"
                         android:textSize="14sp"
                         android:textColor="@color/brown"
                         />
@@ -355,7 +356,7 @@
                 app:cornerRadius="15dp"
                 android:backgroundTint="@color/green"
                 android:textColor="@color/white"
-                android:text="Next"
+                android:text="@string/next"
                 android:textAllCaps="false"
                 app:icon="@drawable/forword"
                 app:iconSize="15dp"
@@ -369,13 +370,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Already Have Account? "
+                    android:text="@string/already_have_account"
                     />
                 <TextView
                     android:id="@+id/signInBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Sign In"
+                    android:text="@string/sign_in"
                     android:textColor="@color/green"
                     />
             </LinearLayout>
@@ -393,7 +394,9 @@
         android:layout_height="150sp"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
-        app:lottie_rawRes="@raw/loading"
         android:visibility="gone"
         />
+<!--        app:lottie_rawRes="@raw/loading"-->
+
+<!--        />-->
 </androidx.constraintlayout.widget.ConstraintLayout>

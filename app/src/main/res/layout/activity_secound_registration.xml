@@ -47,9 +47,9 @@
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
             android:visibility="gone"
-            android:layout_gravity="center"
-            app:lottie_rawRes="@raw/loading"
-            />
+            android:layout_gravity="center"/>
+<!--            app:lottie_rawRes="@raw/loading"-->
+<!--            />-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -65,7 +65,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Enter your personal information below, then click “Next” to continue registration."
+                android:text="@string/enter_your_personal_information_below_then_click_next_to_continue_registration_"
                 android:textSize="12sp"
                 android:textColor="@color/lightGreen"
                 android:textStyle="bold"
@@ -74,7 +74,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Activities Type"
+                android:text="@string/activities_type"
                 android:textSize="12sp"
                 android:textColor="@color/brown"
                 android:textStyle="bold"
@@ -83,22 +83,23 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Choose your favorite activities type"
+                android:text="@string/choose_your_favorite_activities_type"
                 android:textSize="11sp"
                 android:textStyle="bold"
                 android:layout_marginTop="3dp"
                 />
+
             <TextView
                 android:id="@+id/chooseAll"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Choose All"
-                android:textSize="11sp"
-                android:textColor="@color/green"
                 android:layout_gravity="end"
-                android:textStyle="bold"
                 android:layout_marginTop="3dp"
-                />
+                android:text="@string/choose_all"
+                android:textColor="@color/green"
+                android:textSize="11sp"
+                android:textStyle="bold" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/activitiesRv"
                 android:layout_width="match_parent"
@@ -118,7 +119,7 @@
                 app:cornerRadius="15dp"
                 android:backgroundTint="@color/green"
                 android:textColor="@color/white"
-                android:text="Next"
+                android:text="@string/next"
                 android:textAllCaps="false"
                 app:icon="@drawable/forword"
                 app:iconSize="15dp"
@@ -132,13 +133,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Already Have Account? "
+                    android:text="@string/already_have_account"
                     />
                 <TextView
                     android:id="@+id/signInBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Sign In"
+                    android:text="@string/sign_in"
                     android:textColor="@color/green"
                     />
             </LinearLayout>

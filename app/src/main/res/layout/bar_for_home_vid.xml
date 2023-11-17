@@ -35,8 +35,8 @@ android:backgroundTint="#D5D5D5"
     </androidx.cardview.widget.CardView>
     <ImageView
         android:id="@+id/settings"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toEndOf="@id/searchCard"
         app:layout_constraintBottom_toBottomOf="parent"

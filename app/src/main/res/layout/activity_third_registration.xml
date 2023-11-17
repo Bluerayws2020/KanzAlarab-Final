@@ -55,7 +55,7 @@
                 android:padding="20dp">
 
                 <include
-                    layout="@layout/step_indecator_1"
+                    layout="@layout/step_indecator_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center" />
@@ -65,7 +65,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:text="Enter Information"
+                    android:text="@string/enter_information"
                     android:textColor="@color/brown"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -74,7 +74,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="Enter information below, then click “Create Account” ."
+                    android:text="@string/enter_information_below_then_click_create_account"
                     android:textColor="@color/lightGreen"
                     android:textSize="12sp"
                     android:textStyle="bold" />
@@ -89,7 +89,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="User Name"
+                        android:text="@string/user_name"
                         android:textColor="@color/brown"
                         android:textSize="14sp" />
 
@@ -110,7 +110,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="Password"
+                        android:text="@string/password"
                         android:textColor="@color/brown"
                         android:textSize="14sp" />
 
@@ -131,7 +131,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="Confirm Password"
+                        android:text="@string/confirm_password"
                         android:textColor="@color/brown"
                         android:textSize="14sp" />
 
@@ -151,7 +151,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="Phone Number"
+                        android:text="@string/phone_number"
                         android:textColor="@color/brown"
                         android:textSize="14sp" />
 
@@ -171,7 +171,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="Email (Optional)"
+                        android:text="@string/email_optional"
                         android:textColor="@color/brown"
                         android:textSize="14sp" />
 
@@ -195,7 +195,7 @@
                     android:layout_height="60dp"
                     android:layout_marginTop="20dp"
                     android:backgroundTint="@color/green"
-                    android:text="Create Account"
+                    android:text="@string/create_account"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     app:cornerRadius="15dp" />
@@ -212,13 +212,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Already Have Account? " />
+                        android:text="@string/already_have_account" />
 
                     <TextView
                         android:id="@+id/signInBtn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Sign In"
+                        android:text="@string/sign_in"
                         android:textColor="@color/green" />
                 </LinearLayout>
             </LinearLayout>
@@ -235,8 +235,8 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:lottie_autoPlay="true"
-                app:lottie_loop="true"
-                app:lottie_rawRes="@raw/loading" />
+                app:lottie_loop="true"/>
+<!--                app:lottie_rawRes="@raw/loading" />-->
 
         </androidx.cardview.widget.CardView>
     </androidx.core.widget.NestedScrollView>

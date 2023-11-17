@@ -28,7 +28,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginStart="5dp"
-        android:text="Personal Data"
+        android:text="@string/personal_data"
         android:textColor="@color/green"
         android:textSize="9sp"
         android:textStyle="bold"
@@ -36,7 +36,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/secondIcon"
         android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_height="wrap_content"
         app:cardCornerRadius="5dp"
         android:layout_marginStart="5dp"
         app:cardBackgroundColor="@color/brown"
@@ -45,12 +45,12 @@
         app:layout_constraintTop_toTopOf="parent"
         >
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="2"
             android:textColor="@color/white"
-            android:textSize="14sp"
-            android:gravity="center"
+            android:textSize="12sp"
+            android:layout_gravity="center"
             />
     </androidx.cardview.widget.CardView>
 
@@ -58,7 +58,7 @@
         android:id="@+id/secondOption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="More Information"
+        android:text="@string/more_information"
         android:textColor="@color/brown"
         android:textSize="9sp"
         android:layout_marginStart="5dp"
@@ -79,7 +79,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src="@drawable/three"
-            android:textSize="14sp"
             android:gravity="center"
             />
     </FrameLayout>
@@ -88,7 +87,7 @@
         android:id="@+id/thirdOption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Registration"
+        android:text="@string/registration"
         android:textColor="#FFA0ABBB"
         android:textSize="9sp"
         android:layout_marginStart="5dp"

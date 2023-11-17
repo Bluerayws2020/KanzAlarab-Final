@@ -48,7 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/green"
-            android:text="Your Channel"
+            android:text="@string/your_channel"
             android:layout_gravity="end|center_vertical"
             android:textStyle="bold"
             android:textSize="18sp"
@@ -59,7 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/brown"
-            android:text="Account Settings"
+            android:text="@string/account_settings"
             android:layout_gravity="start|center_vertical"
             android:layout_marginStart="10dp"
             android:textStyle="bold"
@@ -99,7 +99,7 @@
                     android:id="@+id/addImageBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Set/Change Image"
+                    android:text="@string/set_change_image"
                     android:textSize="16sp"
                     android:gravity="center"
                     android:layout_gravity="center"
@@ -119,7 +119,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="35"
                     android:layout_height="wrap_content"
-                    android:text="Name"
+                    android:text="@string/name"
                     android:layout_gravity="center"
                     android:textSize="12sp"
                     android:textColor="@color/lightGreen"
@@ -149,7 +149,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="35"
                     android:layout_height="wrap_content"
-                    android:text="Age"
+                    android:text="@string/age"
                     android:layout_gravity="center"
                     android:textSize="12sp"
                     android:textColor="@color/lightGreen"
@@ -179,7 +179,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="35"
                     android:layout_height="wrap_content"
-                    android:text="Nationality"
+                    android:text="@string/nationality"
                     android:layout_gravity="center"
                     android:textSize="12sp"
                     android:textColor="@color/lightGreen"
@@ -209,7 +209,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="35"
                     android:layout_height="wrap_content"
-                    android:text="Country"
+                    android:text="@string/country"
                     android:layout_gravity="center"
                     android:textSize="12sp"
                     android:textColor="@color/lightGreen"
@@ -239,7 +239,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="35"
                     android:layout_height="wrap_content"
-                    android:text="Phone Number"
+                    android:text="@string/phone_number"
                     android:layout_gravity="center"
 
                     android:textSize="12sp"
@@ -271,7 +271,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="35"
                     android:layout_height="wrap_content"
-                    android:text="Email"
+                    android:text="@string/email"
                     android:layout_gravity="center"
                     android:textSize="12sp"
                     android:textColor="@color/lightGreen"
@@ -303,7 +303,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="35"
                     android:layout_height="wrap_content"
-                    android:text="Password"
+                    android:text="@string/password"
                     android:layout_gravity="center"
                     android:textSize="12sp"
                     android:textColor="@color/lightGreen"
@@ -325,16 +325,17 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
+
             <TextView
                 android:id="@+id/forgotPassword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Change Password"
-                android:textStyle="bold"
-                android:layout_marginTop="10dp"
                 android:layout_gravity="end"
+                android:layout_marginTop="10dp"
+                android:text="@string/change_password"
                 android:textColor="@color/green"
-                />
+                android:textStyle="bold" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -348,7 +349,7 @@
                 app:cornerRadius="15dp"
                 android:backgroundTint="@color/green"
                 android:textColor="@color/white"
-                android:text="Save"
+                android:text="@string/save"
                 android:textAllCaps="false"
                 />
 <!--            <com.google.android.material.button.MaterialButton-->

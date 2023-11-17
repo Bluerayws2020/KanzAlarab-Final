@@ -8,7 +8,7 @@
         android:id="@+id/btnRecordVideo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Record Video"
+        android:text="@string/record_video"
         android:layout_centerInParent="true"
         android:layout_above="@+id/btnUploadVideo"
         android:layout_marginBottom="16dp"/>
@@ -17,7 +17,7 @@
         android:id="@+id/btnUploadVideo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Upload Video"
+        android:text="@string/upload_video"
         android:layout_centerInParent="true"
         android:layout_marginTop="16dp"
         android:enabled="false" />
