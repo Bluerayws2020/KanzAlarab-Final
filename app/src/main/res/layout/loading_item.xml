@@ -1,0 +1,15 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:background="@color/green"
+
+    android:gravity="center">
+
+    <ProgressBar
+        android:id="@+id/progs"
+        android:layout_gravity="center"
+        android:progressTint="@color/white"
+        android:indeterminateTint="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+</FrameLayout>

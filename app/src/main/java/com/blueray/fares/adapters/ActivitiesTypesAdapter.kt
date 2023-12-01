@@ -5,12 +5,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.blueray.fares.api.OnCategroryChose
 import com.blueray.fares.databinding.ActivitiesCountItemsBinding
 import com.blueray.fares.model.DropDownModel
 
 class ActivitiesTypesAdapter(
     var list: List<DropDownModel>,
-    var listener : (id : String )-> Unit
+    var onCategroryChose: OnCategroryChose
 ): RecyclerView.Adapter<ActivitiesTypesAdapter.MyViewHolder>()
 {
 
@@ -49,8 +50,8 @@ class ActivitiesTypesAdapter(
                 }
             }
         }
-        holder.itemView.setOnClickListener {
-            listener.invoke(selected_items.joinToString(","))
+        holder.binding.choice.setOnClickListener {
+            onCategroryChose.onCategroyChose(selected_items.joinToString(","))
         }
     }
 

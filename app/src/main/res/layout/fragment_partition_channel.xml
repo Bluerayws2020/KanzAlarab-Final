@@ -21,6 +21,21 @@
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginBottom="-200dp"
         />
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginLeft="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+
+        app:lottie_rawRes="@raw/horse" />
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -32,7 +47,9 @@
             <include
                 layout="@layout/profile_app_bar"
                 android:id="@+id/include_tap"
+                android:visibility="gone"
                 />
+
 
             <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
@@ -40,7 +57,7 @@
                 android:layout_marginTop="-20dp"
                 android:fillViewport="true"
                 app:layout_constraintDimensionRatio="9:16"
-                app:layout_constraintTop_toBottomOf="@id/constraintLayout"
+                app:layout_constraintTop_toBottomOf="@id/constraintLayoutHeader"
                 >
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -61,11 +78,12 @@
             </androidx.core.widget.NestedScrollView>
 
             <LinearLayout
-                android:id="@+id/constraintLayout"
+                android:id="@+id/constraintLayoutHeader"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:gravity="center"
+
                 android:background="@drawable/custom_rounded_bottom_rectangle"
                 app:layout_constraintTop_toBottomOf="@id/include_tap">
 
@@ -119,6 +137,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:padding="5dp"
+                android:visibility="gone"
                 android:background="@drawable/outline_shape"
                 android:src="@drawable/forowrd_arrow_green"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -128,5 +147,7 @@
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.core.widget.NestedScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

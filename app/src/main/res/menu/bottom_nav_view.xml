@@ -4,7 +4,13 @@
     <item
         android:id="@+id/home"
         android:icon="@drawable/home_icon"
-        android:title="@string/home"
+        android:title="الرئيسية"
+        />
+
+    <item
+        android:id="@+id/search"
+        android:icon="@drawable/home_icon"
+        android:title="استكشف"
         />
     <item
         android:id="@+id/PlaceHolder"
@@ -13,7 +19,12 @@
     <item
         android:id="@+id/notifications"
         android:icon="@drawable/notifications_icon"
-        android:title="@string/notifications"
+        android:title="الاشعارات"
+        />
+    <item
+        android:id="@+id/profiles"
+        android:icon="@drawable/notifications_icon"
+        android:title="حسابي"
         />
 
 </menu>

@@ -20,4 +20,13 @@
         android:id="@+id/homeVidFrag"
         android:name="com.blueray.fares.ui.fragments.HomeVidFrag"
         android:label="HomeVidFrag" />
+
+    <fragment
+        android:id="@+id/notificationFragment"
+        android:name="com.blueray.fares.ui.fragments.NotificationFragment"
+        android:label="NotificationFragment" />
+    <fragment
+        android:id="@+id/liveEventListFragment"
+        android:name="com.sendbird.live.videoliveeventsample.view.fragment.LiveEventListFragment"
+        android:label="LiveEventListFragment" />
 </navigation>

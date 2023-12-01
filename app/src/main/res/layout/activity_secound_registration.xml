@@ -23,71 +23,71 @@
         android:src="@drawable/registreation_back"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginBottom="-200dp"
-        />
+        app:layout_constraintStart_toStartOf="parent" />
+
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/include_tap"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:cardCornerRadius="30dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        >
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        app:layout_constraintTop_toBottomOf="@id/include_tap"
+        tools:layout_editor_absoluteX="20dp">
+
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/progressBar"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="150sp"
+            android:layout_height="150sp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="15dp"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:layout_width="150sp"
-            android:layout_marginLeft="15dp"
-            android:layout_height="150sp"
+            app:layout_constraintTop_toTopOf="parent"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
-            android:visibility="gone"
-            android:layout_gravity="center"/>
-<!--            app:lottie_rawRes="@raw/loading"-->
-<!--            />-->
+            app:lottie_rawRes="@raw/horse" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="20dp"
-            >
+            android:padding="20dp">
+
             <include
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 layout="@layout/step_indecator_2"
-                android:layout_gravity="center"
-                />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:text="@string/enter_your_personal_information_below_then_click_next_to_continue_registration_"
-                android:textSize="12sp"
                 android:textColor="@color/lightGreen"
-                android:textStyle="bold"
-                android:layout_marginTop="10dp"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/activities_type"
                 android:textSize="12sp"
-                android:textColor="@color/brown"
                 android:textStyle="bold"
-                android:layout_marginTop="10dp"
-                />
+                android:visibility="gone" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/activities_type"
+                android:textColor="@color/brown"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
                 android:text="@string/choose_your_favorite_activities_type"
                 android:textSize="11sp"
-                android:textStyle="bold"
-                android:layout_marginTop="3dp"
-                />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/chooseAll"
@@ -95,10 +95,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:layout_marginTop="3dp"
-                android:text="@string/choose_all"
+                android:text="Choose All"
                 android:textColor="@color/green"
                 android:textSize="11sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:visibility="gone" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/activitiesRv"
@@ -108,40 +109,39 @@
                 android:padding="10dp"
                 app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
                 app:spanCount="3"
-                tools:listitem="@layout/activities_count_items"
-                />
+                tools:listitem="@layout/activities_count_items" />
 
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/nextBtn"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                app:cornerRadius="15dp"
+                android:layout_marginTop="20dp"
                 android:backgroundTint="@color/green"
-                android:textColor="@color/white"
                 android:text="@string/next"
                 android:textAllCaps="false"
+                android:textColor="@color/white"
+                app:cornerRadius="8dp"
                 app:icon="@drawable/forword"
-                app:iconSize="15dp"
                 app:iconGravity="textEnd"
-                android:layout_marginTop="20dp"
-                />
+                app:iconSize="15dp" />
+
             <LinearLayout
-                android:layout_gravity="center"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/already_have_account"
-                    />
+                    android:text="@string/already_have_account" />
+
                 <TextView
                     android:id="@+id/signInBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/sign_in"
-                    android:textColor="@color/green"
-                    />
+                    android:textColor="@color/green" />
             </LinearLayout>
         </LinearLayout>
 

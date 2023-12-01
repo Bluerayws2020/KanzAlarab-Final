@@ -3,21 +3,46 @@ package com.blueray.fares.ui.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
+import android.window.SplashScreen
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.view.GravityCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.blueray.fares.R
 import com.blueray.fares.databinding.ActivityHomeBinding
+import com.blueray.fares.helpers.HelperUtils
+import com.blueray.fares.helpers.HelperUtils.setDefaultLanguage
+import com.blueray.fares.helpers.HelperUtils.setLang
 import com.blueray.fares.helpers.ViewUtils.hide
 import com.blueray.fares.helpers.ViewUtils.show
+import com.sendbird.live.videoliveeventsample.view.fragment.LiveEventListFragment
 
 class HomeActivity : BaseActivity() {
     private lateinit var navController: NavController
+    private val liveEventListFragment = LiveEventListFragment()
 
     private lateinit var binding : ActivityHomeBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+
+
+        setDefaultLanguage(this@HomeActivity,"ar")
+        setLang(this@HomeActivity,"ar")
+
+
+
+
+
+
+
+
+
+
         binding = ActivityHomeBinding.inflate(layoutInflater)
+
         setContentView(binding.root)
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
@@ -30,6 +55,9 @@ binding.addNew.setOnClickListener{
     startActivity(Intent(this,UploadeVedio::class.java))
 
 }
+
+
+
         binding.bottomNav.setOnItemSelectedListener {
                 item ->
             when(item.itemId){
@@ -39,17 +67,65 @@ binding.addNew.setOnClickListener{
                     navController.navigate(R.id.homeVidFrag)
                     true
                 }
+                R.id.search->{
+//                    replace(R.id.fragmentContainerView, liveEventListFragment)
+
+navController.navigate(R.id.liveEventListFragment)
+                   true
+                }
                 R.id.PlaceHolder->{
-                    startActivity(Intent(this,UploadeVedio::class.java))
+
+                    if (HelperUtils.getUid(this@HomeActivity) == "0"){
+                        Toast.makeText(this,"يجب تسجيل الدخول",Toast.LENGTH_LONG).show()
+
+                        startActivity(Intent(this,MainActivity::class.java))
+                        finish()
+
+                        true
+                    }else {
+
+                        startActivity(Intent(this,UploadeVedio::class.java))
+                        true
+
+                    }
+
                     true
                 }
                 else ->{
-                    false
+                    if (HelperUtils.getUid(this@HomeActivity) == "0"){
+                        Toast.makeText(this,"يجب تسجيل الدخول",Toast.LENGTH_LONG).show()
+
+                        startActivity(Intent(this,MainActivity::class.java))
+                        finish()
+
+                        false
+                    }else {
+                        navController.navigate(R.id.notificationFragment)
+true
+                    }
+                    true
                 }
             }
         }
 
     }
+
+//    private fun setUpDrawerNavigation() {
+//        binding.navDrawer.setNavigationItemSelectedListener {
+//                menuItem->
+//            when(menuItem.itemId){
+//                R.id.home->{
+//                    navController.navigate(R.id.home)
+//                    closeDrawer()
+//                    true
+//                }
+////                R.id.
+//
+//            }
+//
+//
+//            }
+//    }
 
 
     fun showBottomNav(){
@@ -58,4 +134,14 @@ binding.addNew.setOnClickListener{
     fun hideBottomNav(){
         binding.bottomNav.hide()
     }
-}
+
+//        fun openDrawer(){
+//            binding.drawerLayout.openDrawer(GravityCompat.START)
+//        }
+//        fun closeDrawer(){
+//            binding.drawerLayout.closeDrawer(GravityCompat.START)
+//        }
+
+
+
+    }

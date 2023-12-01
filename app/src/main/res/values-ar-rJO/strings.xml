@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Fares</string>
-    <string name="poet">شاعر</string>
+    <string name="app_name">كنز العرب</string>
+    <string name="poet">مستخدم</string>
     <string name="guest">زائر</string>
-    <string name="all_rights_are_save_fares_al_roya_2023">جميع الحقوق محفوظة - فارس الرؤية @ 2023</string>
+    <string name="all_rights_are_save_fares_al_roya_2023">جميع الحقوق محفوظة -  كنز العرب @ 2023</string>
     <string name="log_in">تسجيل الدخول</string>
     <string name="welcome_back">مرحباً بك مجدداً!</string>
     <string name="username_phone_number">اسم المستخدم / الرقم</string>
@@ -13,7 +13,7 @@
     <string name="sign_in">تسجيل الدخول</string>
     <string name="enter_information">ادخال البيانات</string>
     <string name="enter_your_personal_information_below_then_click_next_to_continue_registration">ادخل بياناتك الشخصية التالية ثم اضغط “التالي” لمتابعة التسجيل.</string>
-    <string name="individual_poet">شاعر فردي</string>
+    <string name="individual_poet">مستخدم</string>
     <string name="squad">فرقة</string>
     <string name="first_name">الاسم الأول</string>
     <string name="last_name">العائله</string>
@@ -61,4 +61,13 @@
     <string name="registration">التسجيل</string>
     <string name="home">الرئيسية</string>
     <string name="notifications">الاشعارات</string>
+    <string name="city_of_residence">مدينة الاقامة</string>
+    <string name="place_of_residence">بلد الاقامة</string>
+    <string name="gender">الجنس</string>
+    <string name="band_name">اسم الفرقة</string>
+    <string name="title">العنوان</string>
+    <string name="description">التفاصيل</string>
+    <string name="uplaode">تحميل</string>
+    <string name="cagtegory">نوع الفرقة</string>
+    <string name="no_data">لا يوجد بيانات\n</string>
 </resources>

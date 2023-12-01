@@ -11,9 +11,8 @@
         style="@style/Widget.MaterialComponents.Chip.Filter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:checked="false"
-        app:chipBackgroundColor="@color/white"
-        app:chipStrokeColor="@color/black"
+
+
         app:chipStrokeWidth="1dp"
         android:layout_marginStart="4dp"
         android:layout_marginEnd="4dp"

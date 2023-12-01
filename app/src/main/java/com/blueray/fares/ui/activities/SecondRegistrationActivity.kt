@@ -5,11 +5,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.GridLayoutManager
 import com.beloo.widget.chipslayoutmanager.ChipsLayoutManager
 import com.blueray.fares.R
 import com.blueray.fares.adapters.ActivitiesTypesAdapter
+import com.blueray.fares.api.OnCategroryChose
 import com.blueray.fares.databinding.ActivitySecoundRegistrationBinding
 import com.blueray.fares.helpers.ViewUtils.hide
 import com.blueray.fares.helpers.ViewUtils.show
@@ -31,10 +34,22 @@ companion object{
         binding.nextBtn.setOnClickListener {
             startActivity(Intent(this,ThirdRegistrationActivity::class.java))
         }
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+
 
         viewmodel.retriveCategory()
-
 getCategory()
+
+
+        binding.signInBtn.setOnClickListener {
+if (activtyIds.isEmpty()){
+    Toast.makeText(this,"يرجى اختيار تصنيف",Toast.LENGTH_LONG).show()
+
+}else {
+    startActivity(Intent(this, LoginActivity::class.java))
+
+}
+        }
     }
 
 
@@ -46,12 +61,13 @@ getCategory()
             when (result) {
                 is NetworkResults.Success -> {
 
-                    adapter = ActivitiesTypesAdapter(result.data){
-                        // handle click listener
-                        Log.d("ERTYUIOP",it)
 
-                        activtyIds = it
-                    }
+                    adapter = ActivitiesTypesAdapter(result.data,object : OnCategroryChose {
+                        override fun onCategroyChose(id: String) {
+                            activtyIds = id
+                        }
+
+                    })
 
                     val chipsLayoutManager = ChipsLayoutManager.newBuilder(this).build()
                     binding.activitiesRv.adapter = adapter

@@ -65,10 +65,10 @@
 
                 <ImageView
                     android:id="@+id/shareBtn"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="11dp"
+                    android:layout_height="11dp"
                     android:layout_marginStart="10dp"
-                    android:src="@drawable/share_icon"
+                    android:src="@drawable/share"
                     app:layout_constraintBottom_toBottomOf="@+id/yourChannelTv"
                     app:layout_constraintStart_toEndOf="@+id/yourChannelTv"
                     app:layout_constraintTop_toTopOf="@+id/yourChannelTv" />

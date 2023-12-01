@@ -1,6 +1,8 @@
 package com.blueray.fares.model
 
+import android.graphics.Picture
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 sealed class NetworkResults<out R> {
     data class Success<out T>(val data: T) : NetworkResults<T>()
@@ -13,15 +15,44 @@ sealed class NetworkResults<out R> {
 
 data class UserLoginModel(
     @SerializedName("msg") val status: MessageModel,
-    @SerializedName("poet_data") val data: LoginModel
+    @SerializedName("poet_data") val data: LoginModel,
+    @SerializedName("data") val datas: LoginModel
+
+)
+
+
+
+data class ViewUserLoginModel(
+    @SerializedName("uid") val uid: String,
+    @SerializedName("role") val role: String,
+    @SerializedName("mail") val mail: String,
+    @SerializedName("username") val username: String,
+    @SerializedName("user_picture") val user_picture: String,
+    @SerializedName("phone_number") val phone_number: String,
+    @SerializedName("profile_data") val profile_data: Pprofile_data,
+
+)
+data class UserUploadeDone(
+    @SerializedName("msg") val status: MessageModel,
+    @SerializedName("data") val datas: NidVideoUplaode
+
+)
+data class NidVideoUplaode(
+    val nid:String
 )
 
 
 data class LoginModel(
-    @SerializedName("uid") val uid: String,
+    @SerializedName("id") val uid: String,
     @SerializedName("type") val type: String,
-    @SerializedName("phone") val phone: String,
-)
+    @SerializedName("phone_number") val phone_number: String,
+    @SerializedName("user_name") val user_name: String,
+    @SerializedName("email") val email: String,
+    @SerializedName("user_picture") val user_picture: String,
+
+    )
+
+
 
 data class MessageModel(
     @SerializedName("status") val status: Int,
@@ -34,7 +65,8 @@ data class Item(
     val file: String,
     val created: String,
     val uuid: String,
-    val token: String
+    val token: String,
+    val vimeo_detials:VimeoVideoModelV2
 )
 
 
@@ -73,12 +105,86 @@ data class VimeoFileModel (
         return rendition
     }
 }
-data class NewAppendItItems (
+
+    data class NewAppendItItems (
 
 val videoTitle : String,
 val videoDesc : String,
-val videoUrl : String
+
+val date : String,
+
+val videoUrl : String,
+val userId : String,
+val userName : String,
+val duration : Int,
+val imageThum : String = "",
+val firstName : String = "",
+val lastName : String = "",
+val bandNam : String = "",
+val type : String = "",
+val userPic : String = "",
+val status : String = "",
+
+
+):Serializable
+
+
+data class VideoResponse(
+    val id: String,
+    val title: String,
+    val created: String,
+    val file: String,
+    val uuid: String,
+    val token: String,
+    val moderation_state :String,
+    val vimeo_detials: VimeoDetails,
+    val auther: Author,
 
 )
+data class Pictures(
+    val base_link:String
+)
+data class VimeoDetails(
+    val uri: String,
+    val name: String,
+    val description: String,
+    val type: String,
+    val link: String,
+    val player_embed_url: String,
+    val duration: Int,
+    val width: Int,
+    val language: String,
+    val height: Int,
+    val files: List<VideoFile>,
+
+    val pictures:Pictures
+    // Add other fields as necessary...
+)
+data class VideoFile(
+
+    val quality: String,
+    val rendition: String,
+    val type: String,
+    val width: Int,
+    val height: Int,
+    val link: String,
+    // Add other fields as necessary...
+)
+
+data class Author(
+    val uid: String,
+    val username: String,
+    val type: String,
 
 
+    val profile_data  :Pprofile_data
+)
+
+data class Pprofile_data(
+    val first_name: String,
+    val last_name: String,
+    val user_picture: String,
+    val band_name: String,
+    val mail: String,
+
+    )

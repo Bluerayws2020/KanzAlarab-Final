@@ -1,22 +1,36 @@
 package com.blueray.fares.ui.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.PagerSnapHelper
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.SnapHelper
+import com.blueray.fares.R
 import com.blueray.fares.adapters.ProfilePagerAdapter
 import com.blueray.fares.adapters.VideoAdapter
+import com.blueray.fares.adapters.VideoFeedAdapter
 import com.blueray.fares.adapters.VideoItemAdapter
 import com.blueray.fares.api.OnProfileClick
+import com.blueray.fares.api.VideoClick
 import com.blueray.fares.databinding.FragmentPartitionChannelBinding
+import com.blueray.fares.helpers.ViewUtils.hide
+import com.blueray.fares.helpers.ViewUtils.show
 import com.blueray.fares.model.NetworkResults
 import com.blueray.fares.model.NewAppendItItems
 import com.blueray.fares.ui.viewModels.AppViewModel
+import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.coroutines.Dispatchers
@@ -31,7 +45,12 @@ class PartitionChannelFragment : Fragment() {
     private lateinit var binding : FragmentPartitionChannelBinding
     private lateinit var videoAdapter :VideoItemAdapter
     var newArrVideoModel = ArrayList<NewAppendItItems>()
+    private lateinit var navController: NavController
 
+
+    private var isLinearLayout = false
+    private var lastClickedPosition = 0
+    var userIdes = ""
     private val mainViewModel by viewModels<AppViewModel>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,116 +59,163 @@ class PartitionChannelFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentPartitionChannelBinding.inflate(layoutInflater)
 
-        getVideosView()
-        mainViewModel.retriveMainVideos()
-        getNewItems()
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
+        val bundle = Bundle().apply {
+
+
+
+
+
+
+
+            // Retrieve the passed data
+            val usernName = arguments?.getString("usernName")
+             userIdes = arguments?.getString("userIdes").toString()
+            val userImg = arguments?.getString("userImg").toString()
+            val fullname = arguments?.getString("fullname")
+
+
+
+
+
+            Glide.with(requireContext()).load(userImg).placeholder(R.drawable.logo).into(binding.profileImage)
+
+
+            if (usernName != null) {
+                // Use the retrieved itemId
+                // For example, load data based on this itemId or initialize views
+                binding.userName.text = "@$usernName"
+                binding.name.text = fullname
+
+            }
+        }
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        navController = Navigation.findNavController(view)
+        binding.progressBar.show()
+
+        mainViewModel.retriveUserVideos(userIdes,"0","9")
+        getMainVidos()
+
+//
+//        // Initial layout as Grid
+//        binding.videosRv.layoutManager = GridLayoutManager(requireContext(), 3)
+//        binding.videosRv.adapter = videoAdapter
+
     }
-    
-
-
-    fun getVideosView(){
-        mainViewModel.getMainVideos().observe(viewLifecycleOwner) { result ->
-            when (result) {
-                is NetworkResults.Success -> {
-                    GlobalScope.launch(Dispatchers.IO) {
-                        val deferredResults = result.data.map { item ->
-                            async {
-
-                                val lastItemNumber = item.file.substringAfterLast("/")
 
 
 
-                                mainViewModel.retrieveVideoOption("https://api.vimeo.com/videos/$lastItemNumber",item.token) // Replace with your actual API call
 
+        fun getMainVidos(){
+            mainViewModel.getUserVideos().observe(viewLifecycleOwner) { result ->
+                when (result) {
+                    is NetworkResults.Success -> {
+
+                        result.data.forEach { item ->
+                            var vidLink = ""
+                            val adaptiveFile = item.vimeo_detials.files.firstOrNull { it.rendition == "adaptive" || it.rendition == "360" }
+                            vidLink = adaptiveFile?.link ?: item.file
+
+
+                            Log.d("AdaptiveLink",vidLink)
+
+                            newArrVideoModel.add(
+                                NewAppendItItems(
+                                    item.title,
+                                    item.id.toString(),
+                                    item.created,
+                                    vidLink,
+                                    item.auther.uid,
+                                    item.auther.username,
+                                    item.vimeo_detials.duration,
+                                    item.vimeo_detials.pictures.base_link
+                                )
+                            )
 
                             }
-                        }
+                            binding.videosRv.layoutManager = GridLayoutManager(requireContext(),3)
+    //                    switchToGridLayout()
+                        videoAdapter = VideoItemAdapter(0,newArrVideoModel, object : VideoClick {
+                            override fun OnVideoClic(pos: List<NewAppendItItems>, position: Int) {
+    //                if (!isLinearLayout) {
+    //                    switchToLinearLayout(position)
+    //                }
+                                // else, handle the video click in linear layout
+
+
+                                val intent = Intent(context, VidInnerPlay::class.java).apply {
+                                    putExtra("dataList", newArrVideoModel) // Assuming YourDataType is Serializable or Parcelable
+                                    putExtra("position", position)
+                                }
+
+
+                                startActivity(intent)
+
+                            }
+                        }, requireContext())
+
+
+                        binding.videosRv.adapter = videoAdapter
+                        binding.progressBar.hide()
+
                     }
 
-                }
-                is NetworkResults.Error -> {
-//                    binding.swipeToRefresh.isRefreshing = true
 
-                    result.exception.printStackTrace()
-                    Log.d("=lol",result.exception.toString())
-                }
+                    is NetworkResults.Error -> {
+                        result.exception.printStackTrace()
+                        binding.progressBar.hide()
 
-                is NetworkResults.NoInternet -> TODO()
+                    }
+
+                    is NetworkResults.NoInternet -> TODO()
+                }
             }
         }
+    private fun switchToLinearLayout(position: Int) {
+        isLinearLayout = true
+        videoAdapter.setLinearLayoutMode(true)
+        binding.videosRv.layoutManager = LinearLayoutManager(requireContext())
+        binding.videosRv.adapter = videoAdapter
+        binding.videosRv.scrollToPosition(position)
+        binding.constraintLayoutHeader.hide()
+        videoAdapter.notifyDataSetChanged()
+
+
+
+    }
+
+    private fun switchToGridLayout() {
+        isLinearLayout = false
+        videoAdapter.setLinearLayoutMode(false)
+        binding.videosRv.layoutManager = GridLayoutManager(requireContext(), 3)
+        binding.videosRv.adapter = videoAdapter
+        binding.constraintLayoutHeader.show()
+        binding.videosRv.scrollToPosition(lastClickedPosition)
+        videoAdapter.notifyDataSetChanged()
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Handle back press or similar action
+        // For example, listen for a back button press in the toolbar
+//        binding.includeTap.menu.setNavigationOnClickListener {
+//            if (isLinearLayout) {
+//                switchToGridLayout()
+//            } else {
+//                // Handle regular back action
+//                navController.navigateUp()
+//            }
+//        }
 
     }
 
 
-    fun getNewItems(){
-        mainViewModel.getVideoOption().observe(viewLifecycleOwner) { result ->
-            when (result) {
-                is NetworkResults.Success -> {
-
-                    if (result.data.files.isNullOrEmpty()){
-
-                    }else {
-                        val videoOptionList = result.data.files
-                        newArrVideoModel.add(
-                            NewAppendItItems(
-                                "134",
-                                "312", videoOptionList.last().link.toString()
-                            )
-                        )
-//                    videoAdapter = VideoAdapter(newArrVideoModel)
-                        binding.videosRv.layoutManager = GridLayoutManager(requireContext(),3)
-
-                        videoAdapter = VideoItemAdapter(newArrVideoModel,{
-//
-                        },requireContext())
-
-                        binding.videosRv.adapter = videoAdapter}
-
-//                            ,object : OnProfileClick {
-//                            override fun onProfileClikc(pos: Int) {
-//
-//                                Log.d("TEEEESSSSTTT11",newArrVideoModel[pos].videoUrl.toString())
-//                            }
-//
-//                            override fun onProfileShare(pos: Int) {
-//                                TODO("Not yet implemented")
-//                            }
-//                        })
-//
-//                        binding.vidRec.adapter = videoAdapter
-//
-//
-//                        // pager snap helper is a class that helps to move the recycler one item at at a time
-////
-//
-//                        binding.vidRec.layoutManager = LinearLayoutManager(
-//                            context,
-//                            LinearLayoutManager.VERTICAL, true
-//                        )// trying reversed layout
-//
-//                    }
-
-//                for (i in videoOptionList){
-//                }
-
-//                if (isAdded)
-
-//                    showDialog(videoOptionList)
-                }
-                is NetworkResults.Error -> {
-                    result.exception.printStackTrace()
-                }
-
-                is NetworkResults.NoInternet -> TODO()
-            }
-        }
-    }
 
 
 }

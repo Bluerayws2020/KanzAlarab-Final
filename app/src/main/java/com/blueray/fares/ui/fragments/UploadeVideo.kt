@@ -15,9 +15,19 @@ import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
+import com.beloo.widget.chipslayoutmanager.ChipsLayoutManager
+import com.blueray.fares.adapters.ActivitiesTypesAdapter
+import com.blueray.fares.api.OnCategroryChose
 import com.blueray.fares.databinding.ActivityLoginBinding
 import com.blueray.fares.databinding.ActivityUploadeVedioBinding
+import com.blueray.fares.helpers.HelperUtils
+import com.blueray.fares.helpers.ViewUtils.hide
+import com.blueray.fares.helpers.ViewUtils.show
+import com.blueray.fares.model.NetworkResults
+import com.blueray.fares.ui.viewModels.AppViewModel
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -28,7 +38,11 @@ import java.io.IOException
 
 class UploadeVedio : AppCompatActivity() {
     private lateinit var binding : ActivityUploadeVedioBinding
+    private val viewmodel by viewModels<AppViewModel>()
 
+    private lateinit var adapter : ActivitiesTypesAdapter
+var categoryId = ""
+    var viemoLink = ""
 
     private var videoUri: Uri? = null
     private val client = OkHttpClient()
@@ -37,11 +51,19 @@ class UploadeVedio : AppCompatActivity() {
     // system permissions dialog.
     private val requestPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
-            if (isGranted) {
-                launchCamera()
-            } else {
-                // Explain to the user that the feature is unavailable because
-                // the features require a permission that the user has denied.
+            if (HelperUtils.getUid(this@UploadeVedio) == "0") {
+                Toast.makeText(this,"يجب تسجيل الدخول",Toast.LENGTH_LONG).show()
+
+                startActivity(Intent(this, MainActivity::class.java))
+                finish()
+
+            }else {
+                if (isGranted) {
+                    launchCamera()
+                } else {
+                    // Explain to the user that the feature is unavailable because
+                    // the features require a permission that the user has denied.
+                }
             }
         }
 
@@ -53,7 +75,7 @@ class UploadeVedio : AppCompatActivity() {
                 videoUri = result.data?.data
                 prepareVideoUpload(videoUri!!)
             }else {
-            onBackPressed()
+
             }
         }
 
@@ -62,7 +84,16 @@ class UploadeVedio : AppCompatActivity() {
         binding = ActivityUploadeVedioBinding.inflate(layoutInflater)
         setContentView(binding.root)
         // Initialize your views
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
+        if (HelperUtils.getUid(this@UploadeVedio) == "0") {
+            Toast.makeText(this,"يجب تسجيل الدخول",Toast.LENGTH_LONG).show()
+
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
+            return
+
+        }
 
         // Set the click listener for the record button
             // Check if we have permission to record
@@ -92,8 +123,87 @@ class UploadeVedio : AppCompatActivity() {
 ////                    prepareVideoUpload(it)
 //            }
 //        }
+        viewmodel.retriveCategory()
+
+        getCategory()
+        binding.uplaodeVid.setOnClickListener {
+            if (binding.title.text?.isEmpty() == true || categoryId.isEmpty()){
+                Toast.makeText(this,"جميع الحقول مطلوبة",Toast.LENGTH_LONG).show()
+
+            }else {
+                showProgress()
+                prepareVideoUpload(videoUri!!)
+            }
+        }
+
+    }
+    private fun getCategory() {
+        hideProgress()
+
+        viewmodel.getCategory().observe(this) { result ->
+
+            when (result) {
+                is NetworkResults.Success -> {
+
+                    adapter = ActivitiesTypesAdapter(result.data,object :OnCategroryChose{
+                        override fun onCategroyChose(id: String) {
+                            categoryId  = id
+                        }
+
+                    })
+
+                    val chipsLayoutManager = ChipsLayoutManager.newBuilder(this).build()
+                    binding.activitiesRv.adapter = adapter
+                    binding.activitiesRv.layoutManager =chipsLayoutManager
+
+                }
+
+                is NetworkResults.Error -> {
+                    result.exception.printStackTrace()
+                    hideProgress()
+                }
+
+                else -> hideProgress()
+            }
+        }
+    }
 
 
+
+    private fun getUplaodeVideo() {
+        hideProgress()
+
+        viewmodel.getUplaodeVide().observe(this) { result ->
+
+            when (result) {
+                is NetworkResults.Success -> {
+                    hideProgress()
+
+                  if (result.data.status.status == 200 ){
+                      Toast.makeText(this,result.data.status.msg.toString(),Toast.LENGTH_LONG).show()
+                      startActivity(Intent(this,SplashScreen::class.java))
+                  }else{
+                      Toast.makeText(this,result.data.status.msg.toString(),Toast.LENGTH_LONG).show()
+
+                  }
+                }
+
+                is NetworkResults.Error -> {
+                    result.exception.printStackTrace()
+                    hideProgress()
+                }
+
+                else -> hideProgress()
+            }
+        }
+    }
+    private fun hideProgress() {
+        binding.progressBar.hide()
+
+    }
+
+    private fun showProgress() {
+        binding.progressBar.show()
     }
     private fun prepareVideoUpload(videoUri: Uri) {
         // First, create a video object on Vimeo and get the upload URL
@@ -109,7 +219,7 @@ class UploadeVedio : AppCompatActivity() {
         }
     }
 
-    private fun uploadVideoToVimeo(videoUri: Uri,link:String) {
+    private fun uploadVideoToVimeo(videoUri: Uri,link:String,systemLink:String) {
         // Convert Uri to File
         val videoFile = File(getPath(videoUri))
 
@@ -122,7 +232,7 @@ class UploadeVedio : AppCompatActivity() {
         // Prepare the request
         val request = Request.Builder()
             .url(link) // Replace with the upload URL provided by Vimeo API
-            .addHeader("Authorization", "Bearer d5fcfcdd4e1159ac4b3b7aba38fdc1c0") // Replace with your actual access token
+            .addHeader("Authorization", "Bearer cb9661c5c0ecc54dc35089b21047de84") // Replace with your actual access token
             .addHeader("Content-Type", "multipart/form-data")
 
             .post(multipartBody)
@@ -135,7 +245,7 @@ class UploadeVedio : AppCompatActivity() {
             override fun onFailure(call: Call, e: IOException) {
                 runOnUiThread {
                     binding.progressBar.visibility = View.GONE
-                    binding.btnUploadVideo.isEnabled = true
+//                    binding.btnUploadVideo.isEnabled = true
                     // Handle the error, update UI if needed
                     Toast.makeText(this@UploadeVedio,"Error\t"+ e.message.toString(),Toast.LENGTH_LONG).show()
                 }
@@ -148,12 +258,16 @@ class UploadeVedio : AppCompatActivity() {
                         // Handle the successful response
                         val responseBody = res.body?.string()
                         runOnUiThread {
-                            Toast.makeText(this@UploadeVedio, "Upload successful", Toast.LENGTH_LONG).show()
                             // Here you could update UI with details from the response if needed
-                            binding.progressBar.visibility = View.GONE
-                            binding.btnUploadVideo.isEnabled = true
+//                            binding.progressBar.visibility = View.GONE
+//                            binding.btnUploadVideo.isEnabled = true
+
+                            viewmodel.retriveUserUplaode(binding.title.text.toString(),binding.descirption.text.toString(),systemLink,categoryId)
+                            getUplaodeVideo()
+
                         }
-                        onBackPressed()
+
+
                         Log.d("UploadSSSSAAAAA", "Response: $responseBody")
                     } else {
                         // Handle the error
@@ -161,7 +275,7 @@ class UploadeVedio : AppCompatActivity() {
                         runOnUiThread {
                             Toast.makeText(this@UploadeVedio, "Upload failed: ${res.message}", Toast.LENGTH_LONG).show()
                             binding.progressBar.visibility = View.GONE
-                            binding.btnUploadVideo.isEnabled = true
+//                            binding.btnUploadVideo.isEnabled = true
                         }
                         Log.e("Upload", "Error: $responseBody")
                     }
@@ -176,7 +290,7 @@ class UploadeVedio : AppCompatActivity() {
 
         val request = Request.Builder()
             .url("https://api.vimeo.com/me/videos")
-            .addHeader("Authorization", "Bearer d5fcfcdd4e1159ac4b3b7aba38fdc1c0")
+            .addHeader("Authorization", "Bearer cb9661c5c0ecc54dc35089b21047de84")
             .addHeader("Content-Type", "application/json")
             .addHeader("Accept", "application/vnd.vimeo.*+json;version=3.4")
             .post(requestBody)
@@ -199,7 +313,12 @@ class UploadeVedio : AppCompatActivity() {
                     val uploadObject = jsonObject.getJSONObject("upload")
                     val uploadLink = uploadObject.getString("upload_link")
 
-                    uploadVideoToVimeo(vid,uploadLink)
+
+
+                   val link =  jsonObject.getString("link")
+
+
+                    uploadVideoToVimeo(vid,uploadLink,link)
                     Log.d("qwertyuiolp",uploadLink)
                     Log.d("1234567ewertyu",vid.toString())
 

@@ -6,10 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.activities.RegistrationActivity">
 
-    <include
-        layout="@layout/registration_app_bar"
-        android:id="@+id/include_tap"
-        />
+
 
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -19,23 +16,33 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginBottom="-200dp"
+        android:layout_marginBottom="-100dp"
         />
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         app:layout_constraintTop_toBottomOf="@id/include_tap"
         app:layout_constraintBottom_toBottomOf="parent"
         app:cardCornerRadius="30dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
+
         >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="20dp"
             >
+            <include
+                layout="@layout/registration_app_bar"
+                android:id="@+id/include_tap"
+                />
             <include
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -55,8 +62,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/enter_your_personal_information_below_then_click_next_to_continue_registration"
+                android:text="Enter your personal information below, then click “Next” to continue registration."
                 android:textSize="12sp"
+                android:visibility="gone"
                 android:textColor="@color/lightGreen"
                 android:textStyle="bold"
                 android:layout_marginTop="10dp"
@@ -105,37 +113,78 @@
                 />
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/squadNameEt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:lines="1"
                     />
 
             </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/enter_country_of_living"
+                <TextView
                     android:layout_marginTop="10dp"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/countryOfLiving"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/country"
+                    android:textSize="14sp"
+                    android:textColor="@color/brown"
+                    />
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    />
+                    app:cardCornerRadius="5dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="10dp"
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    >
+
+                    <Spinner
+                        android:id="@+id/countryForBand"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+
+                        android:background="@drawable/custom_empty_background"
+                        />
+
+                </androidx.cardview.widget.CardView>
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="City Name"
+                    android:textSize="14sp"
+                    android:textColor="@color/brown"
+                    />
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="5dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="10dp"
+
+                    >
+
+                    <Spinner
+                        android:id="@+id/cityForBand"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+
+                        android:background="@drawable/custom_empty_background"
+                        />
+
+                </androidx.cardview.widget.CardView>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/enter_type_of_activity"
                     android:layout_marginTop="10dp"
+                    android:visibility="gone"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -154,10 +203,55 @@
                     android:textColor="@color/brown"
                     />
                 <Spinner
+                    android:id="@+id/numberBand"
                     android:layout_marginTop="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toEndOf="@+id/productImage"
+                    app:layout_constraintTop_toBottomOf="@+id/quantityTypeSpinner"
+                    android:weightSum="90"
+                    android:orientation="horizontal"
+                    android:id="@+id/itemCountLayout"
+                    android:layout_marginTop="8dp"
+                    >
+
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="30dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/otp_back_background"
+                        android:src="@drawable/add_plus"
+                        android:id="@+id/addItem"
+
+                        />
+                    <TextView
+                        android:id="@+id/itemCount"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:text="2"
+                        android:textColor="@color/black"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:layout_gravity="center"
+                        android:textAlignment="center"
+                        />
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/removeItem"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/baseline_remove_24"
+                        android:paddingTop="4sp"
+                        android:paddingBottom="4dp"
+                        android:background="@drawable/otp_back_background"
+                        android:alpha="0.5"
+                        />
+                </LinearLayout>
 
             </LinearLayout>
             <LinearLayout
@@ -165,7 +259,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:visibility="visible"
                 >
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -189,13 +282,15 @@
                             />
                         <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/firstNameEt"
                                 android:layout_width="match_parent"
-                                android:layout_height="50dp"
+                                android:layout_height="match_parent"
+                                android:lines="1"
+                                android:inputType="text"
                                 />
 
                         </com.google.android.material.textfield.TextInputLayout>
@@ -218,13 +313,16 @@
                             />
                         <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/lastNameEt"
                                 android:layout_width="match_parent"
-                                android:layout_height="50dp"
+                                android:layout_height="match_parent"
+                                android:lines="1"
+                                android:inputType="text"
+
                                 />
 
                         </com.google.android.material.textfield.TextInputLayout>
@@ -237,9 +335,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:weightSum="100"
+
+
                     >
+
+
                     <androidx.cardview.widget.CardView
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_weight="50"
                         android:layout_height="wrap_content"
                         app:cardCornerRadius="5dp"
@@ -248,13 +350,27 @@
                         android:layout_marginBottom="5dp"
                         android:layout_marginStart="1dp"
                         >
-                        <Spinner
-                            android:id="@+id/nationalitySpinner"
-                            android:layout_width="match_parent"
-                            android:layout_height="60dp"
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
 
-                            android:background="@drawable/custom_empty_background"
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/nationality"
+                            android:textSize="14sp"
+                            android:textColor="@color/brown"
                             />
+
+    <Spinner
+        android:id="@+id/nationalitySpinner"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+
+        android:background="@drawable/custom_empty_background" />
+</LinearLayout>
 
                     </androidx.cardview.widget.CardView>
                     <LinearLayout
@@ -263,15 +379,15 @@
                         android:layout_weight="50"
                         android:orientation="vertical"
                         android:layout_marginStart="20dp"
+                        android:visibility="gone"
                         >
+
                         <TextView
-                            android:layout_marginTop="10dp"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/country"
-                            android:textSize="14sp"
+                            android:text="Place of residence"
                             android:textColor="@color/brown"
-                            />
+                            android:textSize="14sp" />
                         <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -283,6 +399,7 @@
                                 android:id="@+id/individualCountryEt"
                                 android:layout_width="match_parent"
                                 android:layout_height="50dp"
+                                android:lines="1"
                                 />
 
                         </com.google.android.material.textfield.TextInputLayout>
@@ -290,19 +407,103 @@
                     </LinearLayout>
 
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:weightSum="100"
+
+
+                    >
+
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="0dp"
+                        android:layout_weight="50"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="5dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_gravity="bottom"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginStart="1dp"
+                        >
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/place_of_residence"
+                                android:textSize="14sp"
+                                android:textColor="@color/brown"
+                                />
+                            <Spinner
+                                android:id="@+id/countrySpinner"
+                                android:layout_width="match_parent"
+                                android:layout_height="60dp"
+
+                                android:background="@drawable/custom_empty_background"
+                                />
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="0dp"
+                        android:layout_weight="50"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="5dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_gravity="bottom"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginStart="1dp"
+                        >
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/city_of_residence"
+                                android:textSize="14sp"
+                                android:textColor="@color/brown"
+                                />
+                            <Spinner
+                                android:id="@+id/citySpinner"
+                                android:layout_width="match_parent"
+                                android:layout_height="60dp"
+
+                                android:background="@drawable/custom_empty_background"
+                                />
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/gender"
+                    android:textSize="14sp"
+                    android:textColor="@color/brown"
+                    />
                 <androidx.cardview.widget.CardView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     app:cardCornerRadius="5dp"
-                    android:layout_marginTop="10dp"
                     android:layout_marginStart="1dp"
                     >
+
                     <Spinner
                         android:id="@+id/genderSpinner"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:background="@drawable/custom_empty_background"
-                        />
+                        android:background="@drawable/custom_empty_background" />
 
                 </androidx.cardview.widget.CardView>
                 <LinearLayout
@@ -334,7 +535,8 @@
                             android:layout_height="60dp"
                             android:background="@drawable/custom_empty_background"
                             android:gravity="center|start"
-                            android:text="12/12/1970"
+                            android:hint="12/12/1970"
+                            android:editable="false"
                             android:textColor="@color/lightGreen"
                             android:theme="@style/DialogTheme" />
                         <ImageView
@@ -353,7 +555,7 @@
                 android:id="@+id/nextBtn"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                app:cornerRadius="15dp"
+                app:cornerRadius="8dp"
                 android:backgroundTint="@color/green"
                 android:textColor="@color/white"
                 android:text="@string/next"
@@ -366,6 +568,7 @@
             <LinearLayout
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
+                android:layout_margin="12dp"
                 android:layout_height="wrap_content">
                 <TextView
                     android:layout_width="wrap_content"
@@ -383,6 +586,8 @@
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
+    </androidx.core.widget.NestedScrollView>
+
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/progressBar"
         app:layout_constraintTop_toTopOf="parent"
@@ -394,9 +599,7 @@
         android:layout_height="150sp"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
+        app:lottie_rawRes="@raw/horse"
         android:visibility="gone"
         />
-<!--        app:lottie_rawRes="@raw/loading"-->
-
-<!--        />-->
 </androidx.constraintlayout.widget.ConstraintLayout>

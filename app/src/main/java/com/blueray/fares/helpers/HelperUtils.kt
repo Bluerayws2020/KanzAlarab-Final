@@ -3,6 +3,7 @@ package com.blueray.fares.helpers
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
+import android.content.res.Configuration
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
@@ -13,6 +14,7 @@ import android.widget.Toast
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
+import java.util.Locale
 
 
 object HelperUtils {
@@ -32,9 +34,19 @@ object HelperUtils {
         return this.toRequestBody("multipart/form-data".toMediaTypeOrNull())
     }
 
+    fun setDefaultLanguage(context: Context, lang: String?) {
+        val locale = Locale("ar")
+        Locale.setDefault(locale)
+        val config = Configuration()
+        config.locale = locale
+        context.resources.updateConfiguration(
+            config,
+            context.resources.displayMetrics
+        )
+    }
     fun getLang(mContext: Context?): String {
         val sharedPreferences = mContext?.getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE)
-        return sharedPreferences?.getString("lang", "en")!!
+        return sharedPreferences?.getString("lang", "ar")!!
     }
 
 
@@ -77,7 +89,7 @@ object HelperUtils {
     }
     fun getUid(context: Context):String{
         val sharedPreferences = context.getSharedPreferences(SHARED_PREF,Context.MODE_PRIVATE)
-        return sharedPreferences.getString(UID_KEY,"1")!!
+        return sharedPreferences.getString(UID_KEY,"0")!!
     }
 
 
@@ -89,9 +101,19 @@ object HelperUtils {
         val sharedPreferences = context.getSharedPreferences(SHARED_PREF,Context.MODE_PRIVATE)
         return sharedPreferences.getString(PASSWORD,"1")!!
     }
+    fun setLang(mContext: Context?,lang: String?){
+        val sharedPreferences = mContext?.getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE)
+        val editor = sharedPreferences?.edit()
+        editor?.putString("lang",lang)
+        editor.apply {  }
+    }
+
+
+
 
 
 
 
 
 }
+

@@ -33,10 +33,20 @@
         android:layout_gravity="center"
         android:layout_margin="16dp"
         app:elevation="10dp"
-        app:srcCompat="@drawable/add_iocn"
+        app:srcCompat="@drawable/add_video"
         app:backgroundTint="@color/green"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         />
+
+<!--    <com.google.android.material.navigation.NavigationView-->
+<!--        android:id="@+id/navDrawer"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        app:menu="@menu/side_menu"-->
+<!--        app:headerLayout="@layout/header_menu"-->
+<!--        android:layout_gravity="start"-->
+<!--        app:itemTextAppearance="@style/NavigationDrawerTextAppearance2"-->
+<!--        />-->
 </androidx.constraintlayout.widget.ConstraintLayout>
