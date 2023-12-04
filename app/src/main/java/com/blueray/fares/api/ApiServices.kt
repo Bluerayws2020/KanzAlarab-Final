@@ -5,6 +5,7 @@ import com.blueray.fares.model.Item
 import com.blueray.fares.model.NetworkResults
 import com.blueray.fares.model.UserLoginModel
 import com.blueray.fares.model.UserUploadeDone
+import com.blueray.fares.model.VideoDataModel
 import com.blueray.fares.model.VideoResponse
 import com.blueray.fares.model.ViewUserLoginModel
 import com.blueray.fares.model.VimeoVideoModelV2
@@ -86,7 +87,7 @@ interface ApiServices {
         ): UserUploadeDone
     @GET("app2/poetries")
     suspend fun getPoetries(        @Query("page")  page:String
-    ): List<VideoResponse>
+    ): VideoDataModel
 
     @GET("app2/poetries")
     suspend fun getPoetriesForuser(
@@ -95,7 +96,7 @@ interface ApiServices {
 
         @Query("state")  state:String,
 
-    ): List<VideoResponse>
+    ): VideoDataModel
 
 
 

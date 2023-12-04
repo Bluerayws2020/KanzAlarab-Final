@@ -129,6 +129,11 @@ val status : String = "",
 ):Serializable
 
 
+data class VideoDataModel(
+    @SerializedName("data") val datass: List<VideoResponse>,
+
+
+)
 data class VideoResponse(
     val id: String,
     val title: String,

@@ -22,6 +22,7 @@ import com.blueray.fares.videoliveeventsample.model.SelectedHostUser
 import com.blueray.fares.videoliveeventsample.model.TextBottomSheetDialogItem
 import com.blueray.fares.videoliveeventsample.util.FileUtil
 import com.blueray.fares.videoliveeventsample.util.INTENT_KEY_CREATED_LIVE_EVENT_ID
+import com.blueray.fares.videoliveeventsample.util.INTENT_KEY_LIVE_EVENT_ID
 import com.blueray.fares.videoliveeventsample.util.INTENT_KEY_SELECTED_HOST_USER_LIST
 import com.blueray.fares.videoliveeventsample.util.areAnyPermissionsGranted
 import com.blueray.fares.videoliveeventsample.util.cameraIntent
@@ -32,7 +33,9 @@ import com.blueray.fares.videoliveeventsample.util.showBottomSheetDialog
 import com.blueray.fares.videoliveeventsample.util.showPermissionDenyDialog
 import com.blueray.fares.videoliveeventsample.util.showToast
 import com.blueray.fares.videoliveeventsample.util.signOut
+import com.sendbird.live.LiveEvent
 import java.io.File
+import java.util.Collections.addAll
 
 const val DIALOG_ITEM_ID_PHOTO_LIBRARY = 0
 const val DIALOG_ITEM_ID_TAKE_PHOTO = 1
@@ -151,15 +154,33 @@ class CreateLiveEventActivity : AppCompatActivity() {
                 showToast(e?.message ?: "")
                 return@createLiveEventLabel
             }
-            val intent = Intent().putExtra(
-                INTENT_KEY_CREATED_LIVE_EVENT_ID,
-                liveEvent.liveEventId
-            )
-            setResult(Activity.RESULT_OK, intent)
-            finish()
+            enterAsHost(liveEvent)
         }
     }
+    private fun enterAsHost(liveEvent: LiveEvent) {
+//        val requestPermissions = permissions.toMutableList().apply {
+//            addAll(
+//                arrayOf(
+//                    Manifest.permission.RECORD_AUDIO,
+//                    Manifest.permission.CALL_PHONE,
+//                    Manifest.permission.READ_PHONE_STATE
+//                )
+//            )
+//        }.toTypedArray()
+//        if (!requireContext().areAnyPermissionsGranted(requestPermissions)) {
+//            requestPermissionLauncher.launch(requestPermissions)
+//            return
+//        }
 
+        val intent = Intent(this, LiveEventSetUpActivity::class.java)
+        intent.putExtra(INTENT_KEY_LIVE_EVENT_ID, liveEvent.liveEventId)
+
+
+        startActivity(intent)
+
+        finish()
+
+    }
     private fun addHostIds(hostIds: List<SelectedHostUser>) {
         selectedHostUsers.putAll(hostIds.map { it.userId to it })
         binding.tvCreateLiveEventHostCount.text = "${selectedHostUsers.size}"

@@ -5,19 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.fragments.HomePagerFragment">
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
 
-        android:layout_marginStart="@dimen/sb_size_70"
-        android:layout_marginEnd="@dimen/sb_size_70"
-        android:layout_marginTop="@dimen/sb_size_30"
-
-        />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"
@@ -27,5 +15,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         />
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+android:background="#00293056"
+        android:layout_marginStart="@dimen/sb_size_70"
+        android:layout_marginEnd="@dimen/sb_size_70"
+        android:layout_marginTop="@dimen/sb_size_30"
+
+/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

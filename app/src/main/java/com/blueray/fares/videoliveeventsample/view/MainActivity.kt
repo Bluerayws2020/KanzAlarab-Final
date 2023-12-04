@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commit
 import com.blueray.fares.R
 import com.blueray.fares.databinding.ActivityMainBinding
-import com.sendbird.live.videoliveeventsample.view.fragment.LiveEventListFragment
+import com.blueray.fares.videoliveeventsample.view.fragment.LiveEventListFragment
 import com.blueray.fares.videoliveeventsample.view.fragment.MySettingsFragment
 
 class MainActivity : AppCompatActivity() {

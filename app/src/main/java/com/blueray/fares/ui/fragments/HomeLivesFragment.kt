@@ -192,7 +192,7 @@ class HomeLivesFragment : Fragment() , VideoPlaybackControl {
 
                     //                    append new Items
                     isLoading = false
-                    if (result.data.isEmpty()) {
+                    if (result.data.datass.isEmpty()) {
                         noMoreData = true
                         binding.progg.hide()
 
@@ -201,7 +201,7 @@ class HomeLivesFragment : Fragment() , VideoPlaybackControl {
                         val startPosition = newArrVideoModel.size
 
                         // Iterate over each item and add to newArrVideoModel
-                        result.data.forEach { item ->
+                        result.data.datass.forEach { item ->
                             var vidLink = ""
                             val adaptiveFile =
                                 item.vimeo_detials.files.firstOrNull { it.rendition == "adaptive" || it.rendition == "360" }
@@ -221,7 +221,7 @@ class HomeLivesFragment : Fragment() , VideoPlaybackControl {
                                 )
                             )
                         }
-                        videoAdapter?.notifyItemRangeInserted(startPosition, result.data.size)
+                        videoAdapter?.notifyItemRangeInserted(startPosition, result.data.datass.size)
 
                     }
 

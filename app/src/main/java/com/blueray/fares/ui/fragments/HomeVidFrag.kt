@@ -111,51 +111,51 @@
             mSnapHelper.attachToRecyclerView(binding.vidRec)
 
 
-
-            val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
-                override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
-                    return false // Not interested in move events.
-                }
-
-                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                    val position = viewHolder.adapterPosition // Get the swiped item's position
-                    val swipedItem = newArrVideoModel[position]
-
-                    // Check user login status
-//                    if (HelperUtils.getUid(requireContext()) == "0") {
-//                        Toast.makeText(context,"يجب تسجيل الدخول",Toast.LENGTH_LONG).show()
-//                        startActivity(Intent(requireContext(), MainActivity::class.java))
-//                    } else {
-                        // Example: Sending ID of the swiped item
-                        val bundle = Bundle().apply {
-                            if (swipedItem.type == "poet") {
-
-                                putString("usernName", swipedItem.userName) // Use your item's unique identifier
-                                putString("userIdes", swipedItem.userId) // Use your item's unique identifier
-                                putString("userImg", swipedItem.userPic) // Use your item's unique identifier
-                                putString("fullname", swipedItem.firstName  + swipedItem.lastName) // Use your item's unique identifier
-
-                            } else {
-                                putString("usernName", swipedItem.userName) // Use your item's unique identifier
-                                putString("userIdes", swipedItem.userId) // Use your item's unique identifier
-                                putString("userImg", swipedItem.userPic) // Use your item's unique identifier
-                                putString("fullname", swipedItem.bandNam) // Use your item's unique identifier
-
-                            }
-
-
-
-                        }
-                        pauseAllVideos()
-binding.vidRec.adapter = null
-                        navController.navigate(R.id.partitionChannelFragment, bundle)
-
-//                    }
-                }
-            }
-
-            val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
-            itemTouchHelper.attachToRecyclerView(binding.vidRec)
+//
+//            val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+//                override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
+//                    return false // Not interested in move events.
+//                }
+//
+//                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+//                    val position = viewHolder.adapterPosition // Get the swiped item's position
+//                    val swipedItem = newArrVideoModel[position]
+//
+//                    // Check user login status
+////                    if (HelperUtils.getUid(requireContext()) == "0") {
+////                        Toast.makeText(context,"يجب تسجيل الدخول",Toast.LENGTH_LONG).show()
+////                        startActivity(Intent(requireContext(), MainActivity::class.java))
+////                    } else {
+//                        // Example: Sending ID of the swiped item
+//                        val bundle = Bundle().apply {
+//                            if (swipedItem.type == "poet") {
+//
+//                                putString("usernName", swipedItem.userName) // Use your item's unique identifier
+//                                putString("userIdes", swipedItem.userId) // Use your item's unique identifier
+//                                putString("userImg", swipedItem.userPic) // Use your item's unique identifier
+//                                putString("fullname", swipedItem.firstName  + swipedItem.lastName) // Use your item's unique identifier
+//
+//                            } else {
+//                                putString("usernName", swipedItem.userName) // Use your item's unique identifier
+//                                putString("userIdes", swipedItem.userId) // Use your item's unique identifier
+//                                putString("userImg", swipedItem.userPic) // Use your item's unique identifier
+//                                putString("fullname", swipedItem.bandNam) // Use your item's unique identifier
+//
+//                            }
+//
+//
+//
+//                        }
+//                        pauseAllVideos()
+//binding.vidRec.adapter = null
+//                        navController.navigate(R.id.partitionChannelFragment, bundle)
+//
+////                    }
+//                }
+//            }
+//
+//            val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
+//            itemTouchHelper.attachToRecyclerView(binding.vidRec)
 
 
 
@@ -197,23 +197,24 @@ binding.vidRec.adapter = null
                     is NetworkResults.Success -> {
     binding.img.hide()
 
+//                        result.data.f
     //                    append new Items
                         isLoading = false
-                        if (result.data.isEmpty()) {
+                        if (result.data.datass.isEmpty()) {
                             noMoreData = true
                             binding.progg.hide()
 
                         } else {
                             binding.progg.hide()
                             val startPosition = newArrVideoModel.size
-
                             // Iterate over each item and add to newArrVideoModel
-                            result.data.forEach { item ->
+                            result.data.datass.forEach { item ->
                                 var vidLink = ""
-                                val adaptiveFile =
-                                    item.vimeo_detials.files.firstOrNull { it.rendition == "adaptive" || it.rendition == "360" }
-
+        val adaptiveFile = item.vimeo_detials?.files?.firstOrNull {
+                                it.rendition == "adaptive" || it.rendition == "360"
+                            }
                                 vidLink = adaptiveFile?.link ?: item.file
+
 
                                 newArrVideoModel.add(
                                     NewAppendItItems(
@@ -228,7 +229,7 @@ binding.vidRec.adapter = null
                                     )
                                 )
                             }
-                            videoAdapter?.notifyItemRangeInserted(startPosition, result.data.size)
+                            videoAdapter?.notifyItemRangeInserted(startPosition, result.data.datass.size)
 
                         }
 
@@ -346,13 +347,13 @@ binding.vidRec.adapter = null
         override fun onPause() {
             super.onPause()
             pauseAllVideos()
-            binding.vidRec.adapter = null
+//            binding.vidRec.adapter = null
         }
 
         override fun onStop() {
             super.onStop()
             pauseAllVideos()
-            binding.vidRec.adapter = null
+//            binding.vidRec.adapter = null
 
 
         }

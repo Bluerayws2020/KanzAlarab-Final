@@ -29,7 +29,7 @@ import com.blueray.fares.videoliveeventsample.util.showToast
 import com.sendbird.webrtc.AudioDevice
 import com.sendbird.webrtc.VideoDevice
 
-class LiveEventSetUpActivity : AppCompatActivity() {
+class ـLiveEventSetUpActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLiveEventSetUpBinding
     private val permissions = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
         arrayOf(

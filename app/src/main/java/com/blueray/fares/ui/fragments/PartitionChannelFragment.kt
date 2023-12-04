@@ -116,7 +116,7 @@ class PartitionChannelFragment : Fragment() {
                 when (result) {
                     is NetworkResults.Success -> {
 
-                        result.data.forEach { item ->
+                        result.data.datass.forEach { item ->
                             var vidLink = ""
                             val adaptiveFile = item.vimeo_detials.files.firstOrNull { it.rendition == "adaptive" || it.rendition == "360" }
                             vidLink = adaptiveFile?.link ?: item.file

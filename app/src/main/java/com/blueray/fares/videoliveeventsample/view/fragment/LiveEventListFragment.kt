@@ -1,4 +1,4 @@
-package com.sendbird.live.videoliveeventsample.view.fragment
+package com.blueray.fares.videoliveeventsample.view.fragment
 
 import android.Manifest
 import android.app.Activity
@@ -8,7 +8,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.SnapHelper
 import com.blueray.fares.R
 import com.blueray.fares.databinding.FragmentLiveEventListBinding
 import com.sendbird.live.LiveEvent
@@ -28,7 +30,6 @@ import com.blueray.fares.videoliveeventsample.util.showToast
 import com.blueray.fares.videoliveeventsample.view.CreateLiveEventActivity
 import com.blueray.fares.videoliveeventsample.view.LiveEventForParticipantActivity
 import com.blueray.fares.videoliveeventsample.view.LiveEventSetUpActivity
-import com.blueray.fares.videoliveeventsample.view.fragment.BaseFragment
 
 class LiveEventListFragment :
     BaseFragment<FragmentLiveEventListBinding>(FragmentLiveEventListBinding::inflate) {
@@ -75,6 +76,8 @@ class LiveEventListFragment :
         }
         initLiveEventListView()
         initHeaderView()
+        val mSnapHelper: SnapHelper = PagerSnapHelper()
+        mSnapHelper.attachToRecyclerView(binding.rvLiveEvents)
     }
 
     private fun initHeaderView() {

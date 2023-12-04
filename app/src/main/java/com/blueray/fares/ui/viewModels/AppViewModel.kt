@@ -14,6 +14,7 @@ import com.blueray.fares.model.Item
 import com.blueray.fares.model.NetworkResults
 import com.blueray.fares.model.UserLoginModel
 import com.blueray.fares.model.UserUploadeDone
+import com.blueray.fares.model.VideoDataModel
 import com.blueray.fares.model.VideoResponse
 import com.blueray.fares.model.ViewUserLoginModel
 import com.blueray.fares.model.VimeoVideoModelV2
@@ -39,8 +40,8 @@ class AppViewModel(application: Application): AndroidViewModel(application) {
 
     private val loginUserMessageLiveData = MutableLiveData<NetworkResults<UserLoginModel>>()
 
-    private val getVideosLive = MutableLiveData<NetworkResults<List<VideoResponse>>>()
-    private val getUserVideosLive = MutableLiveData<NetworkResults<List<VideoResponse>>>()
+    private val getVideosLive = MutableLiveData<NetworkResults<VideoDataModel>>()
+    private val getUserVideosLive = MutableLiveData<NetworkResults<VideoDataModel>>()
     private val viewUserPrfofile = MutableLiveData<NetworkResults<List<ViewUserLoginModel>>>()
 
     private val vimeoVideoLiveData = MutableLiveData<NetworkResults<VimeoVideoModelV2>>()

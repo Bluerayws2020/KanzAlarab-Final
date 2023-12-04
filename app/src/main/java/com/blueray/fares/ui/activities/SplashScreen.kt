@@ -85,8 +85,8 @@ class SplashScreen : AppCompatActivity() {
 
     private fun autoAuthenticate(callback: (Boolean, String?) -> Unit) {
         val appId = "1CFCE912-F6CC-4F60-9FA1-FC4B3B61BA6A"
-        val userId = "122"
-        val accessToken = ""
+        val userId = "65"
+        val accessToken = "a509c1fbce3f09483f6b3196bb6f9368757a72ac"
 
         if (appId == null || userId == null) {
             callback.invoke(false, null)

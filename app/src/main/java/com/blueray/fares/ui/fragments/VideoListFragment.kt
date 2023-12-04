@@ -112,7 +112,7 @@ binding.videosRv.adapter = null
         mainViewModel.getUserVideos().observe(viewLifecycleOwner) { result ->
             when (result) {
                 is NetworkResults.Success -> {
-                    val data = result.data
+                    val data = result.data.datass
                     if (data.isNullOrEmpty()) {
                         // Handle empty data scenario
                     } else {

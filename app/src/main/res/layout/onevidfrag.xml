@@ -8,6 +8,7 @@
 
     <include
         android:id="@+id/include_tap"
+        android:visibility="gone"
         layout="@layout/profile_app_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

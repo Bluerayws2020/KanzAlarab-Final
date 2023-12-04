@@ -17,7 +17,7 @@ import com.blueray.fares.helpers.HelperUtils.setDefaultLanguage
 import com.blueray.fares.helpers.HelperUtils.setLang
 import com.blueray.fares.helpers.ViewUtils.hide
 import com.blueray.fares.helpers.ViewUtils.show
-import com.sendbird.live.videoliveeventsample.view.fragment.LiveEventListFragment
+import com.blueray.fares.videoliveeventsample.view.fragment.LiveEventListFragment
 
 class HomeActivity : BaseActivity() {
     private lateinit var navController: NavController
@@ -50,12 +50,22 @@ class HomeActivity : BaseActivity() {
 
         NavigationUI.setupWithNavController(binding.bottomNav, navController)
 //        NavigationUI.setupWithNavController(binding.navDrawer, navController)
+        binding.addNew.setOnClickListener{
 
-binding.addNew.setOnClickListener{
-    startActivity(Intent(this,UploadeVedio::class.java))
+            if (HelperUtils.getUid(this@HomeActivity) == "0"){
+                Toast.makeText(this,"يجب تسجيل الدخول",Toast.LENGTH_LONG).show()
 
-}
+                startActivity(Intent(this,com.blueray.fares.ui.activities.SplashScreen::class.java))
+                finish()
 
+            }else {
+                MyBottomSheetFragment().show(supportFragmentManager, MyBottomSheetFragment::class.java.simpleName)
+
+
+
+
+            }
+        }
 
 
         binding.bottomNav.setOnItemSelectedListener {
@@ -64,7 +74,7 @@ binding.addNew.setOnClickListener{
                 R.id.home ->{
 //                    val v = Bundle()
 //                    v.putString("123","1")
-                    navController.navigate(R.id.homeVidFrag)
+                    navController.navigate(R.id.homePagerFragment)
                     true
                 }
                 R.id.search->{

@@ -7,6 +7,7 @@ import com.blueray.fares.model.Item
 import com.blueray.fares.model.NetworkResults
 import com.blueray.fares.model.UserLoginModel
 import com.blueray.fares.model.UserUploadeDone
+import com.blueray.fares.model.VideoDataModel
 import com.blueray.fares.model.VideoResponse
 import com.blueray.fares.model.ViewUserLoginModel
 import com.blueray.fares.model.VimeoVideoModelV2
@@ -86,7 +87,7 @@ object NetworkRepository {
 
         page:Int
 
-        ): NetworkResults<List<VideoResponse>> {
+        ): NetworkResults<VideoDataModel> {
         return withContext(Dispatchers.IO){
 
 
@@ -109,7 +110,7 @@ object NetworkRepository {
 uid:String
 ,state:String,pagesize:String
 
-    ): NetworkResults<List<VideoResponse>> {
+    ): NetworkResults<VideoDataModel> {
         return withContext(Dispatchers.IO){
 
 //                    ,pagesize.toString()
