@@ -249,23 +249,23 @@ binding.radioOption1.isChecked = true
                         natonalList = result.data as ArrayList<DropDownModel>
                         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, natonalList.map { it.name })
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                        binding.nationalitySpinner.adapter = adapter
-                    binding.nationalitySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                        override fun onItemSelected(
-                            parent: AdapterView<*>,
-                            view: View?,   // <-- Allow view to be nullable
-                            position: Int,
-                            id: Long
-                        ) {
-
-                            natonalId = natonalList[position].id
-
-                        }
-
-
-                        override fun onNothingSelected(parent: AdapterView<*>) {
-                        }
-                    }
+//                        binding.nationalitySpinner.adapter = adapter
+//                    binding.nationalitySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+//                        override fun onItemSelected(
+//                            parent: AdapterView<*>,
+//                            view: View?,   // <-- Allow view to be nullable
+//                            position: Int,
+//                            id: Long
+//                        ) {
+//
+//                            natonalId = natonalList[position].id
+//
+//                        }
+//
+//
+//                        override fun onNothingSelected(parent: AdapterView<*>) {
+//                        }
+//                    }
 
                 }
                 else -> hideProgress()
@@ -292,40 +292,40 @@ binding.radioOption1.isChecked = true
                         genderList = result.data as ArrayList<DropDownModel>
                         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, genderList.map { it.name })
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                        binding.genderSpinner.adapter = adapter
+//                        binding.genderSpinner.adapter = adapter
 
-                    binding.genderSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                        override fun onItemSelected(
-                            parent: AdapterView<*>,
-                            view: View?,   // <-- Allow view to be nullable
-                            position: Int,
-                            id: Long
-                        ) {
-
-                            genderId = genderList[position].id
-
-                        }
-
-                        override fun onNothingSelected(parent: AdapterView<*>) {
-                        }
-                    }
-                    binding.genderSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                        override fun onItemSelected(
-                            parent: AdapterView<*>,
-                            view: View?,   // <-- Allow view to be nullable
-                            position: Int,
-                            id: Long
-                        ) {
-                            if (natonalList.isNullOrEmpty()){
-
-                            }else {
-                                genderId = genderList[position].id
-                            }
-                        }
-
-                        override fun onNothingSelected(parent: AdapterView<*>) {
-                        }
-                    }
+//                    binding.genderSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+//                        override fun onItemSelected(
+//                            parent: AdapterView<*>,
+//                            view: View?,   // <-- Allow view to be nullable
+//                            position: Int,
+//                            id: Long
+//                        ) {
+//
+//                            genderId = genderList[position].id
+//
+//                        }
+//
+//                        override fun onNothingSelected(parent: AdapterView<*>) {
+//                        }
+//                    }
+//                    binding.genderSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+//                        override fun onItemSelected(
+//                            parent: AdapterView<*>,
+//                            view: View?,   // <-- Allow view to be nullable
+//                            position: Int,
+//                            id: Long
+//                        ) {
+//                            if (natonalList.isNullOrEmpty()){
+//
+//                            }else {
+//                                genderId = genderList[position].id
+//                            }
+//                        }
+//
+//                        override fun onNothingSelected(parent: AdapterView<*>) {
+//                        }
+//                    }
 
                 }
 
@@ -373,25 +373,25 @@ binding.radioOption1.isChecked = true
                         }
                     }
 
-                    binding.countrySpinner.adapter = adapter
+//                    binding.countrySpinner.adapter = adapter
 
-                    binding.countrySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                        override fun onItemSelected(
-                            parent: AdapterView<*>,
-                            view: View?,   // <-- Allow view to be nullable
-                            position: Int,
-                            id: Long
-                        ) {
-
-                            countryID = countryList[position].id
-                            viewmodel.retriveCity(countryList[position].id)
-
-
-                        }
-
-                        override fun onNothingSelected(parent: AdapterView<*>) {
-                        }
-                    }
+//                    binding.countrySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+//                        override fun onItemSelected(
+//                            parent: AdapterView<*>,
+//                            view: View?,   // <-- Allow view to be nullable
+//                            position: Int,
+//                            id: Long
+//                        ) {
+//
+//                            countryID = countryList[position].id
+//                            viewmodel.retriveCity(countryList[position].id)
+//
+//
+//                        }
+//
+//                        override fun onNothingSelected(parent: AdapterView<*>) {
+//                        }
+//                    }
 
 
 
@@ -422,24 +422,24 @@ binding.radioOption1.isChecked = true
                     cityList = result.data as ArrayList<DropDownModel>
                     val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, cityList.map { it.name })
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                    binding.citySpinner.adapter = adapter
+//                    binding.citySpinner.adapter = adapter
 
-                    binding.citySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                        override fun onItemSelected(
-                            parent: AdapterView<*>,
-                            view: View?,   // <-- Allow view to be nullable
-                            position: Int,
-                            id: Long
-                        ) {
-
-                            cityId = cityList[position].id
-
-
-                        }
-
-                        override fun onNothingSelected(parent: AdapterView<*>) {
-                        }
-                    }
+//                    binding.citySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+//                        override fun onItemSelected(
+//                            parent: AdapterView<*>,
+//                            view: View?,   // <-- Allow view to be nullable
+//                            position: Int,
+//                            id: Long
+//                        ) {
+//
+//                            cityId = cityList[position].id
+//
+//
+//                        }
+//
+//                        override fun onNothingSelected(parent: AdapterView<*>) {
+//                        }
+//                    }
 
                     binding.cityForBand.adapter = adapter
 

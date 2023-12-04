@@ -10,10 +10,12 @@
         android:id="@+id/choice"
         style="@style/Widget.MaterialComponents.Chip.Filter"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-
+        android:layout_height="60dp"
+        app:textEndPadding="20dp"
+        app:textStartPadding="20dp"
         app:chipStrokeWidth="1dp"
+        app:chipBackgroundColor="@color/white"
+        app:chipStrokeColor="@color/lightGrey"
         android:layout_marginStart="4dp"
         android:layout_marginEnd="4dp"
         android:text="jordan"/>

@@ -86,7 +86,7 @@ class PartitionChannelFragment : Fragment() {
                 // Use the retrieved itemId
                 // For example, load data based on this itemId or initialize views
                 binding.userName.text = "@$usernName"
-                binding.name.text = fullname
+//                binding.name.text = fullname
 
             }
         }

@@ -16,16 +16,24 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".ui.activities.LiveStreaming"
-            android:exported="false" />
-        <activity
-            android:name=".ui.activities.SplashScreen"
-            android:exported="true">
+            android:name=".ui.activities.FollowingAndFollowersActivity"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.activities.RegistrationOtpActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.LiveStreaming"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.SplashScreen"
+            android:exported="false">
+
         </activity>
         <activity
             android:name=".ui.activities.HomeActivity"
@@ -53,75 +61,53 @@
             android:exported="false" />
         <activity
             android:name=".ui.activities.SecondRegistrationActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".ui.fragments.VidInnerPlay"
             android:exported="false" />
         <activity
             android:name=".ui.activities.RegistrationActivity"
             android:exported="false" />
-
-
         <activity
             android:name=".videoliveeventsample.view.LiveEventSetUpActivity"
             android:exported="false"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".videoliveeventsample.view.UserIdsForHostListActivity"
             android:exported="false"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".videoliveeventsample.view.CreateLiveEventActivity"
             android:exported="false"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".videoliveeventsample.view.HostAndCandidatesListActivity"
             android:exported="false"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".videoliveeventsample.view.ParticipantListActivity"
             android:exported="false"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".videoliveeventsample.view.LiveEventForHostActivity"
             android:exported="false"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".videoliveeventsample.view.LiveEventSummaryActivity"
             android:exported="false"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".videoliveeventsample.view.LiveEventEndedActivity"
             android:exported="false"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".videoliveeventsample.view.LiveEventForParticipantActivity"
             android:exported="false"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".videoliveeventsample.view.LiveEventActivity"
             android:exported="false"
-            android:screenOrientation="portrait"
-            />
-
-
-
-
-
-
-
-
-
-
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activities.MainActivity"
             android:exported="true">

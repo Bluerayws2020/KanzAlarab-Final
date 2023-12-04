@@ -37,41 +37,41 @@ class ThirdRegistrationActivity : BaseActivity() {
 
 
 
-        val editTexts = listOf(binding.bandName, binding.userNameEt,binding.passwordTxt,binding.ConfirmPassword,binding.phoneNumber,binding.email)
+//        val editTexts = listOf(binding.bandName, binding.userNameEt,binding.passwordTxt,binding.ConfirmPassword,binding.phoneNumber,binding.email)
 
-        editTexts.forEachIndexed { index, editText ->
-            editText.setOnEditorActionListener { _, actionId, _ ->
-                when (actionId) {
-                    EditorInfo.IME_ACTION_NEXT -> {
-                        // Move to the next EditText if it's not the last one
-                        if (index < editTexts.size - 1) {
-                            editTexts[index + 1].requestFocus()
-                        }
-                        true
-                    }
-                    EditorInfo.IME_ACTION_DONE -> {
-                        // Hide the keyboard if it's the last EditText
-                        if (index == editTexts.size - 1) {
-                            HelperUtils.hideKeyBoard(this)
-                        }
-                        true
-                    }
-                    else -> false
-                }
-            }
-        }
+//        editTexts.forEachIndexed { index, editText ->
+//            editText.setOnEditorActionListener { _, actionId, _ ->
+//                when (actionId) {
+//                    EditorInfo.IME_ACTION_NEXT -> {
+//                        // Move to the next EditText if it's not the last one
+//                        if (index < editTexts.size - 1) {
+//                            editTexts[index + 1].requestFocus()
+//                        }
+//                        true
+//                    }
+//                    EditorInfo.IME_ACTION_DONE -> {
+//                        // Hide the keyboard if it's the last EditText
+//                        if (index == editTexts.size - 1) {
+//                            HelperUtils.hideKeyBoard(this)
+//                        }
+//                        true
+//                    }
+//                    else -> false
+//                }
+//            }
+//        }
 
 
 
 
 
         if(RegistrationActivity.signupType == "1"){
-            binding.banlabel.hide()
-            binding.bandName.hide()
+//            binding.banlabel.hide()
+//            binding.bandName.hide()
 
         }else{
-            binding.banlabel.hide()
-            binding.bandName.hide()
+//            binding.banlabel.hide()
+//            binding.bandName.hide()
         }
 
         getCreateBandAccounts()
@@ -79,55 +79,55 @@ class ThirdRegistrationActivity : BaseActivity() {
 
         binding.nextBtn.setOnClickListener {
             if (binding.phoneNumber.text?.isEmpty() == false) {
-                if (binding.userNameEt.text?.isEmpty() == false) {
-
-
-                    if (binding.ConfirmPassword.text.toString() == binding.passwordTxt.text.toString()) {
-showProgress()
+//                if (binding.userNameEt.text?.isEmpty() == false) {
+//
+//
+//                    if (binding.ConfirmPassword.text.toString() == binding.passwordTxt.text.toString()) {
+//showProgress()
 
                         if (RegistrationActivity.signupType == "1") {
 
 
-                            viewmodel.retriveCreateAccount(
-                                RegistrationActivity.firstName.toString(),
-                                RegistrationActivity.lastName.toString(),
-                                RegistrationActivity.genderId,
-                                RegistrationActivity.natonalId,
-                                RegistrationActivity.residantPlace,
-                                ActivitiesTypesAdapter.selected_items.joinToString(","),
-                                binding.userNameEt.text.toString(),
-                                binding.email.text.toString(),
-                                binding.phoneNumber.text.toString(),
-                                binding.passwordTxt.text.toString(),
-                                RegistrationActivity.barithDate
-                            )
+//                            viewmodel.retriveCreateAccount(
+//                                RegistrationActivity.firstName.toString(),
+//                                RegistrationActivity.lastName.toString(),
+//                                RegistrationActivity.genderId,
+//                                RegistrationActivity.natonalId,
+//                                RegistrationActivity.residantPlace,
+//                                ActivitiesTypesAdapter.selected_items.joinToString(","),
+//                                binding.userNameEt.text.toString(),
+//                                binding.email.text.toString(),
+//                                binding.phoneNumber.text.toString(),
+//                                binding.passwordTxt.text.toString(),
+//                                RegistrationActivity.barithDate
+//                            )
                         }else {
-                            viewmodel.retriveBandName(
+//                            viewmodel.retriveBandName(
+//
+//                   RegistrationActivity.bandName,
+//                    RegistrationActivity.natonalId,
+//                    RegistrationActivity.residantPlace,
+//                    ActivitiesTypesAdapter.selected_items.joinToString(","),
+//                    binding.userNameEt.text.toString(),
+//                    binding.email.text.toString(),
+//                    binding.phoneNumber.text.toString(),
+//                    binding.passwordTxt.text.toString(),
+//                    RegistrationActivity.squadNumber
 
-                   RegistrationActivity.bandName,
-                    RegistrationActivity.natonalId,
-                    RegistrationActivity.residantPlace,
-                    ActivitiesTypesAdapter.selected_items.joinToString(","),
-                    binding.userNameEt.text.toString(),
-                    binding.email.text.toString(),
-                    binding.phoneNumber.text.toString(),
-                    binding.passwordTxt.text.toString(),
-                    RegistrationActivity.squadNumber
-
-                            )
+//                      }      )
                         }
                     } else {
-                        binding.ConfirmPassword.setError("كلمة السر غير مطابقة")
+//                        binding.ConfirmPassword.setError("كلمة السر غير مطابقة")
                     }
 
 
-                } else {
-                    binding.userNameEt.setError("حقل ضروري ")
+//                } else {
+//                    binding.userNameEt.setError("حقل ضروري ")
                 }
-            } else {
-                binding.userNameEt.setError("حقل ضروري ")
+//            } else {
+//                binding.userNameEt.setError("حقل ضروري ")
 
-            }
+//            }
         }
 
 
@@ -136,86 +136,86 @@ showProgress()
 
 
     private fun getCreateAccounts() {
-        hideProgress()
+//        hideProgress()
 
-        viewmodel.getCreateAccount().observe(this) { result ->
-            hideProgress()
-
-            when (result) {
-                is NetworkResults.Success -> {
-         if (result.data.status.status == 200){
-             saveUserData(result.data)
-
-         }else {
-             Toast.makeText(this,result.data.status.msg.toString(),Toast.LENGTH_LONG).show()
-         }
-
-
-                }
-
-                is NetworkResults.Error -> {
-                    result.exception.printStackTrace()
-                    hideProgress()
-                }
-
-                else -> hideProgress()
-            }
-        }
+//        viewmodel.getCreateAccount().observe(this) { result ->
+//            hideProgress()
+//
+//            when (result) {
+//                is NetworkResults.Success -> {
+//         if (result.data.status.status == 200){
+//             saveUserData(result.data)
+//
+//         }else {
+//             Toast.makeText(this,result.data.status.msg.toString(),Toast.LENGTH_LONG).show()
+//         }
+//
+//
+//                }
+//
+//                is NetworkResults.Error -> {
+//                    result.exception.printStackTrace()
+//                    hideProgress()
+//                }
+//
+//                else -> hideProgress()
+//            }
+//        }
     }
 
     private fun getCreateBandAccounts() {
-        hideProgress()
+//        hideProgress()
 
-        viewmodel.getBandAccount().observe(this) { result ->
-            hideProgress()
-
-            when (result) {
-                is NetworkResults.Success -> {
-                    if (result.data.status.status == 200){
-                        saveUserData(result.data)
-
-                    }else {
-                        Toast.makeText(this,result.data.status.msg.toString(),Toast.LENGTH_LONG).show()
-                    }
-
-
-                }
-
-                is NetworkResults.Error -> {
-                    result.exception.printStackTrace()
-                    hideProgress()
-                }
-
-                else -> hideProgress()
-            }
-        }
+//        viewmodel.getBandAccount().observe(this) { result ->
+//            hideProgress()
+//
+//            when (result) {
+//                is NetworkResults.Success -> {
+//                    if (result.data.status.status == 200){
+//                        saveUserData(result.data)
+//
+//                    }else {
+//                        Toast.makeText(this,result.data.status.msg.toString(),Toast.LENGTH_LONG).show()
+//                    }
+//
+//
+//                }
+//
+//                is NetworkResults.Error -> {
+//                    result.exception.printStackTrace()
+//                    hideProgress()
+//                }
+//
+//                else -> hideProgress()
+//            }
+//        }
     }
 
-    fun saveUserData(model:UserLoginModel){
-        val sharedPreferences = getSharedPreferences(HelperUtils.SHARED_PREF, MODE_PRIVATE)
+//    fun saveUserData(model:UserLoginModel){
+//        val sharedPreferences = getSharedPreferences(HelperUtils.SHARED_PREF, MODE_PRIVATE)
+//
+//        sharedPreferences.edit().apply {
+//            putString(HelperUtils.UID_KEY, model.data.uid)
+//            putString("role", model.data.uid)
+//
+//            putString(HelperUtils.USERNAME, binding.userNameEt.text?.trim().toString())
+//            putString(HelperUtils.PASSWORD, binding.passwordTxt.text?.trim().toString())
+//
+//
+//
+//        }.apply()
+//        startActivity(Intent(this,HomeActivity::class.java))
+//
+//    }
 
-        sharedPreferences.edit().apply {
-            putString(HelperUtils.UID_KEY, model.data.uid)
-            putString("role", model.data.uid)
 
-            putString(HelperUtils.USERNAME, binding.userNameEt.text?.trim().toString())
-            putString(HelperUtils.PASSWORD, binding.passwordTxt.text?.trim().toString())
+//    private fun hideProgress() {
+//        binding.progressBar.hide()
+//
+//    }
 
+//    private fun showProgress() {
+//        binding.progressBar.show()
+//    }
 
-
-        }.apply()
-        startActivity(Intent(this,HomeActivity::class.java))
-
-    }
-
-
-    private fun hideProgress() {
-        binding.progressBar.hide()
-
-    }
-
-    private fun showProgress() {
-        binding.progressBar.show()
-    }
-
-}
+//}

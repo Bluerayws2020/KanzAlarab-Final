@@ -40,25 +40,24 @@
                 android:orientation="vertical"
                 android:padding="20dp">
 
-
                 <TextView
                     android:id="@+id/some_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:text="Confirm Account Data"
+                    android:text="@string/enter_confimation_number"
                     android:textColor="@color/blue"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/phoneNumberTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="@string/enter_information_below_then_click_create_account"
+                    android:text="@string/please_enter_the_code_sent_to_your_phone_number_s"
                     android:textColor="@color/lightGreen"
                     android:textSize="12sp"
-                    android:visibility="gone"
                     android:textStyle="bold" />
 
                 <LinearLayout
@@ -66,48 +65,29 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:hint="@string/phone_number"
-                        app:boxBackgroundColor="@color/white"
-                        android:layout_height="wrap_content">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/phoneNumber"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:inputType="text"
-                            android:lines="1" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:hint="@string/email_optional"
-                        android:layout_width="match_parent"
-                        app:boxBackgroundColor="@color/white"
-                        android:layout_height="wrap_content">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/email"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:inputType="textEmailAddress"
-                            android:lines="1" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <CheckBox
+                    <com.chaos.view.PinView
+                        android:id="@+id/firstPinView"
+                        style="@style/PinWidget.PinView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="11sp"
-                        android:layout_marginTop="20dp"
-                        android:text="@string/i_agree_to_the_terms_and_conditions_and_acknowledge_my_use_of_this_application_to_comply_with_the_seller_s_terms_policies_and_guidelines"
-                        />
-
+                        android:cursorVisible="true"
+                        android:inputType="text"
+                        android:padding="10dp"
+                        android:textColor="@color/blue"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:cursorColor="@color/blue"
+                        app:cursorWidth="2dp"
+                        app:hideLineWhenFilled="true"
+                        app:itemCount="4"
+                        app:itemHeight="48dp"
+                        app:itemSpacing="40dp"
+                        android:layout_marginTop="30dp"
+                        app:itemWidth="48dp"
+                        app:lineColor="@color/lightGreen"
+                        app:lineWidth="2dp"
+                        android:layout_gravity="center"
+                        app:viewType="line" />
                 </LinearLayout>
 
                 <com.google.android.material.button.MaterialButton

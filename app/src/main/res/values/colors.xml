@@ -58,4 +58,7 @@
     <color name="reaction_blue">#79A2F2</color>
     <color name="reaction_orange">#FFAB52</color>
     <color name="reaction_red">#FB6B6B</color>
+    <color name="blue">#293056</color>
+    <color name="yellow300">#FEC84B</color>
+    <color name="baby_blue">#FFA0ABBB</color>
 </resources>

@@ -30,7 +30,7 @@ holder.binding.profiel.setOnClickListener{
     onProfileClick.onProfileClikc(position)
 }
 
-        holder.binding.share.setOnClickListener{
+        holder.binding.shareBtn.setOnClickListener{
             onProfileClick.onProfileShare(position)
         }
 

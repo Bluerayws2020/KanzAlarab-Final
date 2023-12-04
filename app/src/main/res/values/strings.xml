@@ -33,7 +33,7 @@
     <string name="user_name">User Name</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="phone_number">Phone Number</string>
-    <string name="email_optional">Email (Optional)</string>
+    <string name="email_optional">Email</string>
     <string name="change_password">Change Password</string>
     <string name="phone_number_email">Phone Number / Email</string>
     <string name="send_code">Send Code</string>
@@ -187,4 +187,14 @@
     <string name="permission_text_bluetooth">BLUETOOTH</string>
     <string name="permission_text_bluetooth_connect">BLUETOOTH CONNECT</string>
     <string name="permission_text_unknown">etc</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="welcome">Welcome</string>
+    <string name="don_t_have_account">Don\'t Have Account?</string>
+    <string name="username">Username</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="i_agree_to_the_terms_and_conditions_and_acknowledge_my_use_of_this_application_to_comply_with_the_seller_s_terms_policies_and_guidelines">I agree to the terms and conditions, and acknowledge my use of this application to comply with the seller\'s terms, policies and guidelines.</string>
+    <string name="please_enter_the_code_sent_to_your_phone_number_s">Please Enter The Code Sent to your Phone Number %S</string>
+    <string name="enter_confimation_number">Enter Confimation Number</string>
 </resources>

@@ -83,7 +83,7 @@ class VideoFeedAdapter(val videoUrls: List<NewAppendItItems>, var onProfileClick
     override fun onBindViewHolder(holder: VideoViewHolder, position: Int) {
         holder.bind(videoUrls[position].videoUrl)
         holder.binding.username.text =  videoUrls[position].userName
-        holder.binding.descirption.text =  videoUrls[position].videoTitle
+        holder.binding.description.text =  videoUrls[position].videoTitle
 
 
         if (isUser == 1){
@@ -100,7 +100,7 @@ class VideoFeedAdapter(val videoUrls: List<NewAppendItItems>, var onProfileClick
         holder.binding.placeHolderImg.setOnClickListener{
             onProfileClick.onProfileClikc(pos = position)
         }
-        holder.binding.share.setOnClickListener{
+        holder.binding.shareBtn.setOnClickListener{
             onProfileClick.onProfileShare(pos = position)
         }
         holder.binding.profile.setOnClickListener {
@@ -115,7 +115,7 @@ class VideoFeedAdapter(val videoUrls: List<NewAppendItItems>, var onProfileClick
         holder.binding.menu.setOnClickListener {
             onProfileClick.onmenuClick()
         }
-        Glide.with(context).load(videoUrls[position].userPic).into(holder.binding.profiel)
+        Glide.with(context).load(videoUrls[position].userPic).into(holder.binding.profielImage)
 
         holder.binding.videoView.setOnClickListener {
             if (holder.player?.isPlaying == true) {

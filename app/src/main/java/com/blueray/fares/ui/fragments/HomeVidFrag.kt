@@ -13,6 +13,7 @@
     import androidx.fragment.app.viewModels
     import androidx.navigation.NavController
     import androidx.navigation.Navigation
+    import androidx.navigation.fragment.findNavController
     import androidx.recyclerview.widget.ItemTouchHelper
     import androidx.recyclerview.widget.LinearLayoutManager
     import androidx.recyclerview.widget.PagerSnapHelper
@@ -58,7 +59,7 @@
             super.onViewCreated(view, savedInstanceState)
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
-            navController = Navigation.findNavController(view)
+            navController =findNavController()
             binding.includeTap.profile.setOnClickListener {
 
                 if (HelperUtils.getUid(requireContext()) == "0"){

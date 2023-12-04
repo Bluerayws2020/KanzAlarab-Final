@@ -5,34 +5,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.activities.RegistrationActivity">
+
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/main_back_water_mark"
-        android:scaleType="centerCrop"
-        />
-    <include
-        layout="@layout/registration_app_bar"
-        android:id="@+id/include_tap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/login_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="-40dp"
+        app:layout_constraintStart_toStartOf="parent"
         />
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:src="@drawable/registreation_back"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginBottom="-200dp"
-        />
-    <androidx.cardview.widget.CardView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/include_tap"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:cardCornerRadius="30dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
+        android:orientation="horizontal"
         >
         <LinearLayout
             android:layout_width="match_parent"
@@ -40,24 +31,31 @@
             android:orientation="vertical"
             android:padding="20dp"
             >
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:src="@drawable/logo_image"
+                />
             <TextView
                 android:id="@+id/some_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/log_in"
+                android:text="كنز العرب"
                 android:layout_gravity="center"
-                android:textSize="24sp"
-                android:textColor="@color/brown"
+                android:textSize="30sp"
+                android:textColor="@color/blue"
                 android:textStyle="bold"
                 android:layout_marginTop="20dp"
                 />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/welcome_back"
+                android:text="@string/welcome"
                 android:textSize="14sp"
-                android:layout_gravity="center"
+                android:layout_gravity="start"
                 android:textStyle="bold"
+                android:textColor="@color/blue"
                 android:layout_marginTop="10dp"
                 />
             <LinearLayout
@@ -67,6 +65,7 @@
                 android:layout_height="wrap_content"
                 >
                 <TextView
+                    android:visibility="gone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/username_phone_number"
@@ -76,7 +75,10 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                    app:boxBackgroundColor="@color/white"
+                    app:boxCornerRadiusTopStart="7dp"
+                    android:hint="@string/username_phone_number"
+                    >
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/userName"
@@ -93,11 +95,15 @@
                     android:text="@string/password"
                     android:textSize="14sp"
                     android:textColor="@color/brown"
+                    android:visibility="gone"
                     />
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                    app:boxBackgroundColor="@color/white"
+                    android:hint="@string/password"
+                    app:boxCornerRadiusBottomStart="7dp"
+                    >
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/password"
@@ -116,16 +122,19 @@
                 android:text="@string/forgot_password"
                 android:textStyle="bold"
                 android:layout_marginTop="10dp"
-                android:layout_gravity="center"
-                android:textColor="@color/green"
+                android:layout_gravity="end"
+                android:textColor="@color/yellow300"
                 />
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/signInBtn"
                 android:layout_width="match_parent"
+                style="@style/Widget.Material3.Button.OutlinedButton"
                 android:layout_height="60dp"
                 app:cornerRadius="15dp"
+                app:strokeColor="@color/white"
                 android:backgroundTint="@color/green"
                 android:textColor="@color/white"
+                android:textSize="16sp"
                 android:text="@string/sign_in"
                 android:textAllCaps="false"
                 android:layout_marginTop="20dp"/>
@@ -139,14 +148,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/don_t_have_account"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="10dp"
+                    />
+
+                <TextView
                     android:id="@+id/signUpBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/create_account"
-                    android:textStyle="bold"
                     android:layout_marginTop="10dp"
-                    android:textColor="@color/green"
-                    />
+                    android:text="@string/create_account"
+                    android:textColor="@color/yellow300"
+                    android:textStyle="bold"
+                    android:layout_marginStart="5dp"/>
             </LinearLayout>
         </LinearLayout>
         <com.airbnb.lottie.LottieAnimationView
@@ -163,7 +181,7 @@
             android:visibility="gone"
             app:lottie_loop="true"
             app:lottie_rawRes="@raw/horse" />
-    </androidx.cardview.widget.CardView>
+    </LinearLayout>
 
 
 

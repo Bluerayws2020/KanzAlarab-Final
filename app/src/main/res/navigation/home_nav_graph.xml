@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/home_nav_graph"
-    app:startDestination="@id/homeVidFrag">
+    app:startDestination="@id/myAccountFragment">
     <fragment
         android:id="@+id/yourChannelFragment"
         android:name="com.blueray.fares.ui.fragments.YourChannelFragment"
@@ -29,4 +29,13 @@
         android:id="@+id/liveEventListFragment"
         android:name="com.sendbird.live.videoliveeventsample.view.fragment.LiveEventListFragment"
         android:label="LiveEventListFragment" />
+    <fragment
+        android:id="@+id/homePagerFragment"
+        android:name="com.blueray.fares.ui.fragments.HomePagerFragment"
+        android:label="fragment_home_pager"
+        tools:layout="@layout/fragment_home_pager" />
+    <fragment
+        android:id="@+id/myAccountFragment"
+        android:name="com.blueray.fares.ui.fragments.MyAccountFragment"
+        android:label="MyAccountFragment" />
 </navigation>

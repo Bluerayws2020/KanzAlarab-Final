@@ -51,6 +51,7 @@ class VideoListFragment : Fragment() {
     private lateinit var videoAdapter :VideoItemAdapter
     var newArrVideoModel = ArrayList<NewAppendItItems>()
     private lateinit var navController: NavController
+    var data : Int? = null
 
 
     private var isLinearLayout = false
@@ -64,6 +65,8 @@ class VideoListFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentVideoListBinding.inflate(layoutInflater)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+
+
 
         mainViewModel.retriveUserVideos(HelperUtils.getUid(requireContext()),"1","14")
         getMainVidos()
