@@ -31,7 +31,7 @@ class BaseApplication : Application() {
         OneSignal.initWithContext(this)
         OneSignal.setAppId(ONESIGNAL_APP_ID)
         prefManager = PrefManager(applicationContext)
-        val appId = "1CFCE912-F6CC-4F60-9FA1-FC4B3B61BA6A"
+        val appId = "47918183-5186-4085-A042-489C9F4726BC"
         if (appId == null) {
             _initResultLiveData.changeValue(Event(false))
             return

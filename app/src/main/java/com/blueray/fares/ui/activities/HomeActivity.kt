@@ -158,7 +158,7 @@ true
     private fun autoAuthenticate(callback: (Boolean, String?) -> Unit) {
         val appId = "47918183-5186-4085-A042-489C9F4726BC"
         val userId = HelperUtils.getUid(this)
-        val accessToken = "ba7dcaddd8923e9c4c25023b03e593fe8df388c5"
+        val accessToken = "205349e679a5598c976d50d9a17093cc1651753b"
 
         if (appId == null || userId == null) {
             callback.invoke(false, null)

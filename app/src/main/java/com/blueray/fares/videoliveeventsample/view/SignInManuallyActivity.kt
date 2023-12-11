@@ -34,7 +34,7 @@ class SignInManuallyActivity : AppCompatActivity() {
         binding.tvVersionInfo.text = versionInfo
         binding.btnSignIn.setOnClickListener {
             binding.btnSignIn.isEnabled = false
-            val appId = "1CFCE912-F6CC-4F60-9FA1-FC4B3B61BA6A"
+            val appId = "47918183-5186-4085-A042-489C9F4726BC"
             val userId = "${binding.etUserId.text}"
             val accessToken = "${binding.etAccessToken.text}"
             authenticate(appId, userId, accessToken)
