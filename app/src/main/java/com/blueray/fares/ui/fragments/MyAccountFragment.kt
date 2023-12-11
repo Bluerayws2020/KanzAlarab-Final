@@ -1,18 +1,27 @@
 package com.blueray.fares.ui.fragments
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.ImageSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.blueray.fares.R
 import com.blueray.fares.adapters.MyAccountPagerAdapter
 import com.blueray.fares.databinding.FragmentMyAccountBinding
+import com.blueray.fares.helpers.HelperUtils
+import com.blueray.fares.model.NetworkResults
+import com.blueray.fares.ui.activities.FollowingAndFollowersActivity
+import com.blueray.fares.ui.activities.Profile
+import com.blueray.fares.ui.viewModels.AppViewModel
+import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -20,7 +29,8 @@ import com.google.android.material.tabs.TabLayoutMediator
 class MyAccountFragment : Fragment() {
 
     private lateinit var binding: FragmentMyAccountBinding
-
+    private val mainViewModel by viewModels<AppViewModel>()
+var userName = ""
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -33,6 +43,29 @@ class MyAccountFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpViewPagerWithTapLayout()
+        mainViewModel.retriveViewUserProfile()
+        getUserProifle()
+
+        binding.settings.setOnClickListener {
+            startActivity(Intent(requireContext(),Profile::class.java))
+        }
+        binding.followersLayout.setOnClickListener {
+            val intent  = Intent(requireContext(), FollowingAndFollowersActivity::class.java)
+           intent.putExtra("user_id", HelperUtils.getUid(requireContext())) // Replace 'yourUserId' with the actual user ID
+            intent.putExtra("userName",userName ) // Replace 'yourUserId' with the actual user ID
+
+            startActivity(intent)
+
+
+        }
+
+        binding.followingCount.setOnClickListener {
+            val intent  = Intent(requireContext(), FollowingAndFollowersActivity::class.java)
+            intent.putExtra("user_id", HelperUtils.getUid(requireContext())) // Replace 'yourUserId' with the actual user ID
+            intent.putExtra("userName",userName ) // Replace 'yourUserId' with the actual user ID
+
+            startActivity(intent)
+        }
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
@@ -79,5 +112,36 @@ class MyAccountFragment : Fragment() {
             }
         }.attach()
     }
+    fun getUserProifle(){
+
+
+        mainViewModel.getUserProfile().observe(viewLifecycleOwner) { result ->
+            when (result) {
+                is NetworkResults.Success -> {
+
+                    val  data = result.data[0]
+                    Glide.with(this).load(result.data[0].user_picture).placeholder(R.drawable.logo2).into(binding.profileImage)
+                  binding.followersCount.text =  data.autherFoloower.numOfFollowers.toString()
+                    binding.followingCount.text =  data.autherFoloower.numOfFollowing.toString()
+                    binding.likesCount.text =  data.autherFoloower.numOfLikes.toString()
+
+                    binding.userName.text = data.username.toString()
+
+                    userName =  data.username
+
+
+                }
+
+                is NetworkResults.Error -> {
+
+                    Log.d("ERRRRor",result.exception.toString())
+                }
+                is NetworkResults.NoInternet -> TODO()
+            }
+        }
+
+    }
+
+
 
 }

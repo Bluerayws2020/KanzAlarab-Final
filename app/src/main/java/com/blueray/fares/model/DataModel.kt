@@ -15,12 +15,15 @@ sealed class NetworkResults<out R> {
 
 data class UserLoginModel(
     @SerializedName("msg") val status: MessageModel,
-    @SerializedName("poet_data") val data: LoginModel,
+
     @SerializedName("data") val datas: LoginModel
 
 )
 
-
+data class  RgetrationModel(
+    @SerializedName("msg") val status: MessageModel,
+    @SerializedName("poet_data") val data: RigsterModel,
+)
 
 data class ViewUserLoginModel(
     @SerializedName("uid") val uid: String,
@@ -30,6 +33,7 @@ data class ViewUserLoginModel(
     @SerializedName("user_picture") val user_picture: String,
     @SerializedName("phone_number") val phone_number: String,
     @SerializedName("profile_data") val profile_data: Pprofile_data,
+    @SerializedName("auther") val autherFoloower : AuthresFolow,
 
 )
 data class UserUploadeDone(
@@ -37,13 +41,16 @@ data class UserUploadeDone(
     @SerializedName("data") val datas: NidVideoUplaode
 
 )
+data class checkPermission(
+    @SerializedName("data") val datas: NidVideoUplaode
+
+)
 data class NidVideoUplaode(
     val nid:String
 )
+data class RigsterModel(
+    @SerializedName("uid") val uid: String,
 
-
-data class LoginModel(
-    @SerializedName("id") val uid: String,
     @SerializedName("type") val type: String,
     @SerializedName("phone_number") val phone_number: String,
     @SerializedName("user_name") val user_name: String,
@@ -54,6 +61,35 @@ data class LoginModel(
 
 
 
+data class LoginModel(
+    @SerializedName("id") val id: String,
+    @SerializedName("uid") val uid: String,
+
+    @SerializedName("type") val type: String,
+    @SerializedName("phone_number") val phone_number: String,
+    @SerializedName("user_name") val user_name: String,
+    @SerializedName("email") val email: String,
+    @SerializedName("user_picture") val user_picture: String,
+
+    )
+
+
+data class FollowingResponse(
+    @SerializedName("status") val status: Int,
+    @SerializedName("message") val msg: String,
+    @SerializedName("data") val data: List<FollowingList>,
+
+    )
+data class FollowingList(
+    @SerializedName("uid") val uid: String,
+    @SerializedName("user_name") val user_name: String,
+    @SerializedName("picture") val picture: String,
+    @SerializedName("flag") var flag: Int,
+
+
+
+
+    )
 data class MessageModel(
     @SerializedName("status") val status: Int,
     @SerializedName("message") val msg: String
@@ -94,6 +130,24 @@ data class VimeoVideoModelV2 (
     @SerializedName("is_playable") val is_playable : Boolean,
     @SerializedName("has_audio") val has_audio : Boolean
 )
+
+
+data class NotfiMain(
+    @SerializedName("data") val datass: List<NofiItem>,
+
+    )
+data class NofiItem(
+    @SerializedName("title") val title : String,
+    @SerializedName("body") val body : Int,
+    @SerializedName("entity_id") val entity_id : String? = null,
+    @SerializedName("flag_id") val flag_id : String? = null,
+    @SerializedName("created") val created : String? = null,
+
+
+    )
+
+
+
 data class VimeoFileModel (
 
     @SerializedName("rendition") val rendition : String,
@@ -110,7 +164,6 @@ data class VimeoFileModel (
 
 val videoTitle : String,
 val videoDesc : String,
-
 val date : String,
 
 val videoUrl : String,
@@ -124,15 +177,62 @@ val bandNam : String = "",
 val type : String = "",
 val userPic : String = "",
 val status : String = "",
+var userFav : String = "",
+var userSave : String = "",
+        var target_user: TargetUsers? = null,
+        var  video_counts: VideoCounts? = null,
+
+val numOfFollowers: Int = 0,
+val numOfFollowing: Int = 0,
+val numOfLikes: Int =  0,
+val nodeId:String = "",
 
 
 ):Serializable
+//    {
+//        // Toggle the like status
+//        fun toggleLike() {
+//            userFav = if (userFav == "1") "0" else "1"
+//        }
+//
+//        // Toggle the save status
+//        fun toggleSave() {
+//            userSave = if (userSave == "1") "0" else "1"
+//        }
+//    }
+
 
 
 data class VideoDataModel(
     @SerializedName("data") val datass: List<VideoResponse>,
+   @SerializedName("target_user") val target_user : TargetUsers? = null,
 
 
+)
+data class SearchDataModel(
+    @SerializedName("data") val datass: List<SarchItem>,
+
+
+    )
+
+
+data class  SarchItem(
+    @SerializedName("uid") val uid: String,
+    @SerializedName("user_name") val user_name: String,
+    @SerializedName("picture") val picture: String,
+
+    @SerializedName("profile_data") val profile_data: Pprofile_data,
+    
+    @SerializedName("auther") val autherFoloower : AuthresFolow,
+
+
+    )
+
+data class  AuthresFolow(
+
+    val numOfFollowers: Int,
+    val numOfFollowing: Int,
+    val numOfLikes: Int,
 )
 data class VideoResponse(
     val id: String,
@@ -144,10 +244,32 @@ data class VideoResponse(
     val moderation_state :String,
     val vimeo_detials: VimeoDetails,
     val auther: Author,
+val video_actions_per_user:Video_actions_per_user,
+    val video_counts:VideoCounts? = null
 
 )
+
+data class  VideoCounts(
+
+    var like_count: Int,
+    val  save_count: Int,
+
+
+    )
+data class TargetUsers(
+    val im_in_user_profile: Int,
+    val target_user_follow_flag: Int,
+    val is_blocked: Int,
+    val im_blocked: Int,
+
+    )
+data class Video_actions_per_user(
+    val save: String,
+    @SerializedName("like") val  favorites: Int,
+
+    )
 data class Pictures(
-    val base_link:String
+    val base_link:String = ""
 )
 data class VimeoDetails(
     val uri: String,
@@ -162,7 +284,7 @@ data class VimeoDetails(
     val height: Int,
     val files: List<VideoFile>,
 
-    val pictures:Pictures
+    val pictures:Pictures? = null
     // Add other fields as necessary...
 )
 data class VideoFile(
@@ -181,6 +303,10 @@ data class Author(
     val username: String,
     val type: String,
 
+    val numOfFollowers: Int,
+    val numOfFollowing: Int,
+    val numOfLikes: Int,
+
 
     val profile_data  :Pprofile_data
 )
@@ -191,5 +317,7 @@ data class Pprofile_data(
     val user_picture: String,
     val band_name: String,
     val mail: String,
+    val birth_date:String? = null ,
+   @SerializedName("gender") val gender:String?
 
     )

@@ -3,22 +3,21 @@ package com.blueray.fares.api
 import android.util.Base64
 import android.util.Log
 import com.blueray.fares.model.DropDownModel
-import com.blueray.fares.model.Item
+import com.blueray.fares.model.FollowingResponse
+import com.blueray.fares.model.MessageModel
 import com.blueray.fares.model.NetworkResults
+import com.blueray.fares.model.NotfiMain
+import com.blueray.fares.model.RgetrationModel
+import com.blueray.fares.model.SearchDataModel
 import com.blueray.fares.model.UserLoginModel
 import com.blueray.fares.model.UserUploadeDone
 import com.blueray.fares.model.VideoDataModel
-import com.blueray.fares.model.VideoResponse
 import com.blueray.fares.model.ViewUserLoginModel
 import com.blueray.fares.model.VimeoVideoModelV2
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
-import retrofit2.http.Part
-import java.io.File
 import java.lang.Exception
 
 
@@ -82,19 +81,166 @@ object NetworkRepository {
         }
     }
 
+    suspend fun getFollowing(
+        uid: String,
+        targetUid: String,
+
+
+
+        ): NetworkResults<FollowingResponse> {
+        return withContext(Dispatchers.IO){
+            val uidBody = uid.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+
+val targetUidBody = targetUid.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+
+            try {
+                val results = ApiClient.retrofitService.getFollowing(
+                    uidBody,targetUidBody
+                )
+                NetworkResults.Success(results)
+            } catch (e: Exception){
+                NetworkResults.Error(e)
+            }
+        }
+    }
+
+    suspend fun getFollower(
+        uid: String,
+        targetUid: String,
+
+
+
+        ): NetworkResults<FollowingResponse> {
+        return withContext(Dispatchers.IO){
+            val uidBody = uid.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+
+            val targetUidBody = targetUid.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+
+            try {
+                val results = ApiClient.retrofitService.getFollowers(
+                    uidBody,targetUidBody
+                )
+                NetworkResults.Success(results)
+            } catch (e: Exception){
+                NetworkResults.Error(e)
+            }
+        }
+    }
+
+    suspend fun setUserActionPost(
+        uid: String,
+        entityId: String,
+        entity_type: String,
+        flag_id: String,
+
+
+        ): NetworkResults<MessageModel> {
+        return withContext(Dispatchers.IO){
+            val uidBody = uid.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+            val entityIdBody = entityId.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+            val entity_typeBody = entity_type.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+            val flag_idBody = flag_id.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+
+
+            try {
+                val results = ApiClient.retrofitService.ActionPost(
+uidBody,entityIdBody,entity_typeBody,flag_idBody
+
+
+                )
+                NetworkResults.Success(results)
+            } catch (e: Exception){
+                NetworkResults.Error(e)
+            }
+        }
+    }
+
 
     suspend fun getVideos(
+        uid: String,
 
-        page:Int
+        page:Int,
+        pageLimit:Int,
+        ishome:String
 
-        ): NetworkResults<VideoDataModel> {
+    ): NetworkResults<VideoDataModel> {
         return withContext(Dispatchers.IO){
 
 
 
             try {
-                val results = ApiClient.retrofitService.getPoetries(
-                    page.toString()
+                val results = ApiClient.retrofitService.getPoetries(uid,
+                    page.toString() ,pageLimit.toString(),ishome
+                )
+                NetworkResults.Success(results)
+            } catch (e: Exception){
+                NetworkResults.Error(e)
+            }
+        }
+    }
+
+
+    suspend fun getFlagContent(
+        uid: String,
+
+        flagId:String,
+
+
+    ): NetworkResults<VideoDataModel> {
+        return withContext(Dispatchers.IO){
+
+            val uidBody = uid.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+            val flagIDBody = flagId.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+
+            try {
+                val results = ApiClient.retrofitService.getFlagContent(uidBody,
+                    flagIDBody
+                )
+                NetworkResults.Success(results)
+            } catch (e: Exception){
+                NetworkResults.Error(e)
+            }
+        }
+    }
+
+
+    suspend fun getNotfication(
+        uid: String,
+
+
+
+        ): NetworkResults<NotfiMain> {
+        return withContext(Dispatchers.IO) {
+
+            val uidBody = uid.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+
+            try {
+                val results = ApiClient.retrofitService.getNotfi(
+                    uidBody,
+                )
+                NetworkResults.Success(results)
+            } catch (e: Exception) {
+                NetworkResults.Error(e)
+            }
+        }
+
+    }
+        suspend fun getSearchContent(
+        uid: String,
+
+        search_key:String,
+
+
+        ): NetworkResults<SearchDataModel> {
+        return withContext(Dispatchers.IO){
+
+            val uidBody = uid.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+            val search_keyBody = search_key.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+
+            try {
+                val results = ApiClient.retrofitService.getSearch(
+                    uidBody,
+                    search_keyBody
                 )
                 NetworkResults.Success(results)
             } catch (e: Exception){
@@ -106,9 +252,12 @@ object NetworkRepository {
 
 
 
+
     suspend fun getVideosForUser(
 uid:String
-,state:String,pagesize:String
+,state:String,pagesize:String,user_profile_uid:String,
+is_home:String,
+page:String
 
     ): NetworkResults<VideoDataModel> {
         return withContext(Dispatchers.IO){
@@ -120,7 +269,10 @@ uid:String
                 val results = ApiClient.retrofitService.getPoetriesForuser(
                     uid,
                     pagesize,
-                    state.toString()
+                    state.toString(),
+                    user_profile_uid,
+                    is_home,
+                    page
                 )
                 NetworkResults.Success(results)
             } catch (e: Exception){

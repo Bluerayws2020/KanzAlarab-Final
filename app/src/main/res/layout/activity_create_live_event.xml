@@ -23,8 +23,8 @@
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:padding="4dp"
-            android:src="@drawable/icon_arrow_left"
-            android:tint="@color/primary_200"
+            android:src="@drawable/icon_close"
+            android:tint="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -34,18 +34,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:text="@string/new_live_event"
+            android:text="بث جديد"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/ivBack"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvCreate"
-            style="@style/Text16Primary200Bold"
+            android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="8dp"
-            android:text="@string/create"
+            android:text="بداء البث"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -62,9 +62,9 @@
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivCover"
         android:layout_width="0dp"
+
         android:layout_height="0dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/coverimage_create_live_event"
+        android:src="@drawable/logo2"
         app:layout_constraintDimensionRatio="H, 9:5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -94,7 +94,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@null"
-            android:hint="@string/add_a_title"
+            android:hint="اضافة عنوان"
             android:paddingTop="10dp"
             android:paddingBottom="12dp"
             android:textColorHint="@color/ondark_03"
@@ -113,6 +113,7 @@
             android:id="@+id/clUserIdsForHost"
             android:layout_width="match_parent"
             android:layout_height="56dp"
+            android:visibility="gone"
             app:layout_constraintTop_toBottomOf="@id/createLiveEventCenterBorderLine">
 
             <androidx.appcompat.widget.AppCompatImageView

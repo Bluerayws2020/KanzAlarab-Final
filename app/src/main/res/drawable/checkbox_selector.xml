@@ -1,0 +1,6 @@
+<!-- res/drawable/checkbox_selector.xml -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<!--    <item  android:drawable="@drawable/add_plus" />-->
+<!--    <item android:drawable="@drawable/baseline_remove_24"-->
+<!--        android:state_checked="true"/>-->
+</selector>

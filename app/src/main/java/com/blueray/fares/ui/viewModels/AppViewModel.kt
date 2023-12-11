@@ -10,8 +10,14 @@ import com.blueray.fares.api.NetworkRepository
 import com.blueray.fares.helpers.HelperUtils
 import com.blueray.fares.helpers.HelperUtils.showMessage
 import com.blueray.fares.model.DropDownModel
+import com.blueray.fares.model.FollowingResponse
 import com.blueray.fares.model.Item
+import com.blueray.fares.model.MessageModel
 import com.blueray.fares.model.NetworkResults
+import com.blueray.fares.model.NotfiMain
+import com.blueray.fares.model.RgetrationModel
+import com.blueray.fares.model.RigsterModel
+import com.blueray.fares.model.SearchDataModel
 import com.blueray.fares.model.UserLoginModel
 import com.blueray.fares.model.UserUploadeDone
 import com.blueray.fares.model.VideoDataModel
@@ -37,10 +43,18 @@ class AppViewModel(application: Application): AndroidViewModel(application) {
     private val repo = NetworkRepository
 
 
+    private val getFollowingLive = MutableLiveData<NetworkResults<FollowingResponse>>()
+    private val getFollowerLive = MutableLiveData<NetworkResults<FollowingResponse>>()
 
     private val loginUserMessageLiveData = MutableLiveData<NetworkResults<UserLoginModel>>()
 
     private val getVideosLive = MutableLiveData<NetworkResults<VideoDataModel>>()
+
+    private val getFlagContetntLive = MutableLiveData<NetworkResults<VideoDataModel>>()
+    private val getNotficationLive = MutableLiveData<NetworkResults<NotfiMain>>()
+
+    private val getSearchLive = MutableLiveData<NetworkResults<SearchDataModel>>()
+
     private val getUserVideosLive = MutableLiveData<NetworkResults<VideoDataModel>>()
     private val viewUserPrfofile = MutableLiveData<NetworkResults<List<ViewUserLoginModel>>>()
 
@@ -59,16 +73,50 @@ class AppViewModel(application: Application): AndroidViewModel(application) {
 
 
     private val userUplaodeLoive = MutableLiveData<NetworkResults<UserUploadeDone>>()
+    private val setActions = MutableLiveData<NetworkResults<MessageModel>>()
 
-    fun retriveMainVideos(page:Int){
+    fun retriveMainVideos(page:Int,pageLimit:Int,ishome:String){
 
         viewModelScope.launch{
-            getVideosLive.value = repo.getVideos(page)
+            getVideosLive.value = repo.getVideos(userId,page,pageLimit,ishome)
         }
     }
 
     fun getMainVideos() = getVideosLive
 
+    fun retriveFlagContent(flag:String){
+
+        viewModelScope.launch{
+            getFlagContetntLive.value = repo.getFlagContent(userId,flag)
+        }
+    }
+
+    fun getFlagContent() = getFlagContetntLive
+
+
+    fun retriveNotfication(){
+
+        viewModelScope.launch{
+            getNotficationLive.value = repo.getNotfication(userId)
+        }
+    }
+
+    fun getNotifcation() = getNotficationLive
+
+
+
+
+
+
+
+    fun retrivesearchTxt(txt:String){
+
+        viewModelScope.launch{
+            getSearchLive.value = repo.getSearchContent(userId,txt)
+        }
+    }
+
+    fun getSerchData() = getSearchLive
 
 
 
@@ -85,13 +133,52 @@ class AppViewModel(application: Application): AndroidViewModel(application) {
     }
 
     fun getUplaodeVide() = userUplaodeLoive
-
-
-
-    fun retriveUserVideos(userVideoId:String,state:String,pagesize:String){
+    fun retriveFollowing(
+        targetUidBody:String ){
 
         viewModelScope.launch{
-            getUserVideosLive.value = repo.getVideosForUser(userVideoId,state,pagesize)
+            getFollowingLive.value = repo.getFollowing(userId,targetUidBody)
+        }
+    }
+
+    fun getFollowing() = getFollowingLive
+
+
+    fun retriveFollower(
+        targetUidBody:String ){
+
+        viewModelScope.launch{
+            getFollowerLive.value = repo.getFollower(userId,targetUidBody)
+        }
+    }
+
+    fun getFollower() = getFollowerLive
+
+
+
+
+
+    fun retriveSetAction(
+                                entityId: String,
+                                entity_type: String,
+                                flag_id: String,){
+
+        viewModelScope.launch{
+            setActions.value = repo.setUserActionPost(userId,entityId,entity_type,flag_id)
+        }
+    }
+
+    fun getSetAction() = setActions
+
+
+    fun retriveUserVideos(
+        state:String,pagesize:String,user_profile_uid:String,
+        is_home:String,
+        page:String
+    ){
+
+        viewModelScope.launch{
+            getUserVideosLive.value = repo.getVideosForUser(userId,state,pagesize,user_profile_uid,is_home,page)
         }
     }
 

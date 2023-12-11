@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "314816949981",
+    "project_id": "kenz-e9a7c",
+    "storage_bucket": "kenz-e9a7c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:314816949981:android:101a40593282a813cc3534",
+        "android_client_info": {
+          "package_name": "com.blueray.fares"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZC3fqoDXm4um-J-g4-Odwcvi2e0TMpPc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

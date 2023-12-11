@@ -20,7 +20,11 @@ class HomePagerAdapter (fragmentManager: FragmentManager, lifecycle: Lifecycle) 
                 com.blueray.fares.videoliveeventsample.view.fragment.LiveEventListFragment()
             livesFragment
         }
+
+
     }
+
+
 
 
 

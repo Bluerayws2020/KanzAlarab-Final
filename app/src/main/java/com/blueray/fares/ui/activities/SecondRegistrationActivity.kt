@@ -41,18 +41,57 @@ companion object{
 getCategory()
 
 
-        binding.signInBtn.setOnClickListener {
-if (activtyIds.isEmpty()){
-    Toast.makeText(this,"يرجى اختيار تصنيف",Toast.LENGTH_LONG).show()
+            binding.signInBtn.setOnClickListener {
+            if (activtyIds.isEmpty()){
+            Toast.makeText(this,"يرجى اختيار تصنيف",Toast.LENGTH_LONG).show()
 
-}else {
-    startActivity(Intent(this, LoginActivity::class.java))
+            }else {
+            startActivity(Intent(this, LoginActivity::class.java))
 
-}
+            }
+
+
+            }
+
+
+        binding.notNow.setOnClickListener {
+            startActivity(Intent(this, ThirdRegistrationActivity::class.java))
+
         }
     }
 
 
+//    private fun getCategory() {
+//        hideProgress()
+//
+//        viewmodel.getCategory().observe(this) { result ->
+//
+//            when (result) {
+//                is NetworkResults.Success -> {
+//
+//
+//                    adapter = ActivitiesTypesAdapter(result.data,object : OnCategroryChose {
+//                        override fun onCategroyChose(id: String) {
+//                            activtyIds = id
+//                        }
+//
+//                    })
+//
+//                    val chipsLayoutManager = ChipsLayoutManager.newBuilder(this).build()
+//                    binding.activitiesRv.adapter = adapter
+//                    binding.activitiesRv.layoutManager =chipsLayoutManager
+//
+//                }
+//
+//                is NetworkResults.Error -> {
+//                    result.exception.printStackTrace()
+//                    hideProgress()
+//                }
+//
+//                else -> hideProgress()
+//            }
+//        }
+//    }
     private fun getCategory() {
         hideProgress()
 
@@ -61,17 +100,16 @@ if (activtyIds.isEmpty()){
             when (result) {
                 is NetworkResults.Success -> {
 
-
-                    adapter = ActivitiesTypesAdapter(result.data,object : OnCategroryChose {
+                    adapter = ActivitiesTypesAdapter(result.data, object : OnCategroryChose {
                         override fun onCategroyChose(id: String) {
                             activtyIds = id
                         }
-
                     })
 
-                    val chipsLayoutManager = ChipsLayoutManager.newBuilder(this).build()
+                    // Replace ChipsLayoutManager with GridLayoutManager
+                    val gridLayoutManager = GridLayoutManager(this, 2)
+                    binding.activitiesRv.layoutManager = gridLayoutManager
                     binding.activitiesRv.adapter = adapter
-                    binding.activitiesRv.layoutManager =chipsLayoutManager
 
                 }
 

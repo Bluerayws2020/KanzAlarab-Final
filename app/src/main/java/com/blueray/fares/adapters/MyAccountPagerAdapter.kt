@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.blueray.fares.ui.fragments.SavedVideoFragment
 import com.blueray.fares.ui.fragments.VideoListFragment
 
 class MyAccountPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
@@ -19,7 +20,7 @@ class MyAccountPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecyc
             videosFragment.data = data
             videosFragment
         } else{
-            val livesFragment = VideoListFragment()
+            val livesFragment = SavedVideoFragment()
             livesFragment
         }
     }

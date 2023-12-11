@@ -3,38 +3,26 @@ package com.blueray.fares.ui.fragments
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
-import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SnapHelper
 import com.blueray.fares.R
-import com.blueray.fares.adapters.VideoAdapter
 import com.blueray.fares.adapters.VideoFeedAdapter
 import com.blueray.fares.api.OnProfileClick
 import com.blueray.fares.api.VideoPlaybackControl
-import com.blueray.fares.databinding.ActivityMainBinding
 import com.blueray.fares.databinding.OneVidoShowBinding
-import com.blueray.fares.databinding.OnevidfragBinding
 import com.blueray.fares.helpers.HelperUtils
-import com.blueray.fares.helpers.ViewUtils.hide
-import com.blueray.fares.helpers.ViewUtils.show
 import com.blueray.fares.model.NetworkResults
 import com.blueray.fares.model.NewAppendItItems
-import com.blueray.fares.model.VideoFile
 import com.blueray.fares.ui.activities.MainActivity
+import com.blueray.fares.ui.activities.MainView
+import com.blueray.fares.ui.activities.SplashScreen
 import com.blueray.fares.ui.viewModels.AppViewModel
 
 class VidInnerPlay : AppCompatActivity(), VideoPlaybackControl {
@@ -42,12 +30,13 @@ class VidInnerPlay : AppCompatActivity(), VideoPlaybackControl {
 
 
 
+    var isAuthintcted = false
 
 
 
         private lateinit var binding: OneVidoShowBinding
         var arrVideoModel = ArrayList<NewAppendItItems>()
-         var newArrVideoModel = mutableListOf<NewAppendItItems>()
+         var newArrVideoModel = ArrayList<NewAppendItItems>()
 
 
         var videoAdapter: VideoFeedAdapter? = null
@@ -60,6 +49,9 @@ class VidInnerPlay : AppCompatActivity(), VideoPlaybackControl {
         setContentView(binding.root)
         val mSnapHelper: SnapHelper = PagerSnapHelper()
         mSnapHelper.attachToRecyclerView(binding.vidRec)
+
+
+        getUserAction()
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 // Handle the back button event
@@ -104,9 +96,11 @@ class VidInnerPlay : AppCompatActivity(), VideoPlaybackControl {
 //
 //        itemTouchHelper.attachToRecyclerView(binding.vidRec)
 
+        isAuthintcted = HelperUtils.getUid(this) != "0"
 
-         newArrVideoModel = intent.getSerializableExtra("dataList") as ArrayList<NewAppendItItems>
+         newArrVideoModel = PartitionChannelFragment.DataHolder.itemsList!!
         val position = intent.getIntExtra("position", 0)
+        binding.vidRec.scrollToPosition(position)
 
         var isUser = 1
         if (HelperUtils.getUid(this) == "0") {
@@ -123,6 +117,18 @@ class VidInnerPlay : AppCompatActivity(), VideoPlaybackControl {
 
             override fun onProfileShare(pos: Int) {
                 // Implement sharing functionality
+
+
+
+                val sendIntent: Intent = Intent().apply {
+                    action = Intent.ACTION_SEND
+                    putExtra(Intent.EXTRA_TEXT, newArrVideoModel[pos].videoUrl)
+                    type = "text/plain"
+                }
+
+                val shareIntent = Intent.createChooser(sendIntent, null)
+                startActivity(shareIntent)
+
             }
 
             override fun onMyProfileClikc() {
@@ -137,7 +143,24 @@ class VidInnerPlay : AppCompatActivity(), VideoPlaybackControl {
             }
 
             override fun onmenuClick() {
-                TODO("Not yet implemented")
+            }
+
+            override fun onProfileLike(pos: Int) {
+                if (!isAuthintcted) {
+                    shouldUserOut()
+                } else {
+//                    binding.vidRec.adapter?.notifyItemRemoved(pos)
+                    mainViewModel.retriveSetAction(pos.toString(), "node", "like")
+                }
+            }
+
+            override fun onProfileCommint(pos: Int) {
+            }
+
+            override fun onProfileSaved(pos: Int) {
+//                binding.vidRec.adapter?.notifyItemRemoved(pos)
+
+                mainViewModel.retriveSetAction(pos.toString(), "node", "save")
             }
         },this,this,isUser)
 
@@ -149,7 +172,6 @@ class VidInnerPlay : AppCompatActivity(), VideoPlaybackControl {
             LinearLayoutManager.VERTICAL, false
         )
 
-        binding.vidRec.scrollToPosition(position)
 
 
 
@@ -185,6 +207,50 @@ class VidInnerPlay : AppCompatActivity(), VideoPlaybackControl {
         pauseAllVideos()
 
         super.onBackPressed()
+    }
+    fun shouldUserOut() {
+        Toast.makeText(this, "يجب تسجيل الدخول", Toast.LENGTH_LONG).show()
+
+        startActivity(Intent(this, SplashScreen::class.java))
+
+    }
+    private fun getUserAction() {
+
+        mainViewModel.getSetAction().observe(this) { result ->
+
+            when (result) {
+                is NetworkResults.Success -> {
+                    if (result.data.status == 200) {
+                        Toast.makeText(
+                            this,
+                            result.data.msg.toString(),
+                            Toast.LENGTH_LONG
+                        ).show()
+
+                    } else {
+                        Toast.makeText(
+                            this,
+                            result.data.msg.toString(),
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+
+
+                }
+
+                is NetworkResults.Error -> {
+                    Toast.makeText(
+                        this,
+                        result.exception.printStackTrace().toString(),
+                        Toast.LENGTH_LONG
+                    ).show()
+
+                    result.exception.printStackTrace()
+                }
+
+                else -> {}
+            }
+        }
     }
 
 

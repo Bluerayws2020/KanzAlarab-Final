@@ -40,11 +40,11 @@ class ActivitiesTypesAdapter(
                     Log.d("1234567890", selected_items.size.toString())
                 }else{
 
-                    for (i in selected_items.indices){
-                        if(list[position].id == selected_items[i]){
-                            selected_items.removeAt(i)
-                        }
-                    }
+//                    for (i in selected_items.indices){
+//                        if(list[position].id == selected_items[i]){
+//                            selected_items.removeAt(i)
+//                        }
+//                    }
                     Log.d("123456789011", selected_items.size.toString())
 
                 }

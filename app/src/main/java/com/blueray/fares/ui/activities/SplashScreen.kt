@@ -30,7 +30,7 @@ import java.util.Locale
 
 class SplashScreen : AppCompatActivity() {
     private lateinit var prefManager: PrefManager
-
+var uid = ""
     override fun onCreate(savedInstanceState: Bundle?) {
 
         HelperUtils.setDefaultLanguage(this@SplashScreen, "ar")
@@ -41,23 +41,51 @@ class SplashScreen : AppCompatActivity() {
 //        HelperUtils.setDefaultLanguage(this@SplashScreen, "ar")
 //        HelperUtils.setLang(this@SplashScreen, "ar")
 //        startActivity(Intent(this@SplashScreen,HomeActivity::class.java))
+uid = HelperUtils.getUid(this@SplashScreen)
+
+        Log.d("TEEEESTTTT",uid)
+                lifecycleScope.launch {
+                    delay(2000)
+
+//                    user
+                    if (!uid.isNullOrEmpty() && uid != "0") {
+
+                        prefManager = PrefManager(this@SplashScreen)
+                        (application as BaseApplication).initResultLiveData.observe(
+                            this@SplashScreen,
+                            EventObserver {
+                                if (it) {
+                                    autoAuthenticate { isSucceed, e ->
+                                        if (e != null) showToast(e)
 
 
-        prefManager = PrefManager(this)
-        (application as BaseApplication).initResultLiveData.observe(this, EventObserver {
-            if (it) {
-                autoAuthenticate { isSucceed, e ->
-                    if (e != null) showToast(e)
-                    val intent = if (isSucceed) Intent(this, HomeActivity::class.java) else Intent(this, SignInManuallyActivity::class.java)
-                    startActivity(intent)
-                    finish()
+                                        val intent =
+                                            if (isSucceed) Intent(
+                                                this@SplashScreen,
+                                                HomeActivity::class.java
+                                            ) else
+
+                                                Intent(
+                                                this@SplashScreen,
+                                                    LoginActivity::class.java
+                                            )
+                                        startActivity(intent)
+                                        finish()
+                                    }
+                                } else {
+                                    val intent = Intent(this@SplashScreen, HomeActivity::class.java)
+                                    startActivity(intent)
+                                    finish()
+                                }
+                            })
+                    } else {
+                        //make user use App
+
+                        val intent = Intent(this@SplashScreen, LoginActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }
                 }
-            } else {
-                val intent = Intent(this, SignInManuallyActivity::class.java)
-                startActivity(intent)
-                finish()
-            }
-        })
 //        lifecycleScope.launch {
 //            delay(2000)
 //            if (HelperUtils.getUid(this@SplashScreen) == "0") {
@@ -84,9 +112,9 @@ class SplashScreen : AppCompatActivity() {
     }
 
     private fun autoAuthenticate(callback: (Boolean, String?) -> Unit) {
-        val appId = "1CFCE912-F6CC-4F60-9FA1-FC4B3B61BA6A"
-        val userId = "65"
-        val accessToken = "a509c1fbce3f09483f6b3196bb6f9368757a72ac"
+        val appId = "47918183-5186-4085-A042-489C9F4726BC"
+        val userId = HelperUtils.getUid(this)
+        val accessToken = "ba7dcaddd8923e9c4c25023b03e593fe8df388c5"
 
         if (appId == null || userId == null) {
             callback.invoke(false, null)

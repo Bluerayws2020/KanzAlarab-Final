@@ -35,7 +35,7 @@ class HomePagerFragment : Fragment() {
         val adapter = HomePagerAdapter(childFragmentManager, lifecycle)
         val tabListTitle: MutableList<String> = ArrayList()
 
-        val list = listOf("Videos","Lives")
+        val list = listOf("مقاطع","لايف")
 
         for (i in list.indices) {
             val item = list[i]

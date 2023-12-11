@@ -18,7 +18,7 @@
             layout="@layout/registration_new_app_bar" />
 
         <include
-            layout="@layout/step_indecator_2"
+            layout="@layout/step_indecator_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center" />
@@ -46,7 +46,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:text="Confirm Account Data"
+                    android:text="تاكيد معلومات الحساب"
                     android:textColor="@color/blue"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -105,7 +105,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="11sp"
                         android:layout_marginTop="20dp"
-                        android:text="@string/i_agree_to_the_terms_and_conditions_and_acknowledge_my_use_of_this_application_to_comply_with_the_seller_s_terms_policies_and_guidelines"
+                        android:text="أوافق على الشروط والأحكام، وأقر بأن استخدامي لهذا التطبيق يخضع للامتثال للشروط والسياسات والإرشادات المعلنة."
                         />
 
                 </LinearLayout>

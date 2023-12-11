@@ -13,7 +13,7 @@ import com.blueray.fares.helpers.HelperUtils
 import dagger.hilt.android.AndroidEntryPoint
 
 class MainActivity : BaseActivity() {
-
+//    MainView
     private val viewModel : AppViewModel by viewModels()
 
     private lateinit var binding : ActivityMainBinding

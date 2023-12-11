@@ -7,14 +7,18 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import coil.load
 import com.blueray.fares.R
 import com.blueray.fares.databinding.ActivityCreateLiveEventBinding
+import com.blueray.fares.model.NetworkResults
+import com.blueray.fares.ui.viewModels.AppViewModel
 import com.sendbird.android.SendbirdChat
 import com.sendbird.live.LiveEventCreateParams
 import com.sendbird.live.SendbirdLive
@@ -33,6 +37,7 @@ import com.blueray.fares.videoliveeventsample.util.showBottomSheetDialog
 import com.blueray.fares.videoliveeventsample.util.showPermissionDenyDialog
 import com.blueray.fares.videoliveeventsample.util.showToast
 import com.blueray.fares.videoliveeventsample.util.signOut
+import com.bumptech.glide.Glide
 import com.sendbird.live.LiveEvent
 import java.io.File
 import java.util.Collections.addAll
@@ -49,6 +54,10 @@ class CreateLiveEventActivity : AppCompatActivity() {
     private val cameraPermission = listOf(
         Manifest.permission.CAMERA
     )
+
+var userName = ""
+    private val mainViewModel by viewModels<AppViewModel>()
+
     private val isCameraPermissionGranted: Boolean
         get() = areAnyPermissionsGranted(cameraPermission.toTypedArray())
     private val getContentLauncher = registerForActivityResult(
@@ -61,8 +70,43 @@ class CreateLiveEventActivity : AppCompatActivity() {
         val mediaUri = intent.data
         if (mediaUri != null) {
             selectedPhotoUri = mediaUri
-            binding.ivCover.load(mediaUri)
+//            binding.ivCover.load(mediaUri)
         }
+
+
+        mainViewModel.retriveViewUserProfile()
+        getUserProifle()
+
+
+    }
+
+    fun getUserProifle(){
+
+
+        mainViewModel.getUserProfile().observe(this) { result ->
+            when (result) {
+                is NetworkResults.Success -> {
+
+                    val  data = result.data[0]
+                    Glide.with(this).load(result.data[0].user_picture).placeholder(R.drawable.logo2).into(binding.ivCover)
+//                    binding.tvDescription.setText(data.username)
+
+                    userName = data.username
+//                    binding.phoneTxt.setText(data.phone_number)
+//                    binding.emailTxt.setText(data.profile_data.mail)
+//                    binding.tvTitle.setText(data.profile_data.first_name + "\t" + data.profile_data.last_name)
+
+
+                }
+
+                is NetworkResults.Error -> {
+
+                    Log.d("ERRRRor",result.exception.toString())
+                }
+                is NetworkResults.NoInternet -> TODO()
+            }
+        }
+
     }
 
     private val takeCameraLauncher = registerForActivityResult(
@@ -73,7 +117,7 @@ class CreateLiveEventActivity : AppCompatActivity() {
         val mediaUri = pendingPhotoUri.also { pendingPhotoUri = null }
         if (resultCode != Activity.RESULT_OK || mediaUri == null) return@registerForActivityResult
         selectedPhotoUri = mediaUri
-        binding.ivCover.load(mediaUri)
+//        binding.ivCover.load(mediaUri)
     }
     private val selectHostResult = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
@@ -127,13 +171,13 @@ class CreateLiveEventActivity : AppCompatActivity() {
             finish()
         }
         binding.ivCover.setOnClickListener {
-            showMediaSelectDialog()
+//            showMediaSelectDialog()
         }
         binding.tvCreate.setOnClickListener {
             val title = binding.etCreateLiveEventTitle.text.toString()
             val userIdsForHost = selectedHostUsers.map { it.value.userId }
             val file = selectedPhotoUri?.let { FileUtil().uriToFile(this, it) }
-            createLiveEvent(title, userIdsForHost, file)
+            createLiveEvent(userName, userIdsForHost, file)
         }
         binding.clUserIdsForHost.setOnClickListener {
             val intent = Intent(this, UserIdsForHostListActivity::class.java).apply {
@@ -220,7 +264,7 @@ class CreateLiveEventActivity : AppCompatActivity() {
                 DIALOG_ITEM_ID_TAKE_PHOTO -> takePhoto()
                 DIALOG_ITEM_ID_REMOVE_PHOTO -> {
                     selectedPhotoUri = null
-                    binding.ivCover.load(null)
+//                    binding.ivCover.load(null)
                 }
             }
         }

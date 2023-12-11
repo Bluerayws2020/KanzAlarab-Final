@@ -142,6 +142,8 @@ dependencies {
 
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation "com.onesignal:OneSignal:4.8.6"
 
     // otp view
     implementation 'io.github.chaosleung:pinview:1.4.4' // github link to deal with this library https://github.com/ChaosLeung/PinView

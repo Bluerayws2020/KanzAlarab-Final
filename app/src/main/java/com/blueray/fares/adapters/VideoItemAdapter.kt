@@ -17,6 +17,7 @@ import com.blueray.fares.R
 import com.blueray.fares.api.VideoClick
 import com.blueray.fares.helpers.ViewUtils.hide
 import com.blueray.fares.helpers.ViewUtils.show
+import com.squareup.picasso.Picasso
 //import pl.droidsonroids.gif.GifImageView
 import java.io.BufferedReader
 import java.io.InputStreamReader
@@ -42,7 +43,7 @@ class VideoItemAdapter(var  flag :Int,
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.itemView.setOnClickListener {
-            clikc.OnVideoClic(arrVideo,position)
+            clikc.OnVideoClic(position)
 
         }
         val videoItem = arrVideo[position]
@@ -68,7 +69,26 @@ class VideoItemAdapter(var  flag :Int,
 
             }
 
-            Glide.with(context).load(videoItem.imageThum).into(binding.gifs)
+
+            Log.d("TEssssImage",videoItem.imageThum)
+
+//            if (i)
+//            Glide.with(binding.gifs.context).load(videoItem.imageThum).into(binding.gifs)
+
+            if (videoItem.imageThum.isNullOrEmpty()){
+                Log.d("ERRROR","1")
+            }else {
+
+                Picasso.get()
+                    .load(videoItem.imageThum)
+                    .placeholder(R.drawable.logo)
+                    .error(R.drawable.logo)
+                    .into(binding.gifs)
+
+            }
+
+
+
 //            if (isLinearLayout) {
 //                binding.gifs.setVideoPath(videoItem.videoUrl)
 //                holder.binding.times.hide()

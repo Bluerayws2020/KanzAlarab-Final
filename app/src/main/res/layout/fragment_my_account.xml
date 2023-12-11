@@ -118,12 +118,12 @@
                     android:layout_marginTop="10dp">
 
                     <com.google.android.material.button.MaterialButton
-                        android:id="@+id/followBtn"
+                        android:id="@+id/settings"
                         style="@style/Widget.Material3.Button.OutlinedButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/regular"
-                        android:text="Account Settings"
+                        android:text="تعديل الحساب"
                         android:textAllCaps="false"
                         android:textColor="@color/black"
                         android:textSize="14sp"
@@ -151,6 +151,7 @@
                             android:layout_gravity="center"
                             android:fontFamily="@font/regular"
                             android:text="91"
+                            android:id="@+id/followingCount"
                             android:textColor="@color/black"
                             android:textSize="@dimen/sb_size_16"
                             android:textStyle="bold" />
@@ -159,7 +160,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/regular"
-                            android:text="Follows"
+                            android:text="متابع"
                             android:textColor="@color/black"
                             android:textSize="@dimen/sb_size_16"
                             android:textStyle="bold" />
@@ -181,6 +182,8 @@
                             android:layout_gravity="center"
                             android:fontFamily="@font/regular"
                             android:text="34"
+                            android:id="@+id/followersCount"
+
                             android:textColor="@color/black"
                             android:textSize="@dimen/sb_size_16"
                             android:textStyle="bold" />
@@ -189,7 +192,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/regular"
-                            android:text="Followers"
+                            android:text="يتابع"
                             android:textColor="@color/black"
                             android:textSize="@dimen/sb_size_16"
                             android:textStyle="bold" />
@@ -209,6 +212,8 @@
                             android:layout_gravity="center"
                             android:fontFamily="@font/regular"
                             android:text="14"
+                            android:id="@+id/likesCount"
+
                             android:textColor="@color/black"
                             android:textSize="@dimen/sb_size_16"
                             android:textStyle="bold" />
@@ -217,7 +222,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/regular"
-                            android:text="Likes"
+                            android:text="الاعجابات"
                             android:textColor="@color/black"
                             android:textSize="@dimen/sb_size_16"
                             android:textStyle="bold" />

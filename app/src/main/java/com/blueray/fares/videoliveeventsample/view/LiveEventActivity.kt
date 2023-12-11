@@ -94,9 +94,9 @@ abstract class LiveEventActivity : AppCompatActivity() {
 
     protected fun updateToolbarView() {
         cachedCoverUrl = liveEvent?.coverUrl
-        binding.ivCover.load(liveEvent?.coverUrl) {
-            error(R.drawable.logo)
-        }
+//        binding.ivCover.load(liveEvent?.coverUrl) {
+//            error(R.drawable.logo)
+//        }
         binding.tvTitle.text = if (!liveEvent?.title.isNullOrEmpty()) liveEvent?.title else getString(R.string.live_event)
         binding.tvDescription.text = liveEvent?.hosts?.joinToString(", ") { it.userId } ?: ""
 //        binding.tvDescription.text = liveEvent?.host?.userId ?: ""

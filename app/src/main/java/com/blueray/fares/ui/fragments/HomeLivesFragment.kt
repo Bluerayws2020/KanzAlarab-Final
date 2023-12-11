@@ -24,7 +24,8 @@ import com.blueray.fares.helpers.ViewUtils.hide
 import com.blueray.fares.helpers.ViewUtils.show
 import com.blueray.fares.model.NetworkResults
 import com.blueray.fares.model.NewAppendItItems
-import com.blueray.fares.ui.activities.MainActivity
+import com.blueray.fares.ui.activities.MainView
+import com.blueray.fares.ui.activities.SplashScreen
 import com.blueray.fares.ui.viewModels.AppViewModel
 
 
@@ -40,7 +41,7 @@ class HomeLivesFragment : Fragment() , VideoPlaybackControl {
 
 
     private lateinit var binding : FragmentHomeLivesBinding
-    private val newArrVideoModel = mutableListOf<NewAppendItItems>()
+    private val newArrVideoModel = ArrayList<NewAppendItItems>()
     private var lastPlayedPosition = RecyclerView.NO_POSITION
 //        private var isDataLoaded = false
 
@@ -58,7 +59,7 @@ class HomeLivesFragment : Fragment() , VideoPlaybackControl {
             if (HelperUtils.getUid(requireContext()) == "0"){
                 Toast.makeText(context,"يجب تسجيل الدخول",Toast.LENGTH_LONG).show()
 
-                startActivity(Intent(requireContext(), MainActivity::class.java))
+                startActivity(Intent(requireContext(), SplashScreen::class.java))
 
             }else {
                 pauseAllVideos()
@@ -84,7 +85,7 @@ class HomeLivesFragment : Fragment() , VideoPlaybackControl {
 
         getVideosView()
         if (!isLoading) {
-            mainViewModel.retriveMainVideos(0)
+            mainViewModel.retriveMainVideos(page = 0, pageLimit = 3, ishome = "1")
         }
 
     }
@@ -277,6 +278,18 @@ class HomeLivesFragment : Fragment() , VideoPlaybackControl {
 
             override fun onProfileShare(pos: Int) {
                 // Implement sharing functionality
+
+
+
+                val sendIntent: Intent = Intent().apply {
+                    action = Intent.ACTION_SEND
+                    putExtra(Intent.EXTRA_TEXT, newArrVideoModel[pos].videoUrl)
+                    type = "text/plain"
+                }
+
+                val shareIntent = Intent.createChooser(sendIntent, null)
+                startActivity(shareIntent)
+
             }
 
             override fun onMyProfileClikc() {
@@ -284,7 +297,7 @@ class HomeLivesFragment : Fragment() , VideoPlaybackControl {
                 if (HelperUtils.getUid(requireContext()) == "0"){
                     Toast.makeText(context,"يجب تسجيل الدخول",Toast.LENGTH_LONG).show()
 
-                    startActivity(Intent(requireContext(), MainActivity::class.java))
+                    startActivity(Intent(requireContext(), SplashScreen::class.java))
 
                 }else {
                     navController.navigate(R.id.yourChannelFragment)
@@ -294,6 +307,18 @@ class HomeLivesFragment : Fragment() , VideoPlaybackControl {
 
             override fun onmenuClick() {
 //                    menus
+            }
+
+            override fun onProfileLike(pos: Int) {
+                mainViewModel.retriveSetAction(pos.toString(), "node", "like")
+            }
+
+            override fun onProfileCommint(pos: Int) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onProfileSaved(pos: Int) {
+                mainViewModel.retriveSetAction(pos.toString(), "node", "save")
             }
         },requireContext(),this,isUser)
 
@@ -329,7 +354,7 @@ class HomeLivesFragment : Fragment() , VideoPlaybackControl {
         }else{
             currentPage++
             binding.progg.show()
-            mainViewModel.retriveMainVideos(page = currentPage)
+            mainViewModel.retriveMainVideos(page = 0, pageLimit = 3, ishome = "1")
         }
 
 

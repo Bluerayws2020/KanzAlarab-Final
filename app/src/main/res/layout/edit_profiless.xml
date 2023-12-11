@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<!--    <include-->
+<!--        layout="@layout/registration_new_app_bar"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/linearLayout2" />-->
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+        <include
+            layout="@layout/registration_new_app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tollbars"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/linearLayout2" />
+
+
+        <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="12dp"
+
+
+        >
+
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="@dimen/sb_size_100"
+            android:layout_height="@dimen/sb_size_100"
+android:layout_gravity="center"
+            android:id="@+id/userImagee"
+            android:layout_marginTop="@dimen/sb_size_22"
+            android:src="@drawable/profile_img"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="نبذة عنك"
+            android:textColor="@color/brown"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="الاسم"
+            android:textColor="@color/brown"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+            <EditText
+                android:id="@+id/nameEt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/green"
+                android:textSize="14sp"
+                />
+
+<!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:boxBackgroundColor="@color/white">-->
+
+<!--            <com.google.android.material.textfield.TextInputEditText-->
+<!--                android:id="@+id/nameEt"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:inputType="text"-->
+<!--                android:lines="1" />-->
+
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="اسم المستخدم"
+            android:textColor="@color/brown"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+<!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+
+<!--            app:boxBackgroundColor="@color/white">-->
+
+<!--            <com.google.android.material.textfield.TextInputEditText-->
+<!--                android:id="@+id/userNameEt"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:inputType="text"-->
+<!--android:textColor="@color/green"-->
+<!--                android:text="32131231232312312"-->
+<!--                android:lines="1" />-->
+
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
+            <EditText
+                android:id="@+id/userNameEt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/green"
+                android:textSize="14sp"
+                />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="الجنس"
+            android:textColor="@color/brown"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+<!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:boxBackgroundColor="@color/white">-->
+
+<!--            <com.google.android.material.textfield.TextInputEditText-->
+<!--                android:id="@+id/genderEt"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:inputType="text"-->
+<!--                android:lines="1" />-->
+
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
+            <EditText
+                android:id="@+id/genderEt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/green"
+                android:textSize="14sp"
+                />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="تاريخ الميلاد"
+            android:textColor="@color/brown"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+<!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:boxBackgroundColor="@color/white">-->
+
+<!--            <com.google.android.material.textfield.TextInputEditText-->
+<!--                android:id="@+id/birthDateTxt"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:inputType="text"-->
+<!--                android:lines="1" />-->
+
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
+            <EditText
+                android:id="@+id/birthDateTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/green"
+                android:textSize="14sp"
+                />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="البريد الالكتروني"
+            android:textColor="@color/brown"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+<!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:boxBackgroundColor="@color/white">-->
+
+<!--            <com.google.android.material.textfield.TextInputEditText-->
+<!--                android:id="@+id/emailTxt"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:inputType="text"-->
+<!--                android:lines="1" />-->
+
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
+            <EditText
+                android:id="@+id/emailTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/green"
+                android:textSize="14sp"
+                />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="رقم الهاتف"
+            android:textColor="@color/brown"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+<!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:boxBackgroundColor="@color/white">-->
+
+<!--            <com.google.android.material.textfield.TextInputEditText-->
+<!--                android:id="@+id/phoneTxt"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:inputType="text"-->
+<!--                android:lines="1" />-->
+
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
+            <EditText
+                android:id="@+id/phoneTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/green"
+                android:textSize="14sp"
+                />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="بياناتك الشخصية مؤمنة ولا تتم مشاركتها عبر التطبيقات"
+            android:textColor="@color/brown"
+            android:textSize="9sp"
+            android:layout_gravity="center"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+</LinearLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

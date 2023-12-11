@@ -1,8 +1,8 @@
 package com.blueray.fares.adapters
 
 import android.content.Context
-import android.content.Intent
 import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -13,15 +13,18 @@ import com.blueray.fares.databinding.ItemVideoBinding
 import com.blueray.fares.helpers.ViewUtils.hide
 import com.blueray.fares.helpers.ViewUtils.show
 import com.blueray.fares.model.NewAppendItItems
-import com.blueray.fares.ui.activities.Profile
 import com.bumptech.glide.Glide
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.Player
 
 
-class VideoFeedAdapter(val videoUrls: List<NewAppendItItems>, var onProfileClick: OnProfileClick, var context: Context,    private val videoPlaybackControl: VideoPlaybackControl
-,var isUser:Int) : RecyclerView.Adapter<VideoFeedAdapter.VideoViewHolder>() {
+class VideoFeedAdapter(
+     val videoUrls: ArrayList<NewAppendItItems>, var onProfileClick: OnProfileClick, var context: Context, private val videoPlaybackControl: VideoPlaybackControl
+    ,
+    var isUser:Int) : RecyclerView.Adapter<VideoFeedAdapter.VideoViewHolder>() {
+    var likeCount = 0
+    var commintCount = 0
 
     class VideoViewHolder(val binding: ItemVideoBinding) : RecyclerView.ViewHolder(binding.root) {
         var player: ExoPlayer? = null
@@ -41,6 +44,7 @@ class VideoFeedAdapter(val videoUrls: List<NewAppendItItems>, var onProfileClick
                             } else {
                                 binding.progressBar.hide()
                                 binding.placeHolderImg.hide()
+                                binding.placeHolderBackground.hide()
                             }
                         }
                     })
@@ -82,33 +86,106 @@ class VideoFeedAdapter(val videoUrls: List<NewAppendItItems>, var onProfileClick
 
     override fun onBindViewHolder(holder: VideoViewHolder, position: Int) {
         holder.bind(videoUrls[position].videoUrl)
-        holder.binding.username.text =  videoUrls[position].userName
-        holder.binding.description.text =  videoUrls[position].videoTitle
+        val item = videoUrls[position]
+
+            holder.binding.username.text =  videoUrls[position].userName
+            holder.binding.description.text =  videoUrls[position].videoTitle
+//
+
+            // Save button
+            holder.binding.saveBtn.setOnClickListener {
+                item.userSave = if(item.userSave == "1") "0" else "1"
+                updateSaveButtonUI(holder, item)
+                onProfileClick.onProfileSaved(item.nodeId.toInt())
+            }
+
+        if (videoUrls[position].userFav == "1"){
+            holder.binding.likeBtn.setImageResource(R.drawable.heartss)
+
+        }else {
+            holder.binding.likeBtn.setImageResource(R.drawable.heart)
+
+        }
+
+        holder.binding.likeBtn.setOnClickListener {
+            val item = videoUrls[position]
+            if (item.userFav == "1") {
+                item.userFav = "0"
+                // Decrease like count if it's greater than 0
+                if (item.video_counts?.like_count ?: 0 > 0) {
+                    item.video_counts?.like_count = item.video_counts?.like_count?.minus(1)!!
+                }
+            } else {
+                item.userFav = "1"
+                // Increase like count
+                item.video_counts?.like_count = item.video_counts?.like_count?.plus(1)!!
+            }
+            updateLikeButtonUI(holder, item)
+//            onProfileClick.onProfileLike(pos = item.nodeId.toInt())
+
+        }
+
+
 
 
         if (isUser == 1){
-            holder.binding.profile.show()
+//            holder.binding.profile.show()
             holder.binding.loginitems.hide()
         }else {
-            holder.binding.profile.hide()
+//            holder.binding.profile.hide()
             holder.binding.loginitems.show()
         }
-        holder.binding.profile.setOnClickListener {
-            context.startActivity(Intent(context,Profile::class.java))
+
+
+Log.d("LikkkesCountss",videoUrls[position].video_counts?.like_count.toString())
+        likeCount = videoUrls[position].video_counts?.like_count!!
+        commintCount = videoUrls[position].video_counts?.like_count ?: 0
+
+        holder.binding.commentsCount.text = commintCount.toString()
+
+        holder.binding.likesCount.text = likeCount.toString()
+
+        // Like button logic
+
+
+        if (videoUrls[position].userSave == "1"){
+holder.binding.saveBtn.setImageResource(R.drawable.baseline_bookmark_24)
+
+        }else {
+            holder.binding.saveBtn.setImageResource(R.drawable.save)
+
+        }
+//
+
+
+
+
+        holder.binding.commentBtn.setOnClickListener{
+
+            onProfileClick.onProfileCommint(pos = position)
         }
 
-        holder.binding.placeHolderImg.setOnClickListener{
-            onProfileClick.onProfileClikc(pos = position)
-        }
         holder.binding.shareBtn.setOnClickListener{
             onProfileClick.onProfileShare(pos = position)
         }
-        holder.binding.profile.setOnClickListener {
-            onProfileClick.onMyProfileClikc()
-        }
+
 
         holder.binding.loginitems.setOnClickListener {
             onProfileClick.onMyProfileClikc()
+        }
+        holder.binding.description.setOnClickListener{
+            onProfileClick.onProfileClikc(position)
+        }
+
+        holder.binding.username.setOnClickListener{
+            onProfileClick.onProfileClikc(position)
+        }
+        holder.binding.profiel.setOnClickListener{
+            onProfileClick.onProfileClikc(position)
+        }
+
+        holder.binding.shareBtn.setOnClickListener{
+            onProfileClick.onProfileShare(position)
         }
 
 
@@ -120,12 +197,12 @@ class VideoFeedAdapter(val videoUrls: List<NewAppendItItems>, var onProfileClick
         holder.binding.videoView.setOnClickListener {
             if (holder.player?.isPlaying == true) {
                 holder.player?.pause()
-                holder.binding.placeHolderImg.show()
+                holder.binding.placeHolderBackground.show()
 
             } else {
                 videoPlaybackControl.pauseAllVideos()
                 holder.player?.play()
-                holder.binding.placeHolderImg.hide()
+                holder.binding.placeHolderBackground.hide()
 
             }
         }
@@ -146,5 +223,23 @@ class VideoFeedAdapter(val videoUrls: List<NewAppendItItems>, var onProfileClick
         holder.player?.playWhenReady = false
     }
 
+
+    private fun updateLikeButtonUI(holder: VideoViewHolder, item: NewAppendItItems) {
+        // Update heart icon based on userFav
+        holder.binding.likeBtn.setImageResource(if (item.userFav == "1") R.drawable.heartss else R.drawable.heart)
+        // Update like count text
+        holder.binding.likesCount.text = item.video_counts?.like_count.toString()
+    }
+    private fun updateSaveButtonUI(holder: VideoViewHolder, item: NewAppendItItems) {
+        holder.binding.saveBtn.setImageResource(if (item.userSave == "1") R.drawable.baseline_bookmark_24 else R.drawable.save)
+        holder.binding.commentsCount.text = item.video_counts?.save_count.toString()
+    }
     override fun getItemCount(): Int = videoUrls.size
+
+    fun appendData(newItems: MutableList<NewAppendItItems>) {
+//        val startPosition = videoUrls.size
+//        videoUrls.addAll(newItems)
+//        notifyItemRangeInserted(startPosition, newItems.size)
+    }
+
 }

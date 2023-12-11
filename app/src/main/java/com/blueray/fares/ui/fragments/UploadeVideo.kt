@@ -18,6 +18,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.GridLayoutManager
 import com.beloo.widget.chipslayoutmanager.ChipsLayoutManager
 import com.blueray.fares.adapters.ActivitiesTypesAdapter
 import com.blueray.fares.api.OnCategroryChose
@@ -54,7 +55,7 @@ var categoryId = ""
             if (HelperUtils.getUid(this@UploadeVedio) == "0") {
                 Toast.makeText(this,"يجب تسجيل الدخول",Toast.LENGTH_LONG).show()
 
-                startActivity(Intent(this, MainActivity::class.java))
+                startActivity(Intent(this, HomeActivity::class.java))
                 finish()
 
             }else {
@@ -72,10 +73,11 @@ var categoryId = ""
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == AppCompatActivity.RESULT_OK) {
                 // The Intent contains the URI of the video
+//                videoUri = result.data?.data
+//                prepareVideoUpload(videoUri!!)
                 videoUri = result.data?.data
-                prepareVideoUpload(videoUri!!)
             }else {
-
+            startActivity(Intent(this,HomeActivity::class.java))
             }
         }
 
@@ -89,7 +91,7 @@ var categoryId = ""
         if (HelperUtils.getUid(this@UploadeVedio) == "0") {
             Toast.makeText(this,"يجب تسجيل الدخول",Toast.LENGTH_LONG).show()
 
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, HomeActivity::class.java))
             finish()
             return
 
@@ -127,11 +129,13 @@ var categoryId = ""
 
         getCategory()
         binding.uplaodeVid.setOnClickListener {
+            binding.progressBar.show()
+
             if (binding.title.text?.isEmpty() == true || categoryId.isEmpty()){
                 Toast.makeText(this,"جميع الحقول مطلوبة",Toast.LENGTH_LONG).show()
+                binding.progressBar.hide()
 
             }else {
-                showProgress()
                 prepareVideoUpload(videoUri!!)
             }
         }
@@ -152,9 +156,9 @@ var categoryId = ""
 
                     })
 
-                    val chipsLayoutManager = ChipsLayoutManager.newBuilder(this).build()
+                    val gridLayoutManager = GridLayoutManager(this, 2)
                     binding.activitiesRv.adapter = adapter
-                    binding.activitiesRv.layoutManager =chipsLayoutManager
+                    binding.activitiesRv.layoutManager =gridLayoutManager
 
                 }
 
@@ -181,7 +185,7 @@ var categoryId = ""
 
                   if (result.data.status.status == 200 ){
                       Toast.makeText(this,result.data.status.msg.toString(),Toast.LENGTH_LONG).show()
-                      startActivity(Intent(this,SplashScreen::class.java))
+                      startActivity(Intent(this,HomeActivity::class.java))
                   }else{
                       Toast.makeText(this,result.data.status.msg.toString(),Toast.LENGTH_LONG).show()
 
@@ -190,6 +194,8 @@ var categoryId = ""
 
                 is NetworkResults.Error -> {
                     result.exception.printStackTrace()
+                    Toast.makeText(this,result.exception.localizedMessage.toString() ,Toast.LENGTH_LONG).show()
+Log.d("ertyu",result.exception.toString())
                     hideProgress()
                 }
 
@@ -248,6 +254,7 @@ var categoryId = ""
 //                    binding.btnUploadVideo.isEnabled = true
                     // Handle the error, update UI if needed
                     Toast.makeText(this@UploadeVedio,"Error\t"+ e.message.toString(),Toast.LENGTH_LONG).show()
+
                 }
             }
 
@@ -262,7 +269,7 @@ var categoryId = ""
 //                            binding.progressBar.visibility = View.GONE
 //                            binding.btnUploadVideo.isEnabled = true
 
-                            viewmodel.retriveUserUplaode(binding.title.text.toString(),binding.descirption.text.toString(),systemLink,categoryId)
+                            viewmodel.retriveUserUplaode(binding.title.text?.trim().toString(),binding.descirption.text?.trim().toString(),systemLink,"1")
                             getUplaodeVideo()
 
                         }
@@ -273,7 +280,7 @@ var categoryId = ""
                         // Handle the error
                         val responseBody = res.body?.string()
                         runOnUiThread {
-                            Toast.makeText(this@UploadeVedio, "Upload failed: ${res.message}", Toast.LENGTH_LONG).show()
+//                            Toast.makeText(this@UploadeVedio, "Upload failed: ${res.message}", Toast.LENGTH_LONG).show()
                             binding.progressBar.visibility = View.GONE
 //                            binding.btnUploadVideo.isEnabled = true
                         }
@@ -319,15 +326,12 @@ var categoryId = ""
 
 
                     uploadVideoToVimeo(vid,uploadLink,link)
-                    Log.d("qwertyuiolp",uploadLink)
-                    Log.d("1234567ewertyu",vid.toString())
 
-                    Log.d("Error createVideoObject", response.body.toString())
+
 
                     // Proceed with the upload using this upload link
                 } else {
                     // Handle the error
-                    Log.d("Error createVideoObject", response.body.toString())
                 }
             }
         })

@@ -11,13 +11,20 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.blueray.fares.R
+import com.blueray.fares.adapters.MyAccountPagerAdapter
 import com.blueray.fares.databinding.ActivityHomeBinding
 import com.blueray.fares.helpers.HelperUtils
 import com.blueray.fares.helpers.HelperUtils.setDefaultLanguage
 import com.blueray.fares.helpers.HelperUtils.setLang
 import com.blueray.fares.helpers.ViewUtils.hide
 import com.blueray.fares.helpers.ViewUtils.show
+import com.blueray.fares.ui.fragments.MyAccountFragment
+import com.blueray.fares.videoliveeventsample.BaseApplication
+import com.blueray.fares.videoliveeventsample.util.showToast
 import com.blueray.fares.videoliveeventsample.view.fragment.LiveEventListFragment
+import com.sendbird.live.AuthenticateParams
+import com.sendbird.live.SendbirdLive
+import com.sendbird.live.videoliveeventsample.util.EventObserver
 
 class HomeActivity : BaseActivity() {
     private lateinit var navController: NavController
@@ -40,10 +47,23 @@ class HomeActivity : BaseActivity() {
 
 
 
-
         binding = ActivityHomeBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
+
+
+        (application as BaseApplication).initResultLiveData.observe(
+            this@HomeActivity,
+            EventObserver {
+                if (it) {
+                    autoAuthenticate { isSucceed, e ->
+                        if (e != null) showToast(e)
+
+                    }
+                } else {
+
+                }
+            })
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
         navController = navHostFragment.navController
@@ -80,7 +100,7 @@ class HomeActivity : BaseActivity() {
                 R.id.search->{
 //                    replace(R.id.fragmentContainerView, liveEventListFragment)
 
-navController.navigate(R.id.liveEventListFragment)
+navController.navigate(R.id.searchFragment)
                    true
                 }
                 R.id.PlaceHolder->{
@@ -88,7 +108,7 @@ navController.navigate(R.id.liveEventListFragment)
                     if (HelperUtils.getUid(this@HomeActivity) == "0"){
                         Toast.makeText(this,"يجب تسجيل الدخول",Toast.LENGTH_LONG).show()
 
-                        startActivity(Intent(this,MainActivity::class.java))
+                        startActivity(Intent(this,com.blueray.fares.ui.activities.SplashScreen::class.java))
                         finish()
 
                         true
@@ -101,16 +121,30 @@ navController.navigate(R.id.liveEventListFragment)
 
                     true
                 }
-                else ->{
+                R.id.profiles->{
                     if (HelperUtils.getUid(this@HomeActivity) == "0"){
                         Toast.makeText(this,"يجب تسجيل الدخول",Toast.LENGTH_LONG).show()
 
-                        startActivity(Intent(this,MainActivity::class.java))
+                        startActivity(Intent(this,com.blueray.fares.ui.activities.SplashScreen::class.java))
                         finish()
 
                         false
                     }else {
-                        navController.navigate(R.id.notificationFragment)
+                        navController.navigate(R.id.myAccountFragment)
+                        true
+                    }
+
+                }
+                else ->{
+                    if (HelperUtils.getUid(this@HomeActivity) == "0"){
+                        Toast.makeText(this,"يجب تسجيل الدخول",Toast.LENGTH_LONG).show()
+
+                        startActivity(Intent(this,com.blueray.fares.ui.activities.SplashScreen::class.java))
+                        finish()
+
+                        false
+                    }else {
+                        navController.navigate(R.id.notificationFragmentss)
 true
                     }
                     true
@@ -119,6 +153,28 @@ true
         }
 
     }
+
+
+    private fun autoAuthenticate(callback: (Boolean, String?) -> Unit) {
+        val appId = "47918183-5186-4085-A042-489C9F4726BC"
+        val userId = HelperUtils.getUid(this)
+        val accessToken = "ba7dcaddd8923e9c4c25023b03e593fe8df388c5"
+
+        if (appId == null || userId == null) {
+            callback.invoke(false, null)
+            return
+        }
+
+        val params = AuthenticateParams(userId, accessToken)
+        SendbirdLive.authenticate(params) { user, e ->
+            if (e != null || user == null) {
+                callback.invoke(false, "${e?.message}")
+                return@authenticate
+            }
+            callback.invoke(true, null)
+        }
+    }
+
 
 //    private fun setUpDrawerNavigation() {
 //        binding.navDrawer.setNavigationItemSelectedListener {

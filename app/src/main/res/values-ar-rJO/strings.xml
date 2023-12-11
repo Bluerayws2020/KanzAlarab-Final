@@ -14,6 +14,8 @@
     <string name="enter_information">ادخال البيانات</string>
     <string name="enter_your_personal_information_below_then_click_next_to_continue_registration">ادخل بياناتك الشخصية التالية ثم اضغط “التالي” لمتابعة التسجيل.</string>
     <string name="individual_poet">مستخدم</string>
+    <string name="don_t_have_account"> لا تمتلك حساب؟</string>
+
     <string name="squad">فرقة</string>
     <string name="first_name">الاسم الأول</string>
     <string name="last_name">العائله</string>
@@ -68,6 +70,8 @@
     <string name="title">العنوان</string>
     <string name="description">التفاصيل</string>
     <string name="uplaode">تحميل</string>
-    <string name="cagtegory">نوع الفرقة</string>
+    <string name="cagtegory">نوع النشاط</string>
     <string name="no_data">لا يوجد بيانات\n</string>
+    <string name="welcome">اهلا بك</string>
+
 </resources>

@@ -5,6 +5,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.blueray.fares.R
 import com.blueray.fares.databinding.ActivitySignInManuallyBinding
+import com.blueray.fares.ui.activities.MainView
+import com.blueray.fares.ui.activities.SplashScreen
 import com.sendbird.android.SendbirdChat
 import com.sendbird.android.exception.SendbirdException
 import com.sendbird.android.handler.InitResultHandler
@@ -98,7 +100,7 @@ class SignInManuallyActivity : AppCompatActivity() {
                     prefManager.appId = appId
                     prefManager.userId = userId
                     prefManager.accessToken = accessToken
-                    startActivity(Intent(this@SignInManuallyActivity, MainActivity::class.java))
+                    startActivity(Intent(this@SignInManuallyActivity, SplashScreen::class.java))
                     finish()
                 }
             }

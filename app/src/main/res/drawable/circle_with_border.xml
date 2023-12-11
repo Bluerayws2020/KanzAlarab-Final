@@ -5,7 +5,8 @@
     <!-- Specify the color of the circle -->
 
     <!-- Specify the properties of the border -->
-    <stroke android:width="2dp" android:color="@color/green"/> <!-- black color border with 2dp width -->
+    <stroke android:width="2dp" android:color="@color/green" /> <!-- black color border with 2dp width -->
+
 
     <!-- Optionally, specify the size of the circle -->
     <size

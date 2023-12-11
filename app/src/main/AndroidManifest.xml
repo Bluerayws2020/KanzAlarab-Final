@@ -4,6 +4,31 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
+
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- To detect bluetooth audio device -->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" /> <!-- To utilize audio in livestreaming event -->
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera.autofocus"
+        android:required="false" /> <!-- To utilize video in livestreaming event for audio -->
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.AUDIO_SESSION_ID_GENERATE" />
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- <uses-permission android:name="android.permission.READ_MEDIA_VISUAL_USER_SELECTED" /> -->
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+
     <application
         android:name=".videoliveeventsample.BaseApplication"
         android:allowBackup="true"
@@ -14,6 +39,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Fares"
         android:usesCleartextTraffic="true"
+        android:requestLegacyExternalStorage="true"
         tools:targetApi="31">
         <activity
             android:name=".ui.activities.SplashScreen"
@@ -24,6 +50,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+<!--        <activity-->
+<!--            android:name="Foll"-->
+<!--            android:exported="false" />-->
+        <activity
+            android:name=".ui.activities.FollowingAndFollowersActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.activities.RegistrationOtpActivity"
             android:exported="false" />
@@ -43,6 +76,7 @@
             android:exported="false" />
         <activity
             android:name=".ui.activities.Profile"
+
             android:exported="false" />
         <activity
             android:name=".ui.activities.ChangePassword"
@@ -106,6 +140,10 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".videoliveeventsample.view.LiveEventActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activities.MainView"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity

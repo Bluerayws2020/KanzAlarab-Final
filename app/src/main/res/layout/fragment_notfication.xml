@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <include
-            layout="@layout/profile_app_bar"
+            layout="@layout/registration_new_app_bar"
             android:id="@+id/include_tap"
             />
 
@@ -25,11 +25,13 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvNotifications"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/include_tap"
-            tools:itemCount="10" />
+            tools:itemCount="10"
+            tools:listitem="@layout/notfi_item"
+            />
     </LinearLayout>
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/progressBar"
@@ -45,13 +47,14 @@
         app:lottie_rawRes="@raw/loading"
         android:visibility="gone"
         />
+
     <TextView
         android:id="@+id/messageSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/no_data"
         android:textAlignment="center"
-        android:textColor="@color/teal_700"
+        android:textColor="@color/green"
         android:textSize="13sp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -32,6 +32,7 @@
     <include
         layout="@layout/profile_app_bar"
         android:id="@+id/include_tap"
+        android:visibility="gone"
         />
     <FrameLayout
         android:id="@+id/actionLayout"

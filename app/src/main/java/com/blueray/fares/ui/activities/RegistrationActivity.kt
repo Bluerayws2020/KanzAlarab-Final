@@ -41,7 +41,8 @@ class RegistrationActivity : BaseActivity() {
         var residantPlace = ""
 
         var signupType = ""
-        var squadNumber  = ""
+        var passwordTxt  = ""
+        var userName  = ""
 
 
         var countryID = ""
@@ -85,6 +86,12 @@ binding.addItem.setOnClickListener{
             lastName  =  binding.lastNameEt.text.toString()
             barithDate  =  binding.dateOfBirthDatePicker.text.toString()
             firstName  =  binding.firstNameEt.text.toString()
+            if (binding.female.isChecked){
+                genderId = "Female"
+            }else {
+                genderId = "Male"
+
+            }
             bandName =  binding.squadNameEt.text.toString()
 //            one
 if (signupType == "1"){
@@ -103,6 +110,8 @@ else if (binding.dateOfBirthDatePicker.text?.isEmpty() == true){
     binding.dateOfBirthDatePicker.setError("حقل ضروري ")
 
 }else {
+    passwordTxt = binding.password.text.toString()
+    userName =  binding.userNameEt.text.toString()
     startActivity(Intent(this, SecondRegistrationActivity::class.java))
 
 }

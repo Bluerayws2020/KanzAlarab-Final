@@ -6,4 +6,8 @@ interface OnProfileClick {
     fun onMyProfileClikc()
     fun onmenuClick()
 
+    fun onProfileLike(pos:Int)
+    fun onProfileCommint(pos:Int)
+    fun onProfileSaved(pos:Int)
+
 }

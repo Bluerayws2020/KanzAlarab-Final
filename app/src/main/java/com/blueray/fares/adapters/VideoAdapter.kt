@@ -29,6 +29,10 @@ class VideoAdapter(var arrVideo: List<NewAppendItItems>,  var onProfileClick: On
 holder.binding.profiel.setOnClickListener{
     onProfileClick.onProfileClikc(position)
 }
+        holder.binding.description.setOnClickListener{
+            onProfileClick.onProfileClikc(position)
+        }
+
 
         holder.binding.shareBtn.setOnClickListener{
             onProfileClick.onProfileShare(position)

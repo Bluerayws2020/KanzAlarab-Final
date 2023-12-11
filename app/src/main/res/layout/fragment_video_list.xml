@@ -5,23 +5,41 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.fragments.VideoListFragment">
-
+    <TextView
+        android:id="@+id/no_data"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:text="ستظهر هنا الفيديوهات التي حفظتها \n
+\n
+لن يتمكن غيرك من رؤية هذه القائمة"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textColor="@color/green"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/videosRv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:spanCount="3"
-        tools:listitem="@layout/video_list_item"
-        />
+        tools:listitem="@layout/video_list_item" />
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/progressBar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:layout_marginLeft="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -30,4 +48,7 @@
         app:lottie_loop="true"
 
         app:lottie_rawRes="@raw/horse" />
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

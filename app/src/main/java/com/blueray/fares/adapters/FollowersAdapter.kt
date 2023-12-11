@@ -1,14 +1,24 @@
 package com.blueray.fares.adapters
 
+import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.blueray.fares.R
+import com.blueray.fares.api.FollowerClick
 import com.blueray.fares.databinding.FollowersItemBinding
-import com.blueray.fares.databinding.NotfiItemBinding
+import com.blueray.fares.helpers.ViewUtils.hide
+import com.blueray.fares.model.FollowingList
+import com.blueray.fares.model.FollowingResponse
+import com.blueray.fares.model.VideoResponse
+import com.bumptech.glide.Glide
 
 class FollowersAdapter (
     // todo change list model
-    var list : List<String>
+   var context: Context,
+    var list : List<FollowingList>,
+    var followClikc : FollowerClick
 )
     : RecyclerView.Adapter<FollowersAdapter.MyViewHolder>() {
 
@@ -20,11 +30,51 @@ class FollowersAdapter (
         return MyViewHolder(binding)
     }
 
-    override fun getItemCount(): Int = 20 // todo list.size
+    override fun getItemCount(): Int = list.size
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-//        TODO("Not yet implemented")
+        Glide.with(context).load(list[position].picture).placeholder(R.drawable.logo).into(holder.binding.profileImage)
+
+        holder.binding.name.text = list[position].user_name
+        holder.binding.username.hide()
+
+        holder.binding.username.setBackgroundColor(Color.alpha(R.color.lightGreen))
+
+if (list[position].flag == 1){
+    holder.binding.follow.text = "الغاء المتابعة"
+    holder.binding.follow.setBackgroundResource(R.drawable.un_follow)
+    list[position].flag = 0
+}else {
+    holder.binding.follow.text = "متابعة"
+    holder.binding.follow.setBackgroundResource(R.drawable.btnfollow)
+    list[position].flag = 1
+
+
+}
+        holder.binding.follow.setOnClickListener {
+
+            if (list[position].flag == 1){
+                holder.binding.follow.text = "الغاء المتابعة"
+                holder.binding.follow.setBackgroundResource(R.drawable.un_follow)
+
+                list[position].flag = 0
+
+            }else {
+                holder.binding.follow.text = "متابعة"
+                holder.binding.follow.setBackgroundResource(R.drawable.btnfollow)
+                list[position].flag = 1
+
+
+            }
+            followClikc.onFollowClikcs(position)
+
+
+
+
+        }
+
     }
+
 
 
 }

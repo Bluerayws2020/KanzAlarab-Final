@@ -168,14 +168,14 @@
         <style name="Text16Primary300Bold">
             <item name="android:textSize">16sp</item>
             <item name="android:textStyle">bold</item>
-            <item name="android:textColor">@color/primary_300</item>
+            <item name="android:textColor">@color/blue</item>
             <item name="android:lineSpacingExtra">0sp</item>
         </style>
 
         <style name="Text16Primary200Bold">
             <item name="android:textSize">16sp</item>
             <item name="android:textStyle">bold</item>
-            <item name="android:textColor">@color/primary_200</item>
+            <item name="android:textColor">@color/green</item>
             <item name="android:lineSpacingExtra">0sp</item>
         </style>
 
@@ -249,7 +249,7 @@
 
         <style name="DialogButtonPrimary200Style">
             <item name="android:textSize">14sp</item>
-            <item name="android:textColor">@color/primary_200</item>
+            <item name="android:textColor">@color/greenlight</item>
             <item name="android:padding">4dp</item>
             <item name="android:lineSpacingExtra">0sp</item>
             <item name="android:background">@android:color/transparent</item>
@@ -294,9 +294,15 @@
 
         <style name="Widget.SendbirdLive.SetupItemView">
             <item name="left_icon">@drawable/icon_video_on</item>
-            <item name="left_icon_tint">@color/primary_200</item>
+            <item name="left_icon_tint">@color/greenlight</item>
             <item name="title_text">@string/app_name</item>
             <item name="title_text_appearance">@style/Text16OnDark01</item>
             <item name="tag_text_appearance">@style/Text16OnDark02</item>
         </style>
+
+
+    <style name="FollowCheckBoxStyle" parent="Widget.MaterialComponents.CompoundButton.CheckBox">
+        <item name="android:textSize">16sp</item>
+        <!-- Add other styling attributes if needed -->
+    </style>
 </resources>

@@ -1,12 +1,14 @@
 package com.blueray.fares.api
 
 import com.blueray.fares.model.DropDownModel
-import com.blueray.fares.model.Item
-import com.blueray.fares.model.NetworkResults
+import com.blueray.fares.model.FollowingResponse
+import com.blueray.fares.model.MessageModel
+import com.blueray.fares.model.NotfiMain
+import com.blueray.fares.model.RgetrationModel
+import com.blueray.fares.model.SearchDataModel
 import com.blueray.fares.model.UserLoginModel
 import com.blueray.fares.model.UserUploadeDone
 import com.blueray.fares.model.VideoDataModel
-import com.blueray.fares.model.VideoResponse
 import com.blueray.fares.model.ViewUserLoginModel
 import com.blueray.fares.model.VimeoVideoModelV2
 import okhttp3.MultipartBody
@@ -21,7 +23,7 @@ import retrofit2.http.Url
 
 interface ApiServices {
     @Multipart
-    @POST("app/poet-registration")
+    @POST("ar/app/poet-registration")
     suspend fun addUser(
 
         @Part("first_name") first_name: RequestBody,
@@ -40,10 +42,6 @@ interface ApiServices {
 
 
         ): UserLoginModel
-
-
-
-
 
 
     @Multipart
@@ -76,7 +74,7 @@ interface ApiServices {
         ): UserLoginModel
 
     @Multipart
-    @POST("app/add-poetry2")
+    @POST("ar/app/add-poetry2")
     suspend fun userUplaodeVideo(
         @Part("title") title: RequestBody,
         @Part("description") description: RequestBody,
@@ -85,9 +83,64 @@ interface ApiServices {
         @Part("type_of_activity") type_of_activity: RequestBody,
 
         ): UserUploadeDone
+
+
+
+
+
+    @Multipart
+    @POST("app/check-user-permission")
+    suspend fun checkUserPermission(
+        @Part("uid") uid: RequestBody,
+
+        ): UserUploadeDone
+
+    @Multipart
+    @POST("app/following-users")
+    suspend fun getFollowing(
+        @Part("uid") uid: RequestBody,
+        @Part("target_uid") target_uid:RequestBody
+
+
+        ): FollowingResponse
+
+    @Multipart
+    @POST("app/followers")
+    suspend fun getFollowers(
+        @Part("uid") uid: RequestBody,
+        @Part("target_uid") target_uid:RequestBody
+
+
+    ): FollowingResponse
+
+
+    @Multipart
+    @POST("app/flag-action")
+    suspend fun ActionPost(
+        @Part("uid") uid: RequestBody,
+        @Part("entity_id") entity_id: RequestBody,
+        @Part("entity_type") entity_type: RequestBody,
+        @Part("flag_id") flag_id: RequestBody,
+
+        ): MessageModel
+
+
+
     @GET("app2/poetries")
-    suspend fun getPoetries(        @Query("page")  page:String
-    ): VideoDataModel
+    suspend fun getPoetries(
+        @Query("uid")  uid:String,
+
+        @Query("page")  page:String
+                                    ,        @Query("page_limit")  page_limit:String,
+        @Query("is_home")is_home:String,
+
+
+        ): VideoDataModel
+
+
+
+
+
 
     @GET("app2/poetries")
     suspend fun getPoetriesForuser(
@@ -95,12 +148,49 @@ interface ApiServices {
         @Query("page_limit")  page_limit:String,
 
         @Query("state")  state:String,
+        @Query("user_profile_uid")user_profile_uid:String,
+        @Query("is_home")is_home:String,
+        @Query("page")page:String
+
+
 
     ): VideoDataModel
 
 
 
-        @GET("en/app/user-info")
+
+
+
+    @Multipart
+    @POST("app/flag-conents-list")
+    suspend fun getFlagContent(
+
+
+        @Part("uid") uid: RequestBody,
+    @Part("flag_id") flag_id: RequestBody,
+
+    ): VideoDataModel
+
+
+
+    @POST("app/notifications")
+    suspend fun getNotfi(
+        @Part("uid") uid: RequestBody,
+
+    ): NotfiMain
+
+
+    @Multipart
+    @POST("app/search")
+    suspend fun getSearch(
+
+
+        @Part("uid") uid: RequestBody,
+        @Part("search_key") SearchDataModel: RequestBody,
+
+        ): SearchDataModel
+
+    @GET("app/user-info")
     suspend fun getUserInfo(
         @Query("uid")  uid:String,
 
@@ -136,6 +226,12 @@ interface ApiServices {
         @Url videoUrl: String,
         @Header("Authorization") authorizationToken:String,
     ): VimeoVideoModelV2
+
+
+
+
+
+
 
 
 

@@ -11,16 +11,25 @@ import com.sendbird.live.SendbirdLive
 import com.sendbird.live.videoliveeventsample.util.Event
 import com.blueray.fares.videoliveeventsample.util.PrefManager
 import com.blueray.fares.videoliveeventsample.util.changeValue
+import com.onesignal.OneSignal
 
 class BaseApplication : Application() {
     lateinit var prefManager: PrefManager
     private val _initResultLiveData = MutableLiveData<Event<Boolean>>()
+     val ONESIGNAL_APP_ID = "366ee19d-e3cc-43ba-b944-b53ac64c6d3a"
 
     val initResultLiveData: LiveData<Event<Boolean>>
         get() = _initResultLiveData
 
     override fun onCreate() {
         super.onCreate()
+        // Enable verbose OneSignal logging to debug issues if needed.
+        OneSignal.setLogLevel(OneSignal.LOG_LEVEL.VERBOSE, OneSignal.LOG_LEVEL.NONE);
+
+        // OneSignal Initialization
+
+        OneSignal.initWithContext(this)
+        OneSignal.setAppId(ONESIGNAL_APP_ID)
         prefManager = PrefManager(applicationContext)
         val appId = "1CFCE912-F6CC-4F60-9FA1-FC4B3B61BA6A"
         if (appId == null) {

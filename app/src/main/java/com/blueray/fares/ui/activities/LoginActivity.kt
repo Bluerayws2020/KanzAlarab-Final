@@ -15,6 +15,11 @@ import com.blueray.fares.helpers.ViewUtils.show
 import com.blueray.fares.model.NetworkResults
 import com.blueray.fares.model.UserLoginModel
 import com.blueray.fares.ui.viewModels.AppViewModel
+import com.blueray.fares.videoliveeventsample.BaseApplication
+import com.blueray.fares.videoliveeventsample.util.showToast
+import com.sendbird.live.AuthenticateParams
+import com.sendbird.live.SendbirdLive
+import com.sendbird.live.videoliveeventsample.util.EventObserver
 
 class LoginActivity : BaseActivity() {
     private val viewmodel by viewModels<AppViewModel>()
@@ -56,7 +61,7 @@ HelperUtils.hideKeyBoard(this)
                 Toast.makeText(this,"جميع الحقول مطلوبة",Toast.LENGTH_LONG).show()
 
             }else {
-                showProgress()
+                binding.progressBar.show()
                 viewmodel.retriveLogin(binding.userName.text.toString(),binding.password.text.toString())
 
             }
@@ -70,13 +75,13 @@ HelperUtils.hideKeyBoard(this)
     }
 
     private fun getLogin() {
-        hideProgress()
 
         viewmodel.getLogin().observe(this) { result ->
             hideProgress()
 
             when (result) {
                 is NetworkResults.Success -> {
+
                     if (result.data.status.status == 200){
                         saveUserData(result.data)
 
@@ -98,12 +103,14 @@ HelperUtils.hideKeyBoard(this)
             }
         }
     }
+
+
     fun saveUserData(model: UserLoginModel){
         val sharedPreferences = getSharedPreferences(HelperUtils.SHARED_PREF, MODE_PRIVATE)
 
         sharedPreferences.edit().apply {
             putString(HelperUtils.UID_KEY, model.datas.uid)
-            putString("role", model.datas.uid)
+            putString("role", model.datas.id)
 
             putString(HelperUtils.USERNAME, binding.userName.text?.trim().toString())
             putString(HelperUtils.PASSWORD, binding.password.text?.trim().toString())
@@ -111,7 +118,27 @@ HelperUtils.hideKeyBoard(this)
 
 
         }.apply()
+
+        binding.progressBar.hide()
         startActivity(Intent(this,HomeActivity::class.java))
+        finish()
+        //            prefManager = PrefManager(this)
+        (application as BaseApplication).initResultLiveData.observe(this, EventObserver {
+            if (it) {
+                autoAuthenticate { isSucceed, e ->
+                    if (e != null) showToast(e)
+                    binding.progressBar.hide()
+                    binding.progressBar.hide()
+
+                    startActivity(Intent(this,HomeActivity::class.java))
+finish()
+                }
+            } else {
+                showToast("يوجد خلل 4003")
+                binding.progressBar.hide()
+
+            }
+        })
 
     }
 
@@ -123,6 +150,27 @@ HelperUtils.hideKeyBoard(this)
 
     private fun showProgress() {
         binding.progressBar.show()
+    }
+
+    private fun autoAuthenticate(callback: (Boolean, String?) -> Unit) {
+        val appId = "1CFCE912-F6CC-4F60-9FA1-FC4B3B61BA6A"
+        val userId = HelperUtils.getUid(this)
+        val accessToken = "a509c1fbce3f09483f6b3196bb6f9368757a72ac"
+
+        if (appId == null || userId == null) {
+            callback.invoke(false, null)
+            return
+        }
+
+        val params = AuthenticateParams(userId, accessToken)
+        SendbirdLive.authenticate(params) { user, e ->
+            if (e != null || user == null) {
+                callback.invoke(false, "${e?.message}")
+
+                return@authenticate
+            }
+            callback.invoke(true, null)
+        }
     }
 
 }
