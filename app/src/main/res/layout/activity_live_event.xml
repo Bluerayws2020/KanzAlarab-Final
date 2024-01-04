@@ -4,15 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/onlight_01"
+    android:background="@color/white"
     tools:context=".view.LiveEventActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clLiveView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
+
+        <com.blueray.fares.videoliveeventsample.view.widget.LiveEventReactionView
+            android:id="@+id/lervLikeReaction"
+            android:layout_width="56dp"
+            android:layout_height="0dp"
+       app:layout_constraintBaseline_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent "
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvLiveView"
@@ -31,11 +42,81 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/overlay_02" />
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/giftItem0"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            android:visibility="gone"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/hor" />
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/giftItem1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            android:visibility="gone"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/camel_l" />
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/giftItem2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            android:visibility="gone"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/nakhlah_l" />
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/giftItem3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            android:visibility="gone"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/siaf_l" />
 
+
+        <ImageView
+            android:id="@+id/webss"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            android:visibility="gone"
+            app:lottie_rawRes="@raw/hor" />
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clSetting"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/ivClose"
@@ -182,68 +263,73 @@ android:orientation="horizontal"
         android:background="@color/overlay_02"
         >
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:background="#003F51B5"
-        android:padding="12dp"
-        android:id="@+id/infol"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cvCover"
-            android:layout_width="34dp"
-            android:layout_height="34dp"
-            app:cardCornerRadius="17dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-<ImageView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:src="@drawable/logo2"
-   android:id="@+id/userProfile"
-    />
-        </androidx.cardview.widget.CardView>
-
         <LinearLayout
-            android:layout_width="128dp"
-            android:layout_height="52dp"
-            android:orientation="vertical"
+            android:id="@+id/infol"
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:background="#003F51B5"
+            android:padding="12dp"
+            android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintStart_toStartOf="parent">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:textSize="12sp"
-                android:lines="1"
-                android:textColor="@color/white"
-                app:layout_constraintEnd_toStartOf="@+id/infol"
-                app:layout_constraintStart_toEndOf="@+id/cvCover"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvDescription"
-                style="@style/Text12OnDark03"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:ellipsize="end"
-                android:maxLines="1"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvCover"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                app:cardCornerRadius="17dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/cvCover"
-                app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
-        </LinearLayout>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <ImageView
+                    android:id="@+id/userProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/logo2" />
+            </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:weightSum="2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="@dimen/sb_size_12"
+                app:layout_constraintStart_toEndOf="@+id/cvCover"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+
+                    android:lines="1"
+                    android:text="1233123213213213132133123131312321321"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toStartOf="@+id/infol"
+                    app:layout_constraintStart_toEndOf="@+id/cvCover"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvDescription"
+                    style="@style/Text12OnDark03"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="Mohame321321321321312321312321321ed"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/cvCover"
+                    app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+            </LinearLayout>
+
+        </LinearLayout>
         <LinearLayout
             android:layout_width="50dp"
             android:layout_height="match_parent"
@@ -286,6 +372,34 @@ android:text="دعم"
                 android:textColor="@color/white"
                 />
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/sb_size_12"
+            android:orientation="vertical"
+            android:id="@+id/reaction"
+            >
+            <ImageView
+                android:id="@+id/reactions"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/heart"
+                android:padding="@dimen/sb_size_5"
+                />
+
+        </LinearLayout>
+
     </LinearLayout>
+
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fcvChat"
+        android:layout_width="match_parent"
+        android:layout_height="452dp"
+        android:focusableInTouchMode="true"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

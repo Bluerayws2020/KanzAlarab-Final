@@ -55,7 +55,9 @@ class VideoItemAdapter(var  flag :Int,
         holder.apply {
 
             if (flag == 1){
-                binding.statcard.show()
+                binding.statcard.hide()
+                binding.statcard.hide()
+
                 binding.txt.text = videoItem.status
                 if ( videoItem.status == "published"){
                     binding.statcard.setCardBackgroundColor(ContextCompat.getColor(context, R.color.green))

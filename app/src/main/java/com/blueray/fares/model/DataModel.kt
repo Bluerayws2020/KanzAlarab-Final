@@ -95,6 +95,10 @@ data class MessageModel(
     @SerializedName("message") val msg: String
 
 )
+data class MessageModelData(
+    @SerializedName("msg") val status: MessageModel,
+
+)
 data class Item(
     val id: String,
     val title: String,
@@ -138,7 +142,7 @@ data class NotfiMain(
     )
 data class NofiItem(
     @SerializedName("title") val title : String,
-    @SerializedName("body") val body : Int,
+    @SerializedName("body") val body : String,
     @SerializedName("entity_id") val entity_id : String? = null,
     @SerializedName("flag_id") val flag_id : String? = null,
     @SerializedName("created") val created : String? = null,
@@ -215,7 +219,18 @@ data class SearchDataModel(
 
     )
 
+data class checkUserFollowData(
+    @SerializedName("data") val datass: CheckUserFollow,
 
+
+    )
+
+data class CheckUserFollow(
+    @SerializedName("im_follow_him") val im_follow_him: String,
+    @SerializedName("he_follow_me") val he_follow_me: String,
+    @SerializedName("this_is_me") val this_is_me: String,
+
+    )
 data class  SarchItem(
     @SerializedName("uid") val uid: String,
     @SerializedName("user_name") val user_name: String,
@@ -321,3 +336,12 @@ data class Pprofile_data(
    @SerializedName("gender") val gender:String?
 
     )
+
+
+data class Grid(
+    val image :Int ,
+    val sounds :Int ,
+
+    val name:String,
+    val price:String
+)

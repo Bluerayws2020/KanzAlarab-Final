@@ -31,7 +31,7 @@ class NotficationAcdapter // this down is the basic implementation of an adapter
 //        TODO("Not yet implemented")
 
 
-        holder.binding.name.text =  list[position].title
+        holder.binding.username.text =  list[position].body
     }
 
 

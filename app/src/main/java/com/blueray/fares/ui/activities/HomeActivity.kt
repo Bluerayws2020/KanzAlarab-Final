@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import android.window.SplashScreen
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.GravityCompat
 import androidx.navigation.NavController
@@ -26,13 +27,17 @@ import com.sendbird.live.AuthenticateParams
 import com.sendbird.live.SendbirdLive
 import com.sendbird.live.videoliveeventsample.util.EventObserver
 
-class HomeActivity : BaseActivity() {
+class HomeActivity : AppCompatActivity() {
     private lateinit var navController: NavController
     private val liveEventListFragment = LiveEventListFragment()
 
     private lateinit var binding : ActivityHomeBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        binding = ActivityHomeBinding.inflate(layoutInflater)
+
+        setContentView(binding.root)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
 
@@ -47,9 +52,6 @@ class HomeActivity : BaseActivity() {
 
 
 
-        binding = ActivityHomeBinding.inflate(layoutInflater)
-
-        setContentView(binding.root)
 
 
         (application as BaseApplication).initResultLiveData.observe(
@@ -144,7 +146,7 @@ navController.navigate(R.id.searchFragment)
 
                         false
                     }else {
-                        navController.navigate(R.id.notificationFragmentss)
+                        navController.navigate(R.id.notfi)
 true
                     }
                     true
@@ -156,9 +158,9 @@ true
 
 
     private fun autoAuthenticate(callback: (Boolean, String?) -> Unit) {
-        val appId = "47918183-5186-4085-A042-489C9F4726BC"
+        val appId = "6A2870E9-4E98-4044-85DE-24DF3DDECB4B"
         val userId = HelperUtils.getUid(this)
-        val accessToken = "205349e679a5598c976d50d9a17093cc1651753b"
+        val accessToken = "27ef004db2ee6dcb0b628ef56229a072122a408c"
 
         if (appId == null || userId == null) {
             callback.invoke(false, null)
@@ -208,6 +210,19 @@ true
 //            binding.drawerLayout.closeDrawer(GravityCompat.START)
 //        }
 
+//    override fun onBackPressed() {
+//        super.onBackPressed()
+//
+//        AlertDialog.Builder(this)
+//                .setTitle("خروج")
+//                .setMessage("هل انت متاكد من الخروج؟")
+//                .setPositiveButton("نعم") { _, _ ->
+//                    finishAffinity()
+//                }
+//                .setNegativeButton("لا", null)
+//                .show()
+//
+//    }
 
 
     }

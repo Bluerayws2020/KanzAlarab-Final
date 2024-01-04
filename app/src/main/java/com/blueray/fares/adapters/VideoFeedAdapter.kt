@@ -3,7 +3,9 @@ package com.blueray.fares.adapters
 import android.content.Context
 import android.net.Uri
 import android.util.Log
+import android.view.GestureDetector
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.blueray.fares.R
@@ -29,7 +31,16 @@ class VideoFeedAdapter(
     class VideoViewHolder(val binding: ItemVideoBinding) : RecyclerView.ViewHolder(binding.root) {
         var player: ExoPlayer? = null
 
+
+        val gestureDetector = GestureDetector(binding.root.context, object : GestureDetector.SimpleOnGestureListener() {
+            override fun onDoubleTap(e: MotionEvent): Boolean {
+                binding.likeBtn.performClick() // Simulate a click on the like button
+                return true
+            }
+        })
+
         fun bind(videoUrl: String) {
+
 
             // Initialize player
             if (player == null) {
@@ -52,13 +63,14 @@ class VideoFeedAdapter(
                 val mediaItem = MediaItem.fromUri(Uri.parse(videoUrl))
                 player?.setMediaItem(mediaItem)
                 player?.prepare()
+
             }
 
             // Set click listener to toggle play/pause
             binding.videoView.setOnClickListener {
                 player?.let { exoPlayer ->
                     if (exoPlayer.isPlaying) {
-                        exoPlayer.pause()
+//                        exoPlayer.pause()
                     } else {
                         exoPlayer.play()
                     }
@@ -88,10 +100,14 @@ class VideoFeedAdapter(
         holder.bind(videoUrls[position].videoUrl)
         val item = videoUrls[position]
 
+
+        holder.itemView.setOnTouchListener { _, event ->
+            holder.gestureDetector.onTouchEvent(event)
+            true
+        }
             holder.binding.username.text =  videoUrls[position].userName
             holder.binding.description.text =  videoUrls[position].videoTitle
 //
-
             // Save button
             holder.binding.saveBtn.setOnClickListener {
                 item.userSave = if(item.userSave == "1") "0" else "1"
@@ -107,6 +123,10 @@ class VideoFeedAdapter(
 
         }
 
+
+        holder.binding.deltBtn.setOnClickListener {
+            onProfileClick.onProfileDeletVideo(position)
+        }
         holder.binding.likeBtn.setOnClickListener {
             val item = videoUrls[position]
             if (item.userFav == "1") {
@@ -125,18 +145,25 @@ class VideoFeedAdapter(
 
         }
 
-
-
-
-        if (isUser == 1){
-//            holder.binding.profile.show()
             holder.binding.loginitems.hide()
-        }else {
-//            holder.binding.profile.hide()
-            holder.binding.loginitems.show()
-        }
 
+//
+//
+//        if (isUser == 1){
+////            holder.binding.profile.show()
+//            holder.binding.loginitems.hide()
+//        }else {
+////            holder.binding.profile.hide()
+//            holder.binding.loginitems.show()
+//        }
 
+if (isUser == 3001){
+
+    holder.binding.deltBtn.show()
+}else {
+    holder.binding.deltBtn.hide()
+
+}
 Log.d("LikkkesCountss",videoUrls[position].video_counts?.like_count.toString())
         likeCount = videoUrls[position].video_counts?.like_count!!
         commintCount = videoUrls[position].video_counts?.like_count ?: 0
@@ -166,8 +193,10 @@ holder.binding.saveBtn.setImageResource(R.drawable.baseline_bookmark_24)
         }
 
         holder.binding.shareBtn.setOnClickListener{
-            onProfileClick.onProfileShare(pos = position)
+//            onProfileClick.onProfileShare(pos = position)
         }
+
+
 
 
         holder.binding.loginitems.setOnClickListener {
@@ -210,7 +239,7 @@ holder.binding.saveBtn.setImageResource(R.drawable.baseline_bookmark_24)
 
     override fun onViewRecycled(holder: VideoViewHolder) {
         super.onViewRecycled(holder)
-        holder.player?.pause()
+        holder.releasePlayer()
     }
     override fun onViewAttachedToWindow(holder: VideoViewHolder) {
         super.onViewAttachedToWindow(holder)
@@ -237,9 +266,10 @@ holder.binding.saveBtn.setImageResource(R.drawable.baseline_bookmark_24)
     override fun getItemCount(): Int = videoUrls.size
 
     fun appendData(newItems: MutableList<NewAppendItItems>) {
-//        val startPosition = videoUrls.size
-//        videoUrls.addAll(newItems)
-//        notifyItemRangeInserted(startPosition, newItems.size)
+        val startPosition = videoUrls.size
+        videoUrls.addAll(newItems)
+        notifyItemRangeInserted(startPosition, newItems.size)
     }
+
 
 }

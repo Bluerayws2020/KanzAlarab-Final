@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/bottom_sheet_bg"
+    android:padding="16dp">
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/gridRv"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/rechargeTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
+        android:text="شراء نقاط"
+        android:textColor="#E91E63"
+
+        android:textSize="22sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/gridRv" />
+
+    <ImageView
+        android:id="@+id/diamond"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:src="@drawable/ic_baseline_diamond_24"
+        app:layout_constraintBottom_toBottomOf="@id/rechargeTv"
+        app:layout_constraintStart_toEndOf="@id/rechargeTv"
+        app:layout_constraintTop_toTopOf="@id/rechargeTv" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="0"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@id/diamond"
+        app:layout_constraintStart_toEndOf="@id/diamond"
+        app:layout_constraintTop_toTopOf="@id/diamond" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/rechargeTv"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="20dp"
+        android:text="ارسال"
+        android:visibility="gone"
+        android:textColor="#6E6E6E"
+        android:backgroundTint="#B6B6B6"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

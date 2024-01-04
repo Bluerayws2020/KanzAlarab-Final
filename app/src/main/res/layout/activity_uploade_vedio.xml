@@ -4,148 +4,137 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     tools:context=".ui.activities.RegistrationActivity">
-
-
-
-
-
-    <ImageView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        />
+        android:orientation="vertical"
+        >
+
+
     <include
-        layout="@layout/registration_app_bar"
+        layout="@layout/registration_new_app_bar"
         android:id="@+id/include_tap"
         />
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:layout_width="match_parent"
-        android:layout_height="400dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginBottom="-200dp"
-        />
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/include_tap"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:cardCornerRadius="30dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        >
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/progressBar"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:lottie_autoPlay="true"
-            android:background="@color/white"
-            app:lottie_loop="true"
-            android:visibility="gone"
-            app:lottie_rawRes="@raw/horse" />
-
-        <androidx.core.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="200dp"
+            android:orientation="horizontal"
             >
+            <androidx.cardview.widget.CardView
+                android:layout_margin="@dimen/sb_size_12"
+                android:layout_width="@dimen/sb_size_100"
+                app:cardCornerRadius="@dimen/sb_size_12"
+                android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="match_parent"
+android:id="@+id/uploades"
+                android:layout_height="match_parent"
+                android:src="@drawable/icon_play"
+                />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/sb_size_12"
+                >
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="اضف بعض المعلومات عن الفيديو الخاص بك
+الحد الاقصى 40000 حرف
+"
+                    android:textColorHint="@color/green"
+
+                    style="@style/SignInEditTextStyles"
+                    android:id="@+id/txt"
+                    android:textColor="@color/green"
+                    android:textSize="14sp"
+                    android:background="@color/white"
+
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/activities"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:spanCount="3"
+                    android:layout_marginBottom="@dimen/sb_size_5"
+                    tools:listitem="@layout/list_uploade" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+<View
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:background="#BEBEBE"/>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_margin="12dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:gravity="center"
             >
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="@string/cagtegory"
-                android:textColor="@color/brown"
-                android:textSize="14sp" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/activitiesRv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/custom_outlined_rectangel"
-                android:padding="10dp"
-                app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
-                app:spanCount="3"
-                tools:listitem="@layout/activities_count_items"
-                />
-
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
-                android:text="@string/title"
-                android:textColor="@color/brown"
-                android:textSize="14sp" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/title"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:inputType="text"
-
-                />
-
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
-                android:layout_marginTop="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/description"
-                android:textSize="14sp"
-                android:textColor="@color/brown"
-                />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/descirption"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:inputType="text"
-                    />
-
-
-            </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/uplaodeVid"
-                android:layout_width="match_parent"
+                android:id="@+id/nextBtn"
+                android:layout_width="@dimen/sb_size_100"
                 android:layout_height="60dp"
-                app:cornerRadius="15dp"
                 android:backgroundTint="@color/green"
-                android:textColor="@color/white"
-                android:text="@string/uplaode"
+                android:text="تحميل"
+                android:layout_gravity="center"
+                android:gravity="center"
                 android:textAllCaps="false"
-                android:layout_marginTop="20dp"/>
+                android:textColor="@color/white"
+                app:cornerRadius="18dp"
+                app:icon="@drawable/ic_baseline_upload"
+                app:iconGravity="textEnd"
+
+                android:layout_marginEnd="@dimen/sb_size_12"
+                app:iconSize="10dp" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/notNow"
+                android:layout_width="@dimen/sb_size_100"
+                android:layout_height="60dp"
+                android:text="المسودة"
+                android:backgroundTint="#C7CCE5"
+                android:textAllCaps="false"
+                android:layout_gravity="center"
+                android:gravity="center"
+                app:cornerRadius="18dp"
+                app:iconGravity="textEnd"
+                app:iconSize="15dp" />
         </LinearLayout>
 
-        </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
 
+
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        android:background="@color/white"
+        app:lottie_loop="true"
+        android:visibility="gone"
+        app:lottie_rawRes="@raw/horse" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

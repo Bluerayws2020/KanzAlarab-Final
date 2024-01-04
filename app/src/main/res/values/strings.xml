@@ -106,7 +106,7 @@
     <string name="choose_photo">Choose photo</string>
 
     <string name="okay">OK</string>
-    <string name="cancel">Cancel</string>
+    <string name="cancel">الغاء</string>
     <string name="remove">Remove</string>
     <string name="add">Add</string>
     <string name="enter">Enter</string>
@@ -140,10 +140,10 @@
 
     <string name="dialog_message_choose_your_role">Choose your role</string>
 
-    <string name="dialog_message_host_end">End live event?</string>
-    <string name="dialog_message_host_do_end">End live event</string>
-    <string name="dialog_message_host_do_exit">Exit without ending</string>
-    <string name="dialog_message_host_cancel">Cancel</string>
+    <string name="dialog_message_host_end">هل ترغب في انهاء البث؟</string>
+    <string name="dialog_message_host_do_end">انهاء البث </string>
+    <string name="dialog_message_host_do_exit">تعليق البث</string>
+    <string name="dialog_message_host_cancel">الغاء</string>
     <string name="dialog_message_live_event_information_change_event_title">Change event title</string>
     <string name="dialog_message_live_event_information_change_event_title_placeholder">Enter title</string>
     <string name="dialog_message_live_event_information_change_event_cover_image">Change cover image</string>
@@ -157,9 +157,9 @@
     <string name="dialog_message_add_user">Add user</string>
     <string name="dialog_message_enter_user_id">Enter user ID</string>
 
-    <string name="summary_total_participants">Total participants</string>
-    <string name="summary_peak_concurrent_participants">Peak concurrent participants</string>
-    <string name="summary_duration">Duration</string>
+    <string name="summary_total_participants">اجمالي المشاهدات </string>
+    <string name="summary_peak_concurrent_participants">عدد المشاهدين(وقت الذروة)</string>
+    <string name="summary_duration">مدة البث</string>
 
     <string name="error_message_enter_the_app_id">Please enter the Application ID.</string>
     <string name="error_message_enter_the_user_id">Please enter the User ID.</string>

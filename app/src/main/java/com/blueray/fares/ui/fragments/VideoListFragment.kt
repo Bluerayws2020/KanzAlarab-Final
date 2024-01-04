@@ -48,7 +48,7 @@ import java.util.ArrayList
 class VideoListFragment : Fragment() {
 
     private var isLoading = false
-    private var noMoreData = false
+    private var isLastPage = false
 
     private lateinit var binding : FragmentVideoListBinding
     private lateinit var videoAdapter :VideoItemAdapter
@@ -72,23 +72,126 @@ class VideoListFragment : Fragment() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
 
+binding.progressBar.show()
 
-        if (!isLoading) {
-            isLoading = true
-            mainViewModel.retriveUserVideos("1", "9", HelperUtils.getUid(requireContext()), "0", "0")
-        }
+            mainViewModel.retriveUserVideos("1", "9", userIdes, "0", currentPage.toString())
+
+        binding.progressBar.show()
+        setupRecyclerView()
         getMainVidos()
-
-
         return binding.root
     }
 
 
 
+//    private fun setupRecyclerView() {
+//        binding.videosRv.layoutManager = GridLayoutManager(requireContext(), 3)
+//        videoAdapter = VideoItemAdapter(1, newArrVideoModel, object : VideoClick {
+//            override fun OnVideoClic(pos: List<NewAppendItItems>, position: Int) {
+////
+////                                val intent = Intent(context, VidInnerPlay::class.java)
+////                                intent.putExtra(
+////                                        "dataList",
+////                                        newArrVideoModel
+////                                    ) // Assuming YourDataType is Serializable or Parcelable
+////                                intent.putExtra("position", position)
+////
+////
+////
+////                                startActivity(intent)
+//
+//            }
+//
+//            override fun OnVideoClic(position: Int) {
+//                val intent = Intent(context, VidInnerPlay::class.java)
+////                    .apply {
+////                    putExtra("dataList", newArrVideoModel) // Assuming YourDataType is Serializable or Parcelable
+////                    putExtra("position", position)
+////                }
+//
+//                PartitionChannelFragment.DataHolder.itemsList = newArrVideoModel
+//
+//                intent.putExtra("isMyProfile","1")
+//
+//                startActivity(intent)
+//            }
+//        }, requireContext())
+//        binding.videosRv.adapter = videoAdapter
+//
+//    }
+
+
+
+
+    private fun setupRecyclerView() {
+        binding.progressBar.show()
+
+        binding.videosRv.layoutManager = GridLayoutManager(requireContext(), 3)
+        videoAdapter = VideoItemAdapter(1, newArrVideoModel, object : VideoClick {
+                        override fun OnVideoClic(pos: List<NewAppendItItems>, position: Int) {
+//
+//                                val intent = Intent(context, VidInnerPlay::class.java)
+//                                intent.putExtra(
+//                                        "dataList",
+//                                        newArrVideoModel
+//                                    ) // Assuming YourDataType is Serializable or Parcelable
+//                                intent.putExtra("position", position)
+//
+//
+//
+//                                startActivity(intent)
+
+            }
+
+            override fun OnVideoClic(position: Int) {
+                val intent = Intent(context, VidInnerPlay::class.java)
+//                    .apply {
+//                    putExtra("dataList", newArrVideoModel) // Assuming YourDataType is Serializable or Parcelable
+//                    putExtra("position", position)
+//                }
+
+                PartitionChannelFragment.DataHolder.itemsList = newArrVideoModel
+
+                intent.putExtra("isMyProfile","1")
+
+                startActivity(intent)
+            }
+
+
+
+
+        }, requireContext())
+        binding.videosRv.adapter = videoAdapter
+
+        binding.videosRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val layoutManager = recyclerView.layoutManager as GridLayoutManager
+                val totalItemCount = layoutManager.itemCount
+                val lastVisibleItem = layoutManager.findLastVisibleItemPosition()
+
+                if (!isLoading && !isLastPage && lastVisibleItem + 1 >= totalItemCount) {
+                    loadMoreItems()
+                }
+            }
+        })
+
+    }
+
+
+
+    private fun loadMoreItems() {
+        if (!isLoading && !isLastPage) {
+            isLoading = true
+            binding.progressBar.show()
+            mainViewModel.retriveUserVideos("1", "6", userIdes, "0", currentPage.toString())
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
+        setupRecyclerView(emptyList())
     }
 
 
@@ -102,16 +205,23 @@ binding.videosRv.adapter = null
     fun getMainVidos() {
         mainViewModel.getUserVideos().observe(viewLifecycleOwner) { result ->
             when (result) {
+
                 is NetworkResults.Success -> {
+
                     val data = result.data.datass
 
 
                     if (result.data.datass.isNullOrEmpty()) {
-                        noMoreData = true
                         binding.progressBar.hide()
                         binding.noData.show()
                         binding.videosRv.hide()
+                        isLastPage = true
+                        isLoading = true // Reset loading flag here
+
+
                     } else {
+                        isLoading = false // Reset loading flag here
+
                         binding.noData.hide()
                         binding.videosRv.show()
                         binding.progressBar.hide()
@@ -154,17 +264,26 @@ binding.videosRv.adapter = null
                             // (Your existing logic here)
 
 
-                        if (newArrVideoModel.isEmpty()) {
-                            newArrVideoModel.addAll(safeData)
-                            setupRecyclerView(safeData)
-                        } else {
-                            val startPosition = newArrVideoModel.size
-                            newArrVideoModel.addAll(safeData)
-                            videoAdapter.notifyItemRangeInserted(startPosition, safeData.size)
-                        }
+//                        val startPosition = newArrVideoModel.size
+//                        newArrVideoModel.addAll(safeData)
+//                        videoAdapter.notifyItemRangeInserted(startPosition, data.size)
+
+                        updateRecyclerView(safeData)
+                        currentPage++
+
+
+
+
+
+
+
+
+
+
+
+
                     }
 
-                    isLoading = false
                     binding.progressBar.hide()
                 }
                 is NetworkResults.Error -> {
@@ -176,6 +295,8 @@ binding.videosRv.adapter = null
             }
         }
     }
+
+
 
 
     fun setupRecyclerView(safeData:List<NewAppendItItems>){
@@ -206,6 +327,9 @@ binding.videosRv.adapter = null
 //                }
 
 PartitionChannelFragment.DataHolder.itemsList = newArrVideoModel
+
+                intent.putExtra("isMyProfile","1")
+
                 startActivity(intent)
             }
         }, requireContext())
@@ -214,33 +338,21 @@ PartitionChannelFragment.DataHolder.itemsList = newArrVideoModel
 
 
         binding.videosRv.adapter = videoAdapter
+
+    }
+
+
+
+
+
+
+
+    private fun updateRecyclerView(newItems: List<NewAppendItItems>) {
+        val startPosition = newArrVideoModel.size
+        newArrVideoModel.addAll(newItems)
+        videoAdapter.notifyItemRangeInserted(startPosition, newItems.size)
         binding.progressBar.hide()
-
-        addScrollListener()
     }
-    private fun addScrollListener() {
-//        binding.videosRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-//            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-//                super.onScrolled(recyclerView, dx, dy)
-//                if (noMoreData || isLoading) return
-//
-//                val layoutManager = recyclerView.layoutManager as GridLayoutManager
-//                val totalItemCount = layoutManager.itemCount
-//                val lastVisibleItem = layoutManager.findLastVisibleItemPosition()
-//
-//                if (totalItemCount <= (lastVisibleItem + 3)) {
-//                    loadMoreItems()
-//                }
-//            }
-//        })
-    }
-    private fun loadMoreItems() {
-        isLoading = true
-        currentPage++
-        binding.progressBar.show()
-        mainViewModel.retriveUserVideos("1", "3", HelperUtils.getUid(requireContext()), "0", currentPage.toString())
-    }
-
 
 
     override fun onResume() {

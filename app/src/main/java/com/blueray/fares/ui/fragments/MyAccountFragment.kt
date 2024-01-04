@@ -59,6 +59,7 @@ var userName = ""
 
         }
 
+
         binding.followingCount.setOnClickListener {
             val intent  = Intent(requireContext(), FollowingAndFollowersActivity::class.java)
             intent.putExtra("user_id", HelperUtils.getUid(requireContext())) // Replace 'yourUserId' with the actual user ID

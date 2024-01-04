@@ -39,6 +39,7 @@ open class LiveEventListAdapter : RecyclerView.Adapter<LiveEventListAdapter.Live
     ): LiveEventListHolder {
         val inflater: LayoutInflater = LayoutInflater.from(parent.context)
         val binding: ListItemLiveEventBinding = ListItemLiveEventBinding.inflate(inflater, parent, false)
+        binding.pulsator2.start()
         return LiveEventListHolder(binding)
     }
 
@@ -103,8 +104,8 @@ open class LiveEventListAdapter : RecyclerView.Adapter<LiveEventListAdapter.Live
                 }
             binding.ivLiveThumbnail.load(coverBackgroundRes) {
                 crossfade(true)
-                placeholder(R.drawable.icon_default_user)
-                error(R.drawable.icon_default_user)
+                placeholder(R.drawable.logo2)
+                error(R.drawable.logo2)
             }
             val (stringResId, textAppearance, backgroundResId) = when (liveEvent.state) {
                 LiveEventState.CREATED -> Triple(R.string.upcoming, R.style.Text12Primary300Bold, R.drawable.shape_live_state_created_background)
@@ -112,11 +113,11 @@ open class LiveEventListAdapter : RecyclerView.Adapter<LiveEventListAdapter.Live
                 LiveEventState.ONGOING -> Triple(R.string.live, R.style.Text12OnDark01Bold, R.drawable.shape_live_state_ongoing_background)
                 LiveEventState.ENDED -> Triple(R.string.ended, R.style.Text12OnLight02Bold, R.drawable.shape_live_state_ended_background)
             }
-            with(binding.tvLiveEventStatus) {
-                this.text = context.getString(stringResId)
-                setTextAppearance(textAppearance)
-                setBackgroundResource(backgroundResId)
-            }
+//            with(binding.tvLiveEventStatus) {
+//                this.text = context.getString(stringResId)
+//                setTextAppearance(textAppearance)
+//                setBackgroundResource(backgroundResId)
+//            }
         }
     }
 

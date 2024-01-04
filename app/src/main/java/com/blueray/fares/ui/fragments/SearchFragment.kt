@@ -48,6 +48,8 @@ class SearchFragment : Fragment() {
 binding.searchs.show()
         getMainVidos()
 
+        binding.noData.show()
+
         binding.searchs.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 // Perform your search operation here

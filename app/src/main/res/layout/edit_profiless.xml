@@ -80,6 +80,8 @@ android:layout_gravity="center"
                 android:layout_height="wrap_content"
                 android:textColor="@color/green"
                 android:textSize="14sp"
+                android:editable="false"
+                android:clickable="false"
                 />
 
 <!--        <com.google.android.material.textfield.TextInputLayout-->
@@ -127,6 +129,8 @@ android:layout_gravity="center"
                 android:layout_height="wrap_content"
                 android:textColor="@color/green"
                 android:textSize="14sp"
+                android:editable="false"
+                android:clickable="false"
                 />
         <TextView
             android:layout_width="wrap_content"
@@ -155,6 +159,8 @@ android:layout_gravity="center"
                 android:layout_height="wrap_content"
                 android:textColor="@color/green"
                 android:textSize="14sp"
+                android:editable="false"
+                android:clickable="false"
                 />
         <TextView
             android:layout_width="wrap_content"
@@ -211,6 +217,8 @@ android:layout_gravity="center"
                 android:layout_height="wrap_content"
                 android:textColor="@color/green"
                 android:textSize="14sp"
+                android:editable="false"
+                android:clickable="false"
                 />
 
         <TextView
@@ -240,6 +248,16 @@ android:layout_gravity="center"
                 android:layout_height="wrap_content"
                 android:textColor="@color/green"
                 android:textSize="14sp"
+                android:editable="false"
+                android:clickable="false"
+                />
+            <Button
+                android:id="@+id/edits"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:text="تعديل الحساب"
                 />
         <TextView
             android:layout_width="wrap_content"
@@ -257,6 +275,18 @@ android:layout_gravity="center"
 
     </androidx.core.widget.NestedScrollView>
 
-
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/progressBar"
+        android:layout_width="150sp"
+        android:layout_height="150sp"
+        android:layout_marginLeft="15dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/horse" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,14 +3,15 @@ package com.blueray.fares.api
 import com.blueray.fares.model.DropDownModel
 import com.blueray.fares.model.FollowingResponse
 import com.blueray.fares.model.MessageModel
+import com.blueray.fares.model.MessageModelData
 import com.blueray.fares.model.NotfiMain
-import com.blueray.fares.model.RgetrationModel
 import com.blueray.fares.model.SearchDataModel
 import com.blueray.fares.model.UserLoginModel
 import com.blueray.fares.model.UserUploadeDone
 import com.blueray.fares.model.VideoDataModel
 import com.blueray.fares.model.ViewUserLoginModel
 import com.blueray.fares.model.VimeoVideoModelV2
+import com.blueray.fares.model.checkUserFollowData
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.GET
@@ -128,11 +129,10 @@ interface ApiServices {
 
     @GET("app2/poetries")
     suspend fun getPoetries(
-        @Query("uid")  uid:String,
-
-        @Query("page")  page:String
-                                    ,        @Query("page_limit")  page_limit:String,
-        @Query("is_home")is_home:String,
+                    @Query("uid")  uid:String,
+                    @Query("page")  page:String,
+                    @Query("page_limit")  page_limit:String,
+                    @Query("is_home")is_home:String,
 
 
         ): VideoDataModel
@@ -172,7 +172,16 @@ interface ApiServices {
     ): VideoDataModel
 
 
+    @Multipart
+    @POST("ar/app/delete-poetry")
+    suspend fun deletVideo(
 
+
+        @Part("uid") uid: RequestBody,
+        @Part("id") id: RequestBody,
+
+        ): MessageModelData
+@Multipart
     @POST("app/notifications")
     suspend fun getNotfi(
         @Part("uid") uid: RequestBody,
@@ -190,6 +199,20 @@ interface ApiServices {
 
         ): SearchDataModel
 
+
+
+
+
+    @Multipart
+    @POST("app/check-user-follow")
+    suspend fun checkUserFollow(
+
+
+        @Part("uid") uid: RequestBody,
+        @Part("target_uid") target_uid: RequestBody,
+
+        ): checkUserFollowData
+
     @GET("app/user-info")
     suspend fun getUserInfo(
         @Query("uid")  uid:String,
@@ -197,6 +220,22 @@ interface ApiServices {
     ):List<ViewUserLoginModel>
 
 
+
+    @Multipart
+    @POST("app/edit-poet-profile")
+    suspend fun editProfile(
+        @Part("uid") uid: RequestBody,
+        @Part("first_name") first_name: RequestBody,
+        @Part("last_name") last_name: RequestBody,
+        @Part("email") email: RequestBody,
+        @Part("phone") phone: RequestBody,
+        @Part  img :   MultipartBody.Part,
+        @Part("barth_of_date") barth_of_date: RequestBody,
+    @Part("gender") gender: RequestBody,
+
+
+
+        ):MessageModelData
     @GET("app/nationality-list")
     suspend fun getNational( ): List<DropDownModel>
 

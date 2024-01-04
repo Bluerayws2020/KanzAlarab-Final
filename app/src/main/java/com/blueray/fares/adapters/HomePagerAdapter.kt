@@ -9,20 +9,25 @@ import com.blueray.fares.ui.fragments.HomeVidFrag
 class HomePagerAdapter (fragmentManager: FragmentManager, lifecycle: Lifecycle) :
     FragmentStateAdapter(fragmentManager, lifecycle) {
 
+    val videosFragment = HomeVidFrag()
 
     override fun getItemCount()= 2
     override fun createFragment(position: Int): Fragment {
         return if(position == 0){
-            val videosFragment = HomeVidFrag()
             videosFragment
         } else{
             val livesFragment =
                 com.blueray.fares.videoliveeventsample.view.fragment.LiveEventListFragment()
+           videosFragment.videoAdapter = null
             livesFragment
+
+
         }
 
 
+
     }
+
 
 
 

@@ -1,13 +1,19 @@
 package com.blueray.fares.videoliveeventsample.view
 
+import android.content.Intent
 import android.view.View
 import com.blueray.fares.R
+import com.blueray.fares.videoliveeventsample.util.INTENT_KEY_LIVE_EVENT_ID
 import com.sendbird.live.Host
 import com.sendbird.live.LiveEvent
 import com.sendbird.live.LiveEventState
 import com.sendbird.live.ParticipantCountInfo
 import com.blueray.fares.videoliveeventsample.util.displayFormat
+import com.sendbird.uikit.consts.KeyboardDisplayType
+import com.sendbird.uikit.fragments.OpenChannelFragment
 import com.sendbird.webrtc.SendbirdException
+
+const val KEY_LIVE_EVENT_LIKE_REACTION = "LIKE"
 
 class LiveEventForParticipantActivity : LiveEventActivity() {
 
@@ -27,6 +33,29 @@ class LiveEventForParticipantActivity : LiveEventActivity() {
         super.finishLiveEvent(isEnded)
         liveEvent?.exit(null)
     }
+
+    override fun getOpenChannelFragment(liveEventId: String) =
+
+        OpenChannelFragment.Builder(liveEventId)
+            .setCustomFragment(
+                openChannelFragment.apply {
+                    this.onHeaderRightButtonClickListener = View.OnClickListener {
+                        val intent = Intent(this@LiveEventForParticipantActivity, ParticipantListActivity::class.java).apply {
+                            putExtra(INTENT_KEY_LIVE_EVENT_ID, liveEventId)
+                        }
+                        startActivity(intent)
+                    }
+                    this.headerRightButtonResourceId = R.drawable.icon_members
+                    this.onHeaderReactionButtonClickListener = View.OnClickListener {
+                        increaseReactionCount()
+                    }
+                    this.reactionButtonVisibility = View.VISIBLE
+                }
+            )
+            .setKeyboardDisplayType(KeyboardDisplayType.Dialog)
+            .useOverlayMode()
+            .build()
+
 
     override var liveEventListenerImpl = object : LiveEventListenerImpl() {
         override fun onDisconnected(liveEvent: LiveEvent, e: SendbirdException) {
@@ -73,6 +102,9 @@ class LiveEventForParticipantActivity : LiveEventActivity() {
         }
 
         override fun onReactionCountUpdated(liveEvent: LiveEvent, key: String, count: Int) {
+            runOnUiThread {
+                distributeReactionAnimations(key, count)
+            }
         }
     }
 
@@ -82,6 +114,16 @@ class LiveEventForParticipantActivity : LiveEventActivity() {
         } else {
             binding.tvBanner.text = text
             binding.tvBanner.visibility = View.VISIBLE
+        }
+    }
+    private fun increaseReactionCount() {
+        liveEvent?.increaseReactionCount(KEY_LIVE_EVENT_LIKE_REACTION) increaseReactionCountLabel@{ reactionCountMap, e ->
+            if (e != null) {
+                return@increaseReactionCountLabel
+            }
+            reactionCountMap?.forEach {
+                distributeReactionAnimations(it.key, it.value)
+            }
         }
     }
 }

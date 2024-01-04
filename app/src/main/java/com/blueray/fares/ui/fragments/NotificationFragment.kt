@@ -35,7 +35,14 @@ class NotificationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
+        binding.progressBar.show()
 
+
+        viewmodel.retriveNotfication()
+
+        getNotficaiton()
+        binding.includeTap.title.text ="الاشعارات"
+        binding.includeTap.back.hide()
     }
 
     override fun onCreateView(
@@ -45,8 +52,10 @@ class NotificationFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentNotficationBinding.inflate(layoutInflater)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-binding.includeTap.title.text ="الاشعارات"
-binding.includeTap.back.hide()
+
+        return binding.root
+
+
 
 //        binding.includeTap.profile.setOnClickListener {
 //
@@ -65,17 +74,13 @@ binding.includeTap.back.hide()
 ////
 //        }
 
-        binding.progressBar.show()
 
 
-        viewmodel.retriveNotfication()
-
-        getNotficaiton()
 
 
 
 //        getData()
-        return binding.root
+
     }
     fun getNotficaiton() {
 
@@ -92,12 +97,15 @@ binding.includeTap.back.hide()
 //                        binding.rvNotifications.show()
 //                        binding.messageSearch.hide()
 //                    }
+
+
+
                     Log.d("Tessss",result.data.datass.toString())
                     notfiAdabter = NotficationAcdapter(result.data.datass)
                     binding.rvNotifications.adapter = notfiAdabter
                     binding.rvNotifications.layoutManager = LinearLayoutManager(
                         requireContext(),
-                        LinearLayoutManager.VERTICAL, true
+                        LinearLayoutManager.VERTICAL, false
                     )// trying reversed layout
 
 

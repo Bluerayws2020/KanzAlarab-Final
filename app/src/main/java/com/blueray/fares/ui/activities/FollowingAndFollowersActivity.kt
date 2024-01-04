@@ -2,6 +2,7 @@ package com.blueray.fares.ui.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.blueray.fares.R
 import com.blueray.fares.adapters.FollowersPagerAdapter
 import com.blueray.fares.adapters.HomePagerAdapter
@@ -19,6 +20,7 @@ class FollowingAndFollowersActivity : AppCompatActivity() {
         binding = ActivityFollowingAndFollowersBinding.inflate(layoutInflater)
         setContentView(binding.root)
         userId = intent.getStringExtra("user_id") // Retrieve the user ID
+
         val userName = intent.getStringExtra("userName") // Retrieve the user ID
 if (HelperUtils.getUid(this) == userId){
     binding.includeTab.title.text = "حسابي"
@@ -26,6 +28,9 @@ if (HelperUtils.getUid(this) == userId){
     binding.includeTab.title.text = "@$userName"
 
 }
+        binding.includeTab.back.setOnClickListener {
+            onBackPressed()
+        }
 
         setUpViewPagerWithTapLayout()
     }

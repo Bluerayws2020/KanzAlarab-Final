@@ -1,6 +1,9 @@
 package com.blueray.fares.videoliveeventsample.view
 
+import LiveEventDetailActivity
+import android.content.Intent
 import android.util.Log
+import android.view.View
 import com.blueray.fares.R
 import com.sendbird.live.Host
 import com.sendbird.live.LiveEvent
@@ -8,11 +11,14 @@ import com.sendbird.live.LiveEventState
 import com.sendbird.live.ParticipantCountInfo
 import com.sendbird.live.SendbirdLive
 import com.blueray.fares.videoliveeventsample.model.TextBottomSheetDialogItem
+import com.blueray.fares.videoliveeventsample.util.INTENT_KEY_LIVE_EVENT_ID
 import com.blueray.fares.videoliveeventsample.util.audioNameResId
 import com.blueray.fares.videoliveeventsample.util.displayFormat
 import com.blueray.fares.videoliveeventsample.util.showSheetDialog
 import com.blueray.fares.videoliveeventsample.util.showSheetRadioDialog
 import com.blueray.fares.videoliveeventsample.util.showToast
+import com.sendbird.uikit.consts.KeyboardDisplayType
+import com.sendbird.uikit.fragments.OpenChannelFragment
 import com.sendbird.webrtc.SendbirdException
 
 class LiveEventForHostActivity : LiveEventActivity() {
@@ -22,11 +28,7 @@ class LiveEventForHostActivity : LiveEventActivity() {
             R.string.dialog_message_host_do_end,
             R.style.Text14Error200
         ),
-        TextBottomSheetDialogItem(
-            DIALOG_ITEM_EXIT_LIVE_EVENT,
-            R.string.dialog_message_host_do_exit,
-            R.style.Text14Primary200
-        ),
+
         TextBottomSheetDialogItem(
             DIALOG_ITEM_CANCEL_LIVE_EVENT,
             R.string.cancel,
@@ -137,6 +139,23 @@ class LiveEventForHostActivity : LiveEventActivity() {
         }
     }
 
+    override fun getOpenChannelFragment(liveEventId: String) =
+        OpenChannelFragment.Builder(liveEventId)
+            .setCustomFragment(
+                openChannelFragment.apply {
+                    this.onHeaderRightButtonClickListener = View.OnClickListener {
+                        val intent = Intent(this@LiveEventForHostActivity, LiveEventDetailActivity::class.java).apply {
+                            putExtra(INTENT_KEY_LIVE_EVENT_ID, liveEventId)
+                        }
+                        startActivity(intent)
+                    }
+                    this.headerRightButtonResourceId = com.sendbird.uikit.R.drawable.icon_info
+                    this.reactionButtonVisibility = View.GONE
+                }
+            )
+            .setKeyboardDisplayType(KeyboardDisplayType.Dialog)
+            .build()
+
     override var liveEventListenerImpl = object : LiveEventListenerImpl() {
         override fun onLiveEventStarted(liveEvent: LiveEvent) {
             startTimer(0L)
@@ -226,5 +245,15 @@ class LiveEventForHostActivity : LiveEventActivity() {
         const val DIALOG_ITEM_END_LIVE_EVENT = 0
         const val DIALOG_ITEM_EXIT_LIVE_EVENT = 1
         const val DIALOG_ITEM_CANCEL_LIVE_EVENT = 2
+    }
+    private fun increaseReactionCount() {
+        liveEvent?.increaseReactionCount(KEY_LIVE_EVENT_LIKE_REACTION) increaseReactionCountLabel@{ reactionCountMap, e ->
+            if (e != null) {
+                return@increaseReactionCountLabel
+            }
+            reactionCountMap?.forEach {
+                distributeReactionAnimations(it.key, it.value)
+            }
+        }
     }
 }

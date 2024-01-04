@@ -6,6 +6,14 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        release {
+            storeFile file('/Users/mohammedjaber/Downloads/Untitled')
+            storePassword 'brws1234'
+            keyAlias 'key0'
+            keyPassword 'brws1234'
+        }
+    }
     namespace 'com.blueray.fares'
     compileSdk 34
 
@@ -13,15 +21,16 @@ android {
         applicationId "com.blueray.fares"
         minSdk 24
         targetSdk 34
-        versionCode 1
-        versionName "1.0"
+        versionCode 4
+        versionName "4.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
-            minifyEnabled true
+            minifyEnabled false
+            signingConfig signingConfigs.release
 
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -71,7 +80,7 @@ dependencies {
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
     implementation 'androidx.cardview:cardview:1.0.0'
 //    implementation 'com.sendbird.sdk:uikit:3.+'
-//    implementation 'com.sendbird.sdk:sendbird-live:1.1.2'
+    implementation 'com.sendbird.sdk:sendbird-live:1.1.2'
     implementation 'io.coil-kt:coil:2.4.0'
 
     //nav component
@@ -144,7 +153,13 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation "com.onesignal:OneSignal:4.8.6"
+    implementation 'pl.bclogic:pulsator4droid:1.0.3'
 
+    implementation 'com.github.bumptech.glide:glide:4.16.0' // Replace with the latest version
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
     // otp view
+
+    implementation 'com.hbb20:ccp:1.7.1'
+
     implementation 'io.github.chaosleung:pinview:1.4.4' // github link to deal with this library https://github.com/ChaosLeung/PinView
 }

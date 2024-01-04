@@ -5,6 +5,7 @@ import android.util.Log
 import com.blueray.fares.model.DropDownModel
 import com.blueray.fares.model.FollowingResponse
 import com.blueray.fares.model.MessageModel
+import com.blueray.fares.model.MessageModelData
 import com.blueray.fares.model.NetworkResults
 import com.blueray.fares.model.NotfiMain
 import com.blueray.fares.model.RgetrationModel
@@ -14,10 +15,15 @@ import com.blueray.fares.model.UserUploadeDone
 import com.blueray.fares.model.VideoDataModel
 import com.blueray.fares.model.ViewUserLoginModel
 import com.blueray.fares.model.VimeoVideoModelV2
+import com.blueray.fares.model.checkUserFollowData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
+import retrofit2.http.Part
+import java.io.File
 import java.lang.Exception
 
 
@@ -204,6 +210,33 @@ uidBody,entityIdBody,entity_typeBody,flag_idBody
     }
 
 
+
+    suspend fun getDeletVideos(
+        uid: String,
+
+        id:String,
+
+
+        ): NetworkResults<MessageModelData> {
+        return withContext(Dispatchers.IO){
+
+            val uidBody = uid.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+            val idBody = id.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+
+            try {
+                val results = ApiClient.retrofitService.deletVideo(uidBody,
+                    idBody
+                )
+                NetworkResults.Success(results)
+            } catch (e: Exception){
+                NetworkResults.Error(e)
+            }
+        }
+    }
+
+
+
+
     suspend fun getNotfication(
         uid: String,
 
@@ -218,8 +251,12 @@ uidBody,entityIdBody,entity_typeBody,flag_idBody
                 val results = ApiClient.retrofitService.getNotfi(
                     uidBody,
                 )
+                Log.d("notifications",results.datass.toString())
+
                 NetworkResults.Success(results)
             } catch (e: Exception) {
+                Log.d("notifications",e.localizedMessage.toString())
+
                 NetworkResults.Error(e)
             }
         }
@@ -294,12 +331,22 @@ page:String
                 val results = ApiClient.retrofitService.getUserInfo(
              uid
                 )
+
+
+                Log.d("TEsst",results.toString())
                 NetworkResults.Success(results)
             } catch (e: Exception){
+                Log.d("TEsst100",e.localizedMessage.toString())
+
                 NetworkResults.Error(e)
+
             }
         }
     }
+
+
+
+
 
     suspend fun getNational(
 
@@ -366,6 +413,70 @@ cid:String
         }
     }
 
+
+
+    suspend fun getEditProfile(
+
+        uid:String,
+        first_name:String,
+        last_name:String,
+        email:String,
+        phone:String,
+        img:File,
+        gender:String,
+        barth_of_date:String,
+
+
+
+
+        ): NetworkResults<MessageModelData> {
+        return withContext(Dispatchers.IO){
+
+            val uidBody = uid.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+            val first_nameBody = first_name.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+            val last_nameBody = last_name.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+            val phoneBody = phone.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+            val emailBody = email.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+            val genderBody = gender.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+            val barth_of_dateBody = barth_of_date.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+
+            val commercial_recordBody = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), img)
+            val commercial_record_part  =  MultipartBody.Part.createFormData("img", img.name, commercial_recordBody)
+
+            try {
+                val results = ApiClient.retrofitService.editProfile(
+                uidBody,first_nameBody,last_nameBody,emailBody,phoneBody,commercial_record_part,genderBody,barth_of_dateBody
+                )
+                NetworkResults.Success(results)
+            } catch (e: Exception){
+                NetworkResults.Error(e)
+            }
+        }
+    }
+
+    suspend fun getCheckUserFollow(
+
+        uid:String,
+        targetFollow:String
+
+
+    ): NetworkResults<checkUserFollowData> {
+        return withContext(Dispatchers.IO){
+
+            val uidBody = uid.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+            val targetFollowUid = targetFollow.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+
+
+            try {
+                val results = ApiClient.retrofitService.checkUserFollow(
+                    uidBody,targetFollowUid
+                )
+                NetworkResults.Success(results)
+            } catch (e: Exception){
+                NetworkResults.Error(e)
+            }
+        }
+    }
 
 
     suspend fun getGender(

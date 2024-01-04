@@ -13,6 +13,7 @@ import com.blueray.fares.model.DropDownModel
 import com.blueray.fares.model.FollowingResponse
 import com.blueray.fares.model.Item
 import com.blueray.fares.model.MessageModel
+import com.blueray.fares.model.MessageModelData
 import com.blueray.fares.model.NetworkResults
 import com.blueray.fares.model.NotfiMain
 import com.blueray.fares.model.RgetrationModel
@@ -24,9 +25,11 @@ import com.blueray.fares.model.VideoDataModel
 import com.blueray.fares.model.VideoResponse
 import com.blueray.fares.model.ViewUserLoginModel
 import com.blueray.fares.model.VimeoVideoModelV2
+import com.blueray.fares.model.checkUserFollowData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
+import java.io.File
 import javax.inject.Inject
 
 
@@ -63,6 +66,7 @@ class AppViewModel(application: Application): AndroidViewModel(application) {
     private val natoinalLiveData = MutableLiveData<NetworkResults<List<DropDownModel>>>()
     private val coityLiveData = MutableLiveData<NetworkResults<List<DropDownModel>>>()
     private val countyLiveData = MutableLiveData<NetworkResults<List<DropDownModel>>>()
+    private val getCheckFollowId = MutableLiveData<NetworkResults<checkUserFollowData>>()
 
     private val genderLive = MutableLiveData<NetworkResults<List<DropDownModel>>>()
     private val categroLive = MutableLiveData<NetworkResults<List<DropDownModel>>>()
@@ -74,6 +78,10 @@ class AppViewModel(application: Application): AndroidViewModel(application) {
 
     private val userUplaodeLoive = MutableLiveData<NetworkResults<UserUploadeDone>>()
     private val setActions = MutableLiveData<NetworkResults<MessageModel>>()
+    private val updateUserLive = MutableLiveData<NetworkResults<MessageModelData>>()
+
+    private val deletVideoLive = MutableLiveData<NetworkResults<MessageModelData>>()
+
 
     fun retriveMainVideos(page:Int,pageLimit:Int,ishome:String){
 
@@ -83,6 +91,16 @@ class AppViewModel(application: Application): AndroidViewModel(application) {
     }
 
     fun getMainVideos() = getVideosLive
+
+
+    fun retriveDeleteVideo(id:String){
+
+        viewModelScope.launch{
+            deletVideoLive.value = repo.getDeletVideos(userId,id)
+        }
+    }
+
+    fun getDeletVideos() = deletVideoLive
 
     fun retriveFlagContent(flag:String){
 
@@ -155,8 +173,22 @@ class AppViewModel(application: Application): AndroidViewModel(application) {
     fun getFollower() = getFollowerLive
 
 
+fun updateUserProfile(
+                      first_name:String,
+                      last_name:String,
+                      email:String,
+                      phone:String,
+                      img: File,
+                      gender:String,
+                      barth_of_date:String,
 
+                      ){
+    viewModelScope.launch{
+        updateUserLive.value = repo.getEditProfile(userId,first_name,last_name,email, phone, img,gender,barth_of_date)
+    }
+}
 
+    fun getUpdateUserLive() = updateUserLive
 
     fun retriveSetAction(
                                 entityId: String,
@@ -195,9 +227,11 @@ class AppViewModel(application: Application): AndroidViewModel(application) {
     fun getUserProfile() = viewUserPrfofile
 
     fun retrieveVideoOption(videoUrl: String, vimeoToken:String) {
+
         viewModelScope.launch {
             val authToken="Bearer $vimeoToken"
             vimeoVideoLiveData.value = repo.getVimeoVideo(videoUrl, authToken)
+
         }
     }
 
@@ -231,6 +265,17 @@ class AppViewModel(application: Application): AndroidViewModel(application) {
         }
     }
     fun getCity() = coityLiveData
+
+
+
+    fun retriveCheckUserFolow(targetFollowId:String){
+        viewModelScope.launch {
+            getCheckFollowId.value = repo.getCheckUserFollow(userId,targetFollowId)
+        }
+    }
+
+
+  fun  getFollowCheckUser() = getCheckFollowId
 
     fun retriveGender() {
         viewModelScope.launch {

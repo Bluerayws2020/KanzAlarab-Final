@@ -50,15 +50,16 @@ class PartitionChannelFragment : Fragment() {
     object DataHolder {
         var itemsList: ArrayList<NewAppendItItems>? = null
     }
+    private var lastFirstVisiblePosition = 0
 
+    private var isLoading = false
+    private var isLastPage = false
     private var isUserInteraction = false
 
     private lateinit var binding: FragmentPartitionChannelBinding
     private lateinit var videoAdapter: VideoItemAdapter
     var newArrVideoModel = ArrayList<NewAppendItItems>()
     private lateinit var navController: NavController
-    private var isLoading = false
-    private var noMoreData = false
 
     private var currentPage = 0
     var target_user_follow_flag = ""
@@ -95,31 +96,30 @@ class PartitionChannelFragment : Fragment() {
 binding.includeTap.title.text  = fullname
         getUserAction()
 
+        mainViewModel.retriveCheckUserFolow(userIdes)
+getCheckFollowId()
 
 /// inistial State
 
         Log.d("TEEEEES", userIdes)
 
-        binding.followCheckbox.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (isChecked) {
-                // Checkbox is checked
-                mainViewModel.retriveSetAction(userIdes, "user", "following")
-                binding.followCheckbox.setTextColor(ContextCompat.getColor(requireContext(), R.color.green))
-                binding.followCheckbox.text = "الغاء المتابعة"
-            } else {
-                // Checkbox is not checked
-                mainViewModel.retriveSetAction(userIdes, "user", "following") // Assuming you have an unfollowing action
-                binding.followCheckbox.setTextColor(ContextCompat.getColor(requireContext(), R.color.green))
-                binding.followCheckbox.text = "متابعة"
-            }
-        }
+
 
         // Revert changes for "Follow" state
 
 
+binding.btnUnfollow.setOnClickListener {
+                    mainViewModel.retriveSetAction(userIdes, "user", "following")
 
-
-
+    binding.btnFollow.show()
+    it.hide()
+}
+binding.btnFollow.setOnClickListener {
+                    mainViewModel.retriveSetAction(userIdes, "user", "following")
+binding.btnUnfollow.show()
+    it.hide()
+}
+binding.includeTap.back.hide()
 
 
 
@@ -156,14 +156,16 @@ binding.includeTap.title.text  = fullname
         navController = Navigation.findNavController(view)
         binding.progressBar.show()
 
-        mainViewModel.retriveUserVideos("0","6",userIdes,"1",currentPage.toString())
+        mainViewModel.retriveUserVideos("0","9",userIdes,"1",currentPage.toString())
         getMainVidos()
-binding.followCheckbox.hide()
+
+        Log.d("userIdesuserIdes",userIdes)
 
         binding.followersLayout.setOnClickListener {
             val intent  = Intent(requireContext(), FollowingAndFollowersActivity::class.java)
-            intent.putExtra("user_id", HelperUtils.getUid(requireContext())) // Replace 'yourUserId' with the actual user ID
+            intent.putExtra("user_id",userIdes) // Replace 'yourUserId' with the actual user ID
             intent.putExtra("userName",userName ) // Replace 'yourUserId' with the actual user ID
+            intent.putExtra("followersLayout","1" ) // Replace 'yourUserId' with the actual user ID
 
             startActivity(intent)
 
@@ -172,8 +174,9 @@ binding.followCheckbox.hide()
 
         binding.followingLayout.setOnClickListener {
             val intent  = Intent(requireContext(), FollowingAndFollowersActivity::class.java)
-            intent.putExtra("user_id", HelperUtils.getUid(requireContext())) // Replace 'yourUserId' with the actual user ID
+            intent.putExtra("user_id", userIdes) // Replace 'yourUserId' with the actual user ID
             intent.putExtra("userName",userName ) // Replace 'yourUserId' with the actual user ID
+            intent.putExtra("followersLayout","0" ) // Replace 'yourUserId' with the actual user ID
 
             startActivity(intent)
         }
@@ -182,6 +185,49 @@ binding.followCheckbox.hide()
 //        binding.videosRv.layoutManager = GridLayoutManager(requireContext(), 3)
 //        binding.videosRv.adapter = videoAdapter
 
+    }
+    private fun getCheckFollowId() {
+
+        mainViewModel.getFollowCheckUser().observe(viewLifecycleOwner) { result ->
+
+            when (result) {
+                is NetworkResults.Success -> {
+                    Log.d("ERTYUI", result.data.datass.toString())
+
+
+if (result.data.datass.im_follow_him == "1"){
+    binding.btnFollow.hide()
+    binding.btnUnfollow.show()
+
+}else {
+    binding.btnFollow.show()
+    binding.btnUnfollow.hide()
+
+}
+
+
+
+
+
+                }
+
+
+
+
+
+                is NetworkResults.Error -> {
+                    Toast.makeText(
+                        requireContext(),
+                        result.exception.printStackTrace().toString(),
+                        Toast.LENGTH_LONG
+                    ).show()
+
+                    result.exception.printStackTrace()
+                }
+
+                else -> {}
+            }
+        }
     }
 
 
@@ -192,11 +238,11 @@ binding.followCheckbox.hide()
             when (result) {
                 is NetworkResults.Success -> {
                     if (result.data.status == 200) {
-//                        Toast.makeText(
-//                            requireContext(),
-//                            result.data.msg.toString(),
-//                            Toast.LENGTH_LONG
-//                        ).show()
+                        Toast.makeText(
+                            requireContext(),
+                            result.data.msg.toString(),
+                            Toast.LENGTH_LONG
+                        ).show()
 
 //                        if(result.data.msg == "unfollowing success"){
 //                            binding.followCheckbox.isChecked =  true
@@ -248,31 +294,25 @@ binding.followCheckbox.hide()
 if (result.data.datass.isNullOrEmpty()){
     binding.noData.show()
     binding.videosRv.hide()
+    isLastPage = true
+    isLoading = true // Reset loading flag here
+
 
 }else {
     binding.noData.hide()
 binding.videosRv.show()
+    isLoading = false // Reset loading flag here
+
 
 
 }
-                        binding.followCheckbox.show()
 
 
 //                        target_user_follow_flag = result.data.target_user?.target_user_follow_flag.toString()
-                        if (result.data.target_user?.target_user_follow_flag != 1){
-                            binding.followCheckbox.setTextColor(ContextCompat.getColor(requireContext(), R.color.green))
-                            binding.followCheckbox.text = "متابعة"
 
-                            binding.followCheckbox.isChecked = true
-                        }else{
-                            binding.followCheckbox.isChecked = false
-                            binding.followCheckbox.text =  "الغاء المتابعة"
-
-                            binding.followCheckbox.setTextColor(ContextCompat.getColor(requireContext(), R.color.green))
-
-                        }
 
                         Log.d("ertyui",target_user_follow_flag)
+
 
                         result.data.datass.forEach { item ->
                             var vidLink = ""
@@ -333,21 +373,42 @@ DataHolder.itemsList = newArrVideoModel
                         binding.videosRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                                 super.onScrolled(recyclerView, dx, dy)
-                                if (noMoreData) return  // Stop pagination if no more data
-
-                                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                                val layoutManager = recyclerView.layoutManager as GridLayoutManager
                                 val totalItemCount = layoutManager.itemCount
-                                val lastVisibleItem = layoutManager.findLastCompletelyVisibleItemPosition()
+                                val lastVisibleItem = layoutManager.findLastVisibleItemPosition()
+                                val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
 
-                                if (!isLoading && totalItemCount <= (lastVisibleItem + 1)) {
-                                    loadMoreItems()
-                                    isLoading = true
+                                if (firstVisibleItemPosition > lastFirstVisiblePosition && dy > 0) {
+                                    // Scrolling down
+binding.container.hide()
+                                } else if (firstVisibleItemPosition < lastFirstVisiblePosition && dy < 0) {
+                                    // Scrolling up
+                                    binding.container.show()
                                 }
 
+
+                                if (firstVisibleItemPosition == 0) {
+                                    // At the top of the list
+                                    binding.container.show()
+                                }
+                                if (!isLoading && !isLastPage && lastVisibleItem + 1 >= totalItemCount) {
+//                                    loadMoreItems()
+                                }
                             }
                         })
 
                         binding.videosRv.adapter = videoAdapter
+                        binding.progressBar.hide()
+
+
+//                        updateRecyclerView(newArrVideoModel)
+//                        currentPage++
+
+
+
+                        val startPosition = newArrVideoModel.size
+                        newArrVideoModel.addAll(newArrVideoModel)
+//                        videoAdapter.notifyItemRangeInserted(startPosition, newArrVideoModel.size)
                         binding.progressBar.hide()
 
                     }
@@ -364,16 +425,14 @@ DataHolder.itemsList = newArrVideoModel
             }
         }
 
+
     private fun loadMoreItems() {
-        if (noMoreData) {
-                Log.d("No MOREEE DATA ", "qwertyuiop[")
-        } else {
+        if (!isLastPage && !isLoading) {
+            isLoading = true
             currentPage++
             binding.progressBar.show()
             mainViewModel.retriveUserVideos("0","3",userIdes,"1",currentPage.toString())
         }
-
-
     }
     private fun switchToLinearLayout(position: Int) {
         isLinearLayout = true
@@ -399,6 +458,13 @@ DataHolder.itemsList = newArrVideoModel
 
     }
 
+
+    private fun updateRecyclerView(newItems: List<NewAppendItItems>) {
+        val startPosition = newArrVideoModel.size
+        newArrVideoModel.addAll(newItems)
+        videoAdapter.notifyItemRangeInserted(startPosition, newItems.size)
+        binding.progressBar.hide()
+    }
 
     override fun onResume() {
         super.onResume()

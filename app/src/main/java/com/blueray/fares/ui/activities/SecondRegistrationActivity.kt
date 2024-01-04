@@ -53,6 +53,9 @@ getCategory()
 
             }
 
+        binding.includeTab.back.setOnClickListener {
+            onBackPressed()
+        }
 
         binding.notNow.setOnClickListener {
             startActivity(Intent(this, ThirdRegistrationActivity::class.java))
@@ -100,7 +103,7 @@ getCategory()
             when (result) {
                 is NetworkResults.Success -> {
 
-                    adapter = ActivitiesTypesAdapter(result.data, object : OnCategroryChose {
+                    adapter = ActivitiesTypesAdapter(0,result.data, object : OnCategroryChose {
                         override fun onCategroyChose(id: String) {
                             activtyIds = id
                         }

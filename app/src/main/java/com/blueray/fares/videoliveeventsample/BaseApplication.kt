@@ -31,12 +31,12 @@ class BaseApplication : Application() {
         OneSignal.initWithContext(this)
         OneSignal.setAppId(ONESIGNAL_APP_ID)
         prefManager = PrefManager(applicationContext)
-        val appId = "47918183-5186-4085-A042-489C9F4726BC"
+        val appId = "6A2870E9-4E98-4044-85DE-24DF3DDECB4B"
         if (appId == null) {
             _initResultLiveData.changeValue(Event(false))
             return
         }
-        initSendbirdSDK("1CFCE912-F6CC-4F60-9FA1-FC4B3B61BA6A")
+        initSendbirdSDK("6A2870E9-4E98-4044-85DE-24DF3DDECB4B")
     }
 
     private fun initSendbirdSDK(appId: String) {

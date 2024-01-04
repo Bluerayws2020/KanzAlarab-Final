@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SnapHelper
 import com.blueray.fares.R
 import com.blueray.fares.databinding.FragmentLiveEventListBinding
+import com.blueray.fares.helpers.ViewUtils.hide
+import com.blueray.fares.helpers.ViewUtils.show
 import com.blueray.fares.videoliveeventsample.adapter.HostAdapter
 import com.sendbird.live.LiveEvent
 import com.sendbird.live.LiveEventListQuery
@@ -106,17 +108,20 @@ class LiveEventListFragment :
         adapter.onItemClickListener = OnItemClickListener { _, position, liveEvent ->
             getLiveEvent(liveEvent.liveEventId) { newLiveEvent ->
                 if (position != -1) adapter.notifyItemChanged(position)
-                if (newLiveEvent.myRole == LiveEventRole.HOST) {
-                    requireActivity().showListDialog(
-                        title = getString(R.string.dialog_message_choose_your_role),
-                        listItem = listOf(getString(R.string.hosts), getString(R.string.participant))
-                    ) { _, position ->
-                        val role = if (position == 0) LiveEventRole.HOST else LiveEventRole.PARTICIPANT
-                        enterTheLiveEvent(newLiveEvent, role)
-                    }
-                } else {
-                    enterTheLiveEvent(newLiveEvent, LiveEventRole.PARTICIPANT)
-                }
+//                if (newLiveEvent.myRole == LiveEventRole.HOST) {
+//                    requireActivity().showListDialog(
+//                        title = getString(R.string.dialog_message_choose_your_role),
+//                        listItem = listOf(getString(R.string.hosts), getString(R.string.participant))
+//                    ) { _, position ->
+//                        val role = if (position == 0) LiveEventRole.HOST else LiveEventRole.PARTICIPANT
+//                        enterTheLiveEvent(newLiveEvent, role)
+//                    }
+//                } else {
+//                }
+
+                binding.progressBar.show()
+                enterTheLiveEvent(newLiveEvent, LiveEventRole.PARTICIPANT)
+
             }
         }
         adapter.emptyStateView = binding.clEmpty
@@ -155,6 +160,7 @@ class LiveEventListFragment :
     }
 
     private fun enterAsParticipant(liveEvent: LiveEvent) {
+        binding.progressBar.hide()
         when (liveEvent.state) {
             LiveEventState.CREATED -> {
                 requireActivity().showAlertDialog(

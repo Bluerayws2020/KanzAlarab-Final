@@ -320,6 +320,10 @@ class HomeLivesFragment : Fragment() , VideoPlaybackControl {
             override fun onProfileSaved(pos: Int) {
                 mainViewModel.retriveSetAction(pos.toString(), "node", "save")
             }
+
+            override fun onProfileDeletVideo(pos: Int) {
+
+            }
         },requireContext(),this,isUser)
 
 

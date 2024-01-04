@@ -42,6 +42,22 @@ class ThirdRegistrationActivity : BaseActivity() {
             startActivity(Intent(this, LoginActivity::class.java))
         }
 
+binding.includeTap.back.setOnClickListener {
+    onBackPressed()
+}
+
+//binding.countryCode.setText("+962")
+
+
+        binding.countryCode.setDefaultCountryUsingNameCode("+962")
+        binding.chekBoxss.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                // Code to execute when the checkbox is checked
+
+            } else {
+                // Code to execute when the checkbox is unchecked
+            }
+        }
 
 //        val editTexts = listOf(binding.bandName, binding.userNameEt,binding.passwordTxt,binding.ConfirmPassword,binding.phoneNumber,binding.email)
 
@@ -88,21 +104,30 @@ class ThirdRegistrationActivity : BaseActivity() {
 //showProgress()
 
 //                        if (RegistrationActivity.signupType == "1") {
-showProgress()
 
-                viewmodel.retriveCreateAccount(
-                    RegistrationActivity.firstName.toString(),
-                    RegistrationActivity.lastName.toString(),
-                    RegistrationActivity.genderId,
-                    RegistrationActivity.natonalId,
-                    RegistrationActivity.residantPlace,
-                    ActivitiesTypesAdapter.selected_items.joinToString(","),
-                    RegistrationActivity.userName.toString(),
-                    binding.email.text.toString(),
-                    binding.phoneNumber.text.toString(),
-                    RegistrationActivity.passwordTxt.toString(),
-                    RegistrationActivity.barithDate
-                )
+                if (binding.chekBoxss.isChecked == false) {
+                    showToast("يجب الموافقة على الشروط والاحكام")
+
+                }else {
+
+                    showProgress()
+
+                    viewmodel.retriveCreateAccount(
+                        RegistrationActivity.firstName.toString(),
+                        RegistrationActivity.lastName.toString(),
+                        RegistrationActivity.genderId,
+                        RegistrationActivity.natonalId,
+                        RegistrationActivity.residantPlace,
+                        ActivitiesTypesAdapter.selected_items.joinToString(","),
+                        RegistrationActivity.userName.toString(),
+                        binding.email.text.toString(),
+                        binding.phoneNumber.text.toString(),
+                        RegistrationActivity.passwordTxt.toString(),
+                        RegistrationActivity.barithDate
+                    )
+
+                }
+
 //                        }else {
 //                            viewmodel.retriveBandName(
 //
@@ -227,9 +252,9 @@ Log.d("TESTTTTLOOG",model.toString())
 
     private fun autoAuthenticate(callback: (Boolean, String?) -> Unit) {
         binding.progressBar.show()
-        val appId ="47918183-5186-4085-A042-489C9F4726BC"
+        val appId ="6A2870E9-4E98-4044-85DE-24DF3DDECB4B"
         val userId = "65"
-        val accessToken = "205349e679a5598c976d50d9a17093cc1651753b"
+        val accessToken = "27ef004db2ee6dcb0b628ef56229a072122a408c"
 
         if (appId == null || userId == null) {
             callback.invoke(false, null)

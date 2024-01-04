@@ -43,4 +43,8 @@
         android:id="@+id/searchFragment"
         android:name="com.blueray.fares.ui.fragments.SearchFragment"
         android:label="SearchFragment" />
+    <fragment
+        android:id="@+id/notfi"
+        android:name="com.blueray.fares.ui.activities.Notfi"
+        android:label="Notfi" />
 </navigation>

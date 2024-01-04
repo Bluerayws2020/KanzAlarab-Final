@@ -60,7 +60,7 @@ class MainView : BaseActivity() {
     }
 
     private fun autoAuthenticate(callback: (Boolean, String?) -> Unit) {
-        val appId = "47918183-5186-4085-A042-489C9F4726BC"
+        val appId = "6A2870E9-4E98-4044-85DE-24DF3DDECB4B"
         val userId = "Guest"
 //        val accessToken = "a509c1fbce3f09483f6b3196bb6f9368757a72ac"
         val accessToken = ""

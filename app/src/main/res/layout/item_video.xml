@@ -16,21 +16,20 @@
 <!--        app:layout_constraintEnd_toEndOf="parent"/>-->
 
 
-
-
-
     <com.google.android.exoplayer2.ui.PlayerView
         android:id="@+id/videoView"
-        android:background="@color/colorBlack"
-android:backgroundTint="@color/black"
-        app:shutter_background_color="@color/black"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/colorBlack"
+        android:backgroundTint="@color/black"
+        app:controller_layout_id="@layout/custom_exo_layout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:controller_layout_id="@layout/custom_exo_layout">
+        app:layout_constraintVertical_bias="1.0"
+        app:shutter_background_color="@color/black">
 
 
         <com.airbnb.lottie.LottieAnimationView
@@ -38,27 +37,28 @@ android:backgroundTint="@color/black"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
-            android:visibility="gone"
 
             app:lottie_rawRes="@raw/plays" />
+
         <ImageView
             android:id="@+id/placeHolderBackground"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
-            android:visibility="gone"
+            android:src="@drawable/playss"
 
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-       android:src="@drawable/playss"
 
 
             />
@@ -82,7 +82,6 @@ android:backgroundTint="@color/black"
 
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
-        android:paddingBottom="10dp"
         android:shadowColor="@color/colorBlack"
         android:shadowDx="0"
         android:textAlignment="viewStart"
@@ -214,9 +213,9 @@ android:background="@color/white"
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/sb_size_35"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/sb_size_30"
+        android:layout_marginEnd="@dimen/sb_size_20"
         android:layout_marginBottom="@dimen/sb_size_20"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/profiel"
@@ -224,7 +223,7 @@ android:background="@color/white"
 
         <ImageView
             android:id="@+id/likeBtn"
-            android:layout_width="35dp"
+            android:layout_width="match_parent"
             android:layout_height="35dp"
             android:src="@drawable/heart" />
 
@@ -239,7 +238,7 @@ android:background="@color/white"
         <TextView
             android:id="@+id/likesCount"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/sb_size_25"
 
             android:elevation="@dimen/sb_size_10"
             android:gravity="center"
@@ -253,7 +252,7 @@ android:background="@color/white"
 
         <ImageView
             android:id="@+id/commentBtn"
-            android:layout_width="35dp"
+            android:layout_width="match_parent"
             android:layout_height="35dp"
             android:layout_marginTop="@dimen/sb_size_10"
             android:src="@drawable/comments" />
@@ -274,7 +273,7 @@ android:background="@color/white"
 
         <ImageView
             android:id="@+id/saveBtn"
-            android:layout_width="35dp"
+            android:layout_width="match_parent"
             android:layout_height="35dp"
             android:layout_marginTop="@dimen/sb_size_10"
             android:src="@drawable/save" />
@@ -289,7 +288,7 @@ android:background="@color/white"
 
         <ImageView
             android:id="@+id/shareBtn"
-            android:layout_width="35dp"
+            android:layout_width="match_parent"
             android:layout_height="35dp"
             android:layout_marginTop="10dp"
             android:shadowColor="@color/colorBlack"
@@ -297,7 +296,7 @@ android:background="@color/white"
 
         <TextView
 
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:elevation="@dimen/sb_size_10"
@@ -307,7 +306,14 @@ android:background="@color/white"
             android:shadowDy="0"
             android:shadowRadius="15"
             android:text="مشاركة"
-            android:textAlignment="center"
+            android:textSize="10sp"
             android:textColor="@color/white" />
+        <ImageView
+            android:id="@+id/deltBtn"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginTop="@dimen/sb_size_12"
+            android:layout_marginBottom="@dimen/sb_size_12"
+            android:src="@drawable/icon_more" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

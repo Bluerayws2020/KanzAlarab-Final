@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="10dp"
+    >
+    <com.google.android.material.chip.Chip
+        android:id="@+id/choice"
+        style="@style/Widget.MaterialComponents.Chip.Filter"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+app:chipCornerRadius="@dimen/sb_size_10"
+
+        app:chipStrokeWidth="1dp"
+        app:chipBackgroundColor="#D3D3D3"
+        app:chipStrokeColor="@color/lightGrey"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="15sp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        android:text="jordan"/>
+
+</FrameLayout>

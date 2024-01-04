@@ -6,8 +6,10 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
@@ -16,7 +18,9 @@ import com.blueray.fares.R
 import com.blueray.fares.adapters.VideoFeedAdapter
 import com.blueray.fares.api.OnProfileClick
 import com.blueray.fares.api.VideoPlaybackControl
+import com.blueray.fares.databinding.CommentLayoutBinding
 import com.blueray.fares.databinding.OneVidoShowBinding
+import com.blueray.fares.databinding.PopShowsBinding
 import com.blueray.fares.helpers.HelperUtils
 import com.blueray.fares.model.NetworkResults
 import com.blueray.fares.model.NewAppendItItems
@@ -24,33 +28,47 @@ import com.blueray.fares.ui.activities.MainActivity
 import com.blueray.fares.ui.activities.MainView
 import com.blueray.fares.ui.activities.SplashScreen
 import com.blueray.fares.ui.viewModels.AppViewModel
+import com.google.android.material.bottomsheet.BottomSheetDialog
 
 class VidInnerPlay : AppCompatActivity(), VideoPlaybackControl {
-    private lateinit var navController: NavController
+        private lateinit var navController: NavController
 
 
+        private lateinit var dialog: BottomSheetDialog
 
-    var isAuthintcted = false
+        var isAuthintcted = false
 
 
-
+        var isMyProfile = "0"
         private lateinit var binding: OneVidoShowBinding
         var arrVideoModel = ArrayList<NewAppendItItems>()
-         var newArrVideoModel = ArrayList<NewAppendItItems>()
+        var newArrVideoModel = ArrayList<NewAppendItItems>()
 
 
         var videoAdapter: VideoFeedAdapter? = null
         private val mainViewModel by viewModels<AppViewModel>()
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         binding = OneVidoShowBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        dialog = BottomSheetDialog(this)
+
+
         val mSnapHelper: SnapHelper = PagerSnapHelper()
         mSnapHelper.attachToRecyclerView(binding.vidRec)
+isMyProfile = intent.getStringExtra("isMyProfile").toString()
 
 
+        if (isMyProfile == "1"){
+
+        }else {
+
+        }
         getUserAction()
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
@@ -69,12 +87,12 @@ class VidInnerPlay : AppCompatActivity(), VideoPlaybackControl {
         }
         onBackPressedDispatcher.addCallback(this, callback)
 
-        binding.includeTap.profileBtn.setOnClickListener {
-            navController.navigate(R.id.yourChannelFragment)
+        getDelVido()
+        binding.includeTap.profileBtn.setOnClickListener { navController.navigate(R.id.yourChannelFragment) }
 
 
-//
-        }
+
+
 //        val itemTouchHelperCallback = object :
 //            ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
 //            override fun onMove(
@@ -162,7 +180,13 @@ class VidInnerPlay : AppCompatActivity(), VideoPlaybackControl {
 
                 mainViewModel.retriveSetAction(pos.toString(), "node", "save")
             }
-        },this,this,isUser)
+
+            override fun onProfileDeletVideo(pos: Int) {
+                showBottomSheet(pos)
+
+
+            }
+        },this,this,3001)
 
         binding.vidRec.adapter = videoAdapter
 
@@ -179,6 +203,56 @@ class VidInnerPlay : AppCompatActivity(), VideoPlaybackControl {
 
 
     }
+
+    fun deletVideo(pos:Int){
+        val builder = AlertDialog.Builder(this@VidInnerPlay)
+        builder.setTitle(title)
+        builder.setMessage("هل انت متاكد من حذف الفيديو  ؟")
+
+        builder.setPositiveButton("نعم") { dialog, _ ->
+            mainViewModel.retriveDeleteVideo(newArrVideoModel[pos].videoDesc)
+
+
+        }
+
+        builder.setNegativeButton("لا") { dialog, _ ->
+            dialog.dismiss()
+        }
+
+        val dialog = builder.create()
+        dialog.show()
+
+
+        Log.d("RTTTWWQ",newArrVideoModel[pos].videoDesc.toString())
+
+    }
+    private fun showBottomSheet(pos:Int) {
+
+
+        if (!dialog.isShowing) {
+
+            var buyType = 0
+
+            // initialize binding for bottom sheet
+            val botBinding = PopShowsBinding.inflate(layoutInflater)
+
+            // Set rounded coaaa\rner drawable as background
+            botBinding.root.background =
+                ContextCompat.getDrawable(this, R.drawable.buttom_sheet_back)
+
+            // address viewBinding to the bottomSheet dialog
+            dialog.setContentView(botBinding.root)
+
+            dialog.show()
+
+botBinding.deletBtn.setOnClickListener {
+    deletVideo(pos)
+}
+
+        }
+
+    }
+
     override fun onPause() {
         super.onPause()
         pauseAllVideos()
@@ -231,6 +305,47 @@ class VidInnerPlay : AppCompatActivity(), VideoPlaybackControl {
                         Toast.makeText(
                             this,
                             result.data.msg.toString(),
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+
+
+                }
+
+                is NetworkResults.Error -> {
+                    Toast.makeText(
+                        this,
+                        result.exception.printStackTrace().toString(),
+                        Toast.LENGTH_LONG
+                    ).show()
+
+                    result.exception.printStackTrace()
+                }
+
+                else -> {}
+            }
+        }
+    }
+    private fun getDelVido() {
+
+        mainViewModel.getDeletVideos().observe(this) { result ->
+
+            when (result) {
+                is NetworkResults.Success -> {
+                    if (result.data.status.status == 200) {
+                        Toast.makeText(
+                            this,
+                            result.data.status.msg.toString(),
+                            Toast.LENGTH_LONG
+                        ).show()
+
+
+                        onBackPressed()
+
+                    } else {
+                        Toast.makeText(
+                            this,
+                            result.data.status.msg.toString(),
                             Toast.LENGTH_LONG
                         ).show()
                     }

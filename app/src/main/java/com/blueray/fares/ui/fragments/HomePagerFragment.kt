@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.viewpager2.widget.ViewPager2
 import com.blueray.fares.R
 import com.blueray.fares.adapters.HomePagerAdapter
 import com.blueray.fares.databinding.FragmentHomePagerBinding
@@ -29,7 +30,34 @@ class HomePagerFragment : Fragment() {
 
         setUpViewPagerWithTapLayout()
 
+        binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                // Handle page change. You can notify fragments here.
+                notifyFragmentsAboutPageChange(position)
+
+            }
+        })
+
     }
+    fun notifyFragmentsAboutPageChange(selectedPosition: Int) {
+        val adapter = binding.viewPager.adapter as HomePagerAdapter
+        for (i in 0 until adapter.itemCount) {
+            val fragmentTag = "f${binding.viewPager.id}:$i" // Correctly form the fragment tag
+            val fragment = childFragmentManager.findFragmentByTag(fragmentTag)
+            if (fragment is HomeVidFrag) {
+                if (i == selectedPosition) {
+//                    fragment.onVisibleInPager()
+                    fragment.onHiddenInPager()
+
+                } else {
+                    fragment.onHiddenInPager()
+                }
+            }
+        }
+    }
+
+
 
     private fun setUpViewPagerWithTapLayout() {
         val adapter = HomePagerAdapter(childFragmentManager, lifecycle)

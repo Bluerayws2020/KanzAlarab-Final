@@ -4,16 +4,20 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.net.toUri
 import coil.load
 import com.blueray.fares.R
 import com.blueray.fares.databinding.ActivityCreateLiveEventBinding
@@ -41,10 +45,16 @@ import com.bumptech.glide.Glide
 import com.sendbird.live.LiveEvent
 import java.io.File
 import java.util.Collections.addAll
+import java.io.BufferedInputStream
+import java.io.FileOutputStream
+import java.net.URL
+import com.bumptech.glide.request.target.Target
 
 const val DIALOG_ITEM_ID_PHOTO_LIBRARY = 0
 const val DIALOG_ITEM_ID_TAKE_PHOTO = 1
 const val DIALOG_ITEM_ID_REMOVE_PHOTO = 2
+
+
 
 class CreateLiveEventActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCreateLiveEventBinding
@@ -56,6 +66,9 @@ class CreateLiveEventActivity : AppCompatActivity() {
     )
 
 var userName = ""
+    var userImage = ""
+
+
     private val mainViewModel by viewModels<AppViewModel>()
 
     private val isCameraPermissionGranted: Boolean
@@ -74,8 +87,7 @@ var userName = ""
         }
 
 
-        mainViewModel.retriveViewUserProfile()
-        getUserProifle()
+
 
 
     }
@@ -88,10 +100,15 @@ var userName = ""
                 is NetworkResults.Success -> {
 
                     val  data = result.data[0]
+                    Log.d("Testtttt",data.user_picture)
+
                     Glide.with(this).load(result.data[0].user_picture).placeholder(R.drawable.logo2).into(binding.ivCover)
-//                    binding.tvDescription.setText(data.username)
 
                     userName = data.username
+                    userImage = data.user_picture
+
+
+
 //                    binding.phoneTxt.setText(data.phone_number)
 //                    binding.emailTxt.setText(data.profile_data.mail)
 //                    binding.tvTitle.setText(data.profile_data.first_name + "\t" + data.profile_data.last_name)
@@ -156,7 +173,11 @@ var userName = ""
         binding = ActivityCreateLiveEventBinding.inflate(layoutInflater)
         setContentView(binding.root)
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
+
+        mainViewModel.retriveViewUserProfile()
+        getUserProifle()
         initView()
+
     }
 
     private fun initView() {
@@ -173,11 +194,28 @@ var userName = ""
         binding.ivCover.setOnClickListener {
 //            showMediaSelectDialog()
         }
+//        binding.tvCreate.setOnClickListener {
+//            val title = binding.etCreateLiveEventTitle.text.toString()
+//            val userIdsForHost = selectedHostUsers.map { it.value.userId }
+//            val coverUri = Uri.parse(userImage)
+//            val file = FileUtil().uriToFile(this,coverUri)
+//
+//
+//
+//
+//            val coverFile = downloadImageToFile(userImage, this)
+//
+//            if (coverFile != null && coverFile.exists()) {
+//                createLiveEvent(userName, userIdsForHost, file)
+//            } else {
+//                Toast.makeText(this, "Error: File not found or inaccessible", Toast.LENGTH_LONG).show()
+//            }
+//        }
         binding.tvCreate.setOnClickListener {
             val title = binding.etCreateLiveEventTitle.text.toString()
             val userIdsForHost = selectedHostUsers.map { it.value.userId }
             val file = selectedPhotoUri?.let { FileUtil().uriToFile(this, it) }
-            createLiveEvent(userName, userIdsForHost, file)
+            createLiveEvent(title, userIdsForHost, file)
         }
         binding.clUserIdsForHost.setOnClickListener {
             val intent = Intent(this, UserIdsForHostListActivity::class.java).apply {
@@ -187,6 +225,26 @@ var userName = ""
         }
     }
 
+
+    fun downloadImageToFile(url: String, activity: Activity): File? {
+        try {
+            val bitmap = Glide.with(activity)
+                .asBitmap()
+                .load(url)
+                .submit(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
+                .get()
+
+            val file = File(activity.getExternalFilesDir(null), "downloaded_image.jpg")
+            FileOutputStream(file).use { out ->
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out) // Compress Image
+            }
+            return file
+        } catch (e: Exception) {
+            Log.e("CreateLiveEvent", "Error downloading image: ${e.message}")
+            e.printStackTrace()
+        }
+        return null
+    }
     private fun createLiveEvent(title: String, userIdsForHost: List<String>, coverFile: File?) {
         val params = LiveEventCreateParams(userIdsForHost).apply {
             this.title = title

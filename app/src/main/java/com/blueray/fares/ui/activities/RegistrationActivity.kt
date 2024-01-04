@@ -60,6 +60,11 @@ class RegistrationActivity : BaseActivity() {
 binding.dateOfBirthDatePicker.setOnClickListener {
     showDatePickerDialog()
 }
+
+
+            binding.incluedeTab.back.setOnClickListener {
+                onBackPressed()
+            }
             var count = 1
 
 binding.addItem.setOnClickListener{
@@ -82,7 +87,7 @@ binding.addItem.setOnClickListener{
                 startActivity(Intent(this,LoginActivity::class.java))
             }
         binding.nextBtn.setOnClickListener {
-            firstName  =  binding.firstNameEt.text.toString()
+            firstName  =  binding.firstNameEt.text.toString()  +  binding.lastNameEt.text.toString()
             lastName  =  binding.lastNameEt.text.toString()
             barithDate  =  binding.dateOfBirthDatePicker.text.toString()
             firstName  =  binding.firstNameEt.text.toString()

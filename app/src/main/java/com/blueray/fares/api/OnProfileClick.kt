@@ -9,5 +9,6 @@ interface OnProfileClick {
     fun onProfileLike(pos:Int)
     fun onProfileCommint(pos:Int)
     fun onProfileSaved(pos:Int)
+    fun onProfileDeletVideo(pos:Int)
 
 }

@@ -77,7 +77,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="اختر اهتمامتك"
+                android:text="اختر اهتماماتك"
                 android:textColor="@color/blue"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -86,10 +86,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
-                android:text="Choose your interests to experience a unique and enjoyable content browsing experience based on your personal interests"
+android:text="اختر اهتماماتك لتجرب تجربة تصفح محتوى فريدة وممتعة وفقًا لاهتماماتك الشخصية"
                 android:textSize="11sp"
-                android:visibility="gone"
-                android:textColor="@color/lightGreen"
+                android:textColor="@color/green"
                 android:textStyle="bold" />
 
             <TextView
@@ -128,22 +127,22 @@
                 android:layout_width="@dimen/sb_size_100"
                 android:layout_height="60dp"
                 android:backgroundTint="@color/green"
-                android:text="@string/next"
+                android:text="التالي"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 app:cornerRadius="18dp"
                 app:icon="@drawable/forword"
                 app:iconGravity="textEnd"
                 android:layout_marginEnd="@dimen/sb_size_12"
-                app:iconSize="15dp" />
-                <Button
+                app:iconSize="10dp" />
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/notNow"
                     android:layout_width="@dimen/sb_size_100"
                     android:layout_height="60dp"
                     android:text="ليس الان"
-                    android:backgroundTint="#92293056"
+                    android:backgroundTint="#17293056"
                     android:textAllCaps="false"
-                    android:textColor="@color/white"
+
                     app:cornerRadius="18dp"
                     app:iconGravity="textEnd"
                     app:iconSize="15dp" />

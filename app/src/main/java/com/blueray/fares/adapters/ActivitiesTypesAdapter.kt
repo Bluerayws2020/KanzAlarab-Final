@@ -10,6 +10,7 @@ import com.blueray.fares.databinding.ActivitiesCountItemsBinding
 import com.blueray.fares.model.DropDownModel
 
 class ActivitiesTypesAdapter(
+    var flag :Int ,
     var list: List<DropDownModel>,
     var onCategroryChose: OnCategroryChose
 ): RecyclerView.Adapter<ActivitiesTypesAdapter.MyViewHolder>()
@@ -27,7 +28,15 @@ class ActivitiesTypesAdapter(
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
         val data = list[position]
-      holder.binding.choice.text = data.name
+      if (flag == 1){
+          holder.binding.choice.text = "# ${data.name}"
+
+      }else {
+          holder.binding.choice.text = data.name
+
+      }
+
+
         val context = holder.itemView.context
         holder.apply {
 //            binding.choice.text = list[position]

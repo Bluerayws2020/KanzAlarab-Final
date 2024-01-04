@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:padding="8dp"
             android:textColor="@color/white"
-            android:text="بداء البث"
+            android:text="بدء البث"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

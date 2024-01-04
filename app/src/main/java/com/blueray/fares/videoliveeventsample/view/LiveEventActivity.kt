@@ -1,18 +1,34 @@
 package com.blueray.fares.videoliveeventsample.view
 
 import android.content.Intent
+import android.media.MediaPlayer
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.util.Log
 import android.view.View
+import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.fragment.app.commit
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.GridLayoutManager.SpanSizeLookup
 import androidx.recyclerview.widget.RecyclerView.GONE
 import androidx.recyclerview.widget.RecyclerView.VISIBLE
 import coil.load
 import com.blueray.fares.R
+import com.blueray.fares.adapters.GiftAdapter
+import com.blueray.fares.api.onGiftclicks
 import com.blueray.fares.databinding.ActivityLiveEventBinding
+import com.blueray.fares.databinding.BottomSheetLayoutBinding
+import com.blueray.fares.databinding.CommentLayoutBinding
+import com.blueray.fares.helpers.ViewUtils.hide
+import com.blueray.fares.helpers.ViewUtils.show
+import com.blueray.fares.model.Grid
+import com.blueray.fares.ui.activities.GiftSheet
+import com.blueray.fares.ui.activities.MyBottomSheetFragment
 import com.sendbird.live.Host
 import com.sendbird.live.LiveEvent
 import com.sendbird.live.LiveEventListener
@@ -28,10 +44,20 @@ import com.blueray.fares.videoliveeventsample.util.INTENT_KEY_LIVE_EVENT_ID
 import com.blueray.fares.videoliveeventsample.util.INTENT_KEY_LIVE_EVENT_PEAK_PARTICIPANTS
 import com.blueray.fares.videoliveeventsample.util.INTENT_KEY_LIVE_EVENT_TOTAL_PARTICIPANTS
 import com.blueray.fares.videoliveeventsample.util.displayFormat
+import com.blueray.fares.videoliveeventsample.util.dp
 import com.blueray.fares.videoliveeventsample.util.showToast
 import com.blueray.fares.videoliveeventsample.util.toTimerFormat
+import com.blueray.fares.videoliveeventsample.view.fragment.LiveEventOpenChannelFragment
+import com.blueray.fares.videoliveeventsample.view.widget.ReactionConstants
+import com.bumptech.glide.Glide
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.sendbird.uikit.fragments.OpenChannelFragment
 import com.sendbird.webrtc.SendbirdException
 import java.util.UUID
+import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.Executors
+import java.util.concurrent.ScheduledExecutorService
+import java.util.concurrent.TimeUnit
 
 
 abstract class LiveEventActivity : AppCompatActivity() {
@@ -41,15 +67,26 @@ abstract class LiveEventActivity : AppCompatActivity() {
     private lateinit var adapter: HostAdapter
     protected lateinit var binding: ActivityLiveEventBinding
     protected var liveEvent: LiveEvent? = null
+    private lateinit var dialog: BottomSheetDialog
 
     protected abstract var liveEventListenerImpl: LiveEventListenerImpl
+    protected lateinit var openChannelFragment: LiveEventOpenChannelFragment
+
+    private val singleThreadExecutor: ScheduledExecutorService = Executors.newSingleThreadScheduledExecutor()
+    private val reactionCountMap: ConcurrentHashMap<String, Int> = ConcurrentHashMap()
+
+
+
+//    gifts
+lateinit var adapterGifts: GiftAdapter
+    private var mediaPlayer: MediaPlayer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLiveEventBinding.inflate(layoutInflater)
         liveEventId = intent.getStringExtra(INTENT_KEY_LIVE_EVENT_ID)
         setContentView(binding.root)
-//        openChannelFragment = LiveEventOpenChannelFragment()
+        openChannelFragment = LiveEventOpenChannelFragment()
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 this@LiveEventActivity.customOnBackPressed()
@@ -57,6 +94,134 @@ abstract class LiveEventActivity : AppCompatActivity() {
         })
         getLiveEvent()
 //        initOpenChannelView()
+        dialog = BottomSheetDialog(this)
+
+        binding.gifts.setOnClickListener {
+//            GiftSheet().show(supportFragmentManager, GiftSheet::class.java.simpleName)
+            showBottomSheet()
+
+        }
+
+
+
+
+
+
+
+
+    }
+
+
+
+
+    private fun showBottomSheet() {
+
+
+        if (!dialog.isShowing) {
+
+            var buyType = 0
+
+            // initialize binding for bottom sheet
+            val botBinding = BottomSheetLayoutBinding.inflate(layoutInflater)
+
+            // Set rounded coaaa\rner drawable as background
+            botBinding.root.background =
+                ContextCompat.getDrawable(this, R.drawable.buttom_sheet_back)
+
+            // address viewBinding to the bottomSheet dialog
+            dialog.setContentView(botBinding.root)
+            Glide.with(this@LiveEventActivity).load("https://firebasestorage.googleapis.com/v0/b/kenz-e9a7c.appspot.com/o/حصان1%20(1).gif?alt=media&token=21370ec0-8314-4d9c-a617-831518982c8d").into(binding.webss);
+
+
+            adapterGifts = GiftAdapter(mutableListOf(
+                Grid(R.raw.hor ,R.raw.hors_sound, "حصان" , "25 coins"),
+                Grid(R.raw.camel_l,R.raw.camel , "جمل" , "15 coins"),
+                Grid(R.raw.nakhlah_l,R.raw.nakhala , "نخلة" ,"45 coins"),
+                Grid(R.raw.siaf_l,R.raw.saif, "سيف" , "25 coins"),
+
+            ),object : onGiftclicks{
+                override fun onUserClickOnGift(pos: Int) {
+
+//dialog.hide()
+
+//                    binding.giftItem.show()
+
+
+
+
+
+
+
+
+
+
+                    if (pos ==0){
+                        mediaPlayer = MediaPlayer.create(this@LiveEventActivity, R.raw.hors_sound)
+                        binding.giftItem0.hide()
+                        binding.webss.show()
+
+                    }else if (pos == 1)
+
+                    {
+
+                        mediaPlayer = MediaPlayer.create(this@LiveEventActivity, R.raw.camel)
+                        binding.giftItem1.show()
+
+                    }
+                    else if (pos == 2)
+                    {
+                        mediaPlayer = MediaPlayer.create(this@LiveEventActivity, R.raw.nakhala)
+                        binding.giftItem2.show()
+
+
+                    }else if (pos == 3)
+                    {
+                        mediaPlayer = MediaPlayer.create(this@LiveEventActivity, R.raw.saif)
+                        binding.giftItem3.show()
+
+
+                    }
+
+
+                    mediaPlayer?.start()
+
+                    dialog.dismiss()
+
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        // This will be executed after 3 seconds
+                        mediaPlayer?.stop()
+                        binding.giftItem0.hide()
+                        binding.giftItem1.hide()
+                        binding.giftItem2.hide()
+                        binding.giftItem3.hide()
+
+                        binding.webss.hide()
+
+                    }, 3000)  // Delay in milliseconds (3000ms = 3s)
+
+
+
+
+
+
+
+                }
+            })
+            botBinding.gridRv.adapter = adapterGifts
+            botBinding.gridRv.layoutManager = GridLayoutManager(this, 2 , GridLayoutManager.HORIZONTAL ,false)
+            dialog.show()
+
+
+
+
+        }
+
+    }
+
+
+    fun setUpRecyclerView(){
+
+
     }
 
     abstract fun customOnBackPressed()
@@ -117,6 +282,7 @@ abstract class LiveEventActivity : AppCompatActivity() {
         adapter.addItems(listOf(host))
     }
 
+
     protected fun removeHostVideoView(host: Host) {
         adapter.removeItems(listOf(host))
     }
@@ -173,12 +339,35 @@ abstract class LiveEventActivity : AppCompatActivity() {
         initLiveEventView()
     }
 
+    protected fun distributeReactionAnimations(key: String, count: Int) {
+        var increasedReactionCount = count - (reactionCountMap[key] ?: 0)
+        if (increasedReactionCount < 0)
+            return
+        else if (increasedReactionCount > ReactionConstants.REACTION_MAXIMUM_COUNT)
+            increasedReactionCount = ReactionConstants.REACTION_MAXIMUM_COUNT
+        reactionCountMap[key] = count
+
+        for(i in 0 until increasedReactionCount) {
+            runOnSingleThreadPoolWithDelay(millisecond = (ReactionConstants.REACTION_SERVER_PUSH_INTERVAL / increasedReactionCount * i).toLong()) {
+                runOnUiThread {
+                    binding.lervLikeReaction.startAnimation()
+                }
+            }
+        }
+    }
+
+    private fun runOnSingleThreadPoolWithDelay(millisecond: Long, runnable: Runnable) {
+        if (!singleThreadExecutor.isShutdown) {
+            singleThreadExecutor.schedule(runnable, millisecond, TimeUnit.MILLISECONDS)
+        }
+    }
+
     protected fun setLiveStateView(state: LiveEventState) {
-//        val (indicatorRes, stateName) = when(state) {
-//            LiveEventState.CREATED, LiveEventState.READY -> Pair(R.drawable.shape_live_event_pause_indicator, getString(R.string.open))
-//            LiveEventState.ONGOING ->  Pair(R.drawable.shape_live_event_ongoing_indicator, getString(R.string.live))
-//            LiveEventState.ENDED ->  Pair(R.drawable.shape_live_event_pause_indicator, getString(R.string.ended))
-//        }
+        val (indicatorRes, stateName) = when(state) {
+            LiveEventState.CREATED, LiveEventState.READY -> Pair(R.drawable.shape_live_event_pause_indicator, getString(R.string.open))
+            LiveEventState.ONGOING ->  Pair(R.drawable.shape_live_event_ongoing_indicator, getString(R.string.live))
+            LiveEventState.ENDED ->  Pair(R.drawable.shape_live_event_pause_indicator, getString(R.string.ended))
+        }
 //        binding.indicator.setBackgroundResource(indicatorRes)
 //        binding.tvState.text = stateName
     }
@@ -201,6 +390,35 @@ abstract class LiveEventActivity : AppCompatActivity() {
         countUpTimer = null
     }
 
+    private fun initOpenChannelView() {
+//        val liveEventId = liveEventId ?: return
+
+//binding.reaction
+        Log.d("ertyuiopdsaj",liveEventId.toString())
+        supportFragmentManager.commit {
+            replace(R.id.fcvChat, getOpenChannelFragment(liveEventId ?:"cc0fa9a4-b291-4d27-ace1-a81b92c1284e"))
+        }
+        openChannelFragment.title = liveEvent?.title
+        openChannelFragment.profileImageUrl = liveEvent?.hosts?.first()?.profileURL ?: liveEvent?.coverUrl
+        openChannelFragment.onHeaderChatButtonClickListener = View.OnClickListener { setChatViewVisibility(!openChannelFragment.isVisible) }
+    }
+
+    private fun setChatViewVisibility(isVisible: Boolean) {
+        val (height, visibility, iconRes) =
+            if (isVisible) Triple(374.dp, View.VISIBLE, R.drawable.icon_chat_hide)
+            else Triple(ViewGroup.LayoutParams.WRAP_CONTENT, View.GONE, R.drawable.icon_chat_show)
+        with(binding.fcvChat) {
+            layoutParams.height = height
+            requestLayout()
+        }
+        with(openChannelFragment) {
+            openChannelListVisibility = visibility
+            chatIconRes = iconRes
+        }
+    }
+
+    abstract fun getOpenChannelFragment(liveEventId: String): OpenChannelFragment
+
     open class LiveEventListenerImpl : LiveEventListener {
         override fun onCustomItemsDelete(liveEvent: LiveEvent, customItems: Map<String, String>, deletedKeys: List<String>) {}
         override fun onCustomItemsUpdate(liveEvent: LiveEvent, customItems: Map<String, String>, updatedKeys: List<String>) {}
@@ -222,6 +440,12 @@ abstract class LiveEventActivity : AppCompatActivity() {
         override fun onParticipantCountChanged(liveEvent: LiveEvent, participantCountInfo: ParticipantCountInfo) {}
         override fun onReactionCountUpdated(liveEvent: LiveEvent, key: String, count: Int) {}
         override fun onReconnected(liveEvent: LiveEvent) {}
+
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        // Release MediaPlayer resources
+        mediaPlayer?.release()
     }
 
 }

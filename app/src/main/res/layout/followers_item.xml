@@ -54,6 +54,7 @@ android:background="@drawable/btnfollow"
         android:id="@+id/follow"
         android:textAllCaps="false"
         android:layout_margin="10dp"
+        android:textColor="@color/white"
         app:cornerRadius="25dp"
         />
 
