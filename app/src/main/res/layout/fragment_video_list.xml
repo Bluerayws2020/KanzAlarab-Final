@@ -23,6 +23,8 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/videosRv"
         android:layout_width="match_parent"
@@ -48,6 +50,83 @@
         app:lottie_loop="true"
 
         app:lottie_rawRes="@raw/horse" />
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmer_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        app:shimmer_base_alpha="0.2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:shimmer_duration="1500"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:numColumns="3">
+
+                <include
+                    layout="@layout/video_list_placeholder"
+                    android:layout_width="0dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="5dp"
+                    tools:ignore="IncludeLayoutParam" />
+
+                <include
+                    layout="@layout/video_list_placeholder"
+                    android:layout_width="0dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="5dp"
+                    tools:ignore="IncludeLayoutParam" />
+
+                <include
+                    layout="@layout/video_list_placeholder"
+                    android:layout_width="0dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="5dp"
+                    tools:ignore="IncludeLayoutParam" />
+
+            </GridLayout>
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:numColumns="3">
+
+                <include
+                    layout="@layout/video_list_placeholder"
+                    android:layout_width="0dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="5dp"
+                    tools:ignore="IncludeLayoutParam" />
+
+                <include
+                    layout="@layout/video_list_placeholder"
+                    android:layout_width="0dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="5dp"
+                    tools:ignore="IncludeLayoutParam" />
+
+                <include
+                    layout="@layout/video_list_placeholder"
+                    android:layout_width="0dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="5dp"
+                    tools:ignore="IncludeLayoutParam" />
+
+            </GridLayout>
+
+        </LinearLayout>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
 
 
 

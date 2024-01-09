@@ -53,6 +53,7 @@ var userName = ""
             val intent  = Intent(requireContext(), FollowingAndFollowersActivity::class.java)
            intent.putExtra("user_id", HelperUtils.getUid(requireContext())) // Replace 'yourUserId' with the actual user ID
             intent.putExtra("userName",userName ) // Replace 'yourUserId' with the actual user ID
+            intent.putExtra("flag", "0")
 
             startActivity(intent)
 
@@ -64,6 +65,7 @@ var userName = ""
             val intent  = Intent(requireContext(), FollowingAndFollowersActivity::class.java)
             intent.putExtra("user_id", HelperUtils.getUid(requireContext())) // Replace 'yourUserId' with the actual user ID
             intent.putExtra("userName",userName ) // Replace 'yourUserId' with the actual user ID
+            intent.putExtra("flag", "1")
 
             startActivity(intent)
         }

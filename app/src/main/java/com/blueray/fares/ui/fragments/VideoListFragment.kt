@@ -1,6 +1,3 @@
-
-
-
 package com.blueray.fares.ui.fragments
 
 import android.content.Intent
@@ -50,11 +47,11 @@ class VideoListFragment : Fragment() {
     private var isLoading = false
     private var isLastPage = false
 
-    private lateinit var binding : FragmentVideoListBinding
-    private lateinit var videoAdapter :VideoItemAdapter
+    private lateinit var binding: FragmentVideoListBinding
+    private lateinit var videoAdapter: VideoItemAdapter
     var newArrVideoModel = ArrayList<NewAppendItItems>()
     private lateinit var navController: NavController
-    var data : Int? = null
+    var data: Int? = null
 
     private var currentPage = 0
     private val pageSize = 3 // Set this based on your API's page size
@@ -72,16 +69,15 @@ class VideoListFragment : Fragment() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
 
-binding.progressBar.show()
 
-            mainViewModel.retriveUserVideos("1", "9", userIdes, "0", currentPage.toString())
+        binding.shimmerView.startShimmer()
+        mainViewModel.retriveUserVideos("1", "9", userIdes, "0", currentPage.toString())
 
         binding.progressBar.show()
         setupRecyclerView()
         getMainVidos()
         return binding.root
     }
-
 
 
 //    private fun setupRecyclerView() {
@@ -121,14 +117,12 @@ binding.progressBar.show()
 //    }
 
 
-
-
     private fun setupRecyclerView() {
         binding.progressBar.show()
 
         binding.videosRv.layoutManager = GridLayoutManager(requireContext(), 3)
         videoAdapter = VideoItemAdapter(1, newArrVideoModel, object : VideoClick {
-                        override fun OnVideoClic(pos: List<NewAppendItItems>, position: Int) {
+            override fun OnVideoClic(pos: List<NewAppendItItems>, position: Int) {
 //
 //                                val intent = Intent(context, VidInnerPlay::class.java)
 //                                intent.putExtra(
@@ -152,12 +146,10 @@ binding.progressBar.show()
 
                 PartitionChannelFragment.DataHolder.itemsList = newArrVideoModel
 
-                intent.putExtra("isMyProfile","1")
+                intent.putExtra("isMyProfile", "1")
 
                 startActivity(intent)
             }
-
-
 
 
         }, requireContext())
@@ -179,7 +171,6 @@ binding.progressBar.show()
     }
 
 
-
     private fun loadMoreItems() {
         if (!isLoading && !isLastPage) {
             isLoading = true
@@ -195,21 +186,23 @@ binding.progressBar.show()
     }
 
 
-
     private fun performCustomBackAction() {
-binding.videosRv.adapter = null
+        binding.videosRv.adapter = null
 
 
     }
 
     fun getMainVidos() {
         mainViewModel.getUserVideos().observe(viewLifecycleOwner) { result ->
+
+            binding.shimmerView.stopShimmer()
+            binding.shimmerView.hide()
+
             when (result) {
 
                 is NetworkResults.Success -> {
 
                     val data = result.data.datass
-
 
                     if (result.data.datass.isNullOrEmpty()) {
                         binding.progressBar.hide()
@@ -260,8 +253,8 @@ binding.videosRv.adapter = null
 
                             )
                         }
-                            // Convert each item to NewAppendItItems
-                            // (Your existing logic here)
+                        // Convert each item to NewAppendItItems
+                        // (Your existing logic here)
 
 
 //                        val startPosition = newArrVideoModel.size
@@ -270,16 +263,6 @@ binding.videosRv.adapter = null
 
                         updateRecyclerView(safeData)
                         currentPage++
-
-
-
-
-
-
-
-
-
-
 
 
                     }
@@ -297,9 +280,7 @@ binding.videosRv.adapter = null
     }
 
 
-
-
-    fun setupRecyclerView(safeData:List<NewAppendItItems>){
+    fun setupRecyclerView(safeData: List<NewAppendItItems>) {
 
         binding.videosRv.layoutManager = GridLayoutManager(requireContext(), 3)
 //                    switchToGridLayout()
@@ -326,9 +307,9 @@ binding.videosRv.adapter = null
 //                    putExtra("position", position)
 //                }
 
-PartitionChannelFragment.DataHolder.itemsList = newArrVideoModel
+                PartitionChannelFragment.DataHolder.itemsList = newArrVideoModel
 
-                intent.putExtra("isMyProfile","1")
+                intent.putExtra("isMyProfile", "1")
 
                 startActivity(intent)
             }
@@ -340,11 +321,6 @@ PartitionChannelFragment.DataHolder.itemsList = newArrVideoModel
         binding.videosRv.adapter = videoAdapter
 
     }
-
-
-
-
-
 
 
     private fun updateRecyclerView(newItems: List<NewAppendItItems>) {
@@ -369,8 +345,6 @@ PartitionChannelFragment.DataHolder.itemsList = newArrVideoModel
 //        }
 
     }
-
-
 
 
 }
